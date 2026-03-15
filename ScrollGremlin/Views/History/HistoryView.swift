@@ -4,10 +4,10 @@ struct HistoryView: View {
     @StateObject private var viewModel = HistoryViewModel()
 
     var body: some View {
-        NavigationStack {
-            ZStack(alignment: .top) {
-                SGAmbientBackground()
+        ZStack {
+            GradientBackground().ignoresSafeArea()
 
+            NavigationStack {
                 List {
                     if viewModel.sessions.isEmpty {
                         EmptyHistoryView()
@@ -41,6 +41,11 @@ struct HistoryView: View {
                                         session: session,
                                         ruleName: viewModel.ruleName(for: session)
                                     )
+                                    .listRowBackground(
+                                        GlassCard(cornerRadius: 16)
+                                            .padding(.vertical, 2)
+                                            .padding(.horizontal, 4)
+                                    )
                                 }
                             }
                         }
@@ -48,9 +53,13 @@ struct HistoryView: View {
                 }
                 .listStyle(.insetGrouped)
                 .scrollContentBackground(.hidden)
+                .background(.clear)
                 .refreshable { viewModel.loadData() }
+                .navigationTitle("History")
             }
-            .navigationTitle("History")
+            .background(.clear)
+            .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
         }
         .onAppear { viewModel.loadData() }
     }
@@ -83,7 +92,6 @@ private struct StatCard: View {
     let value: String
     let label: String
     let icon: String
-    @Environment(\.colorScheme) private var scheme
 
     var body: some View {
         VStack(spacing: 8) {
@@ -124,7 +132,8 @@ private struct HistorySessionRow: View {
                     .font(.caption)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 3)
-                    .background(Color.sgTeal.opacity(0.12))
+                    .background(.ultraThinMaterial)
+                    .overlay(Capsule().stroke(Color.sgTeal.opacity(0.35), lineWidth: 1))
                     .foregroundStyle(Color.sgTeal)
                     .clipShape(Capsule())
             }

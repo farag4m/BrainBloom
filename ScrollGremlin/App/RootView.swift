@@ -45,7 +45,7 @@ struct MainTabView: View {
             SettingsView()
                 .tabItem { Label("Settings", systemImage: "gearshape.fill") }
         }
-        // Frosted glass tab bar — selected tint matches brand
+        // Tab bar — frosted glass surface matching the design system
         .tint(Color.sgTeal)
         .toolbarBackground(.ultraThinMaterial, for: .tabBar)
         .toolbarBackground(.visible, for: .tabBar)

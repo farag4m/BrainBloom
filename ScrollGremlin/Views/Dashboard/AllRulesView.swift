@@ -4,15 +4,14 @@ struct AllRulesView: View {
     @ObservedObject var viewModel: DashboardViewModel
 
     var body: some View {
-        NavigationStack {
-            Group {
-                if viewModel.rules.isEmpty {
-                    EmptyDashboardView(onAddRule: { viewModel.showAddRule = true })
-                        .sgPageBackground()
-                } else {
-                    ZStack(alignment: .top) {
-                        SGAmbientBackground()
+        ZStack {
+            GradientBackground().ignoresSafeArea()
 
+            NavigationStack {
+                Group {
+                    if viewModel.rules.isEmpty {
+                        EmptyDashboardView(onAddRule: { viewModel.showAddRule = true })
+                    } else {
                         let groups = viewModel.allRulesDayGroups
                         ScrollView {
                             LazyVStack(spacing: 0, pinnedViews: .sectionHeaders) {
@@ -36,20 +35,24 @@ struct AllRulesView: View {
                             }
                             .padding(.vertical, 8)
                         }
+                        .background(.clear)
                         .refreshable { viewModel.loadData() }
                     }
                 }
-            }
-            .navigationTitle("All Rules")
-            .toolbar {
-                ToolbarItem(placement: .primaryAction) {
-                    Button(action: { viewModel.showAddRule = true }) {
-                        Image(systemName: "plus.circle.fill")
-                            .foregroundStyle(Color.sgTeal)
-                            .font(.title3)
+                .navigationTitle("All Rules")
+                .toolbar {
+                    ToolbarItem(placement: .primaryAction) {
+                        Button(action: { viewModel.showAddRule = true }) {
+                            Image(systemName: "plus.circle.fill")
+                                .foregroundStyle(Color.sgTeal)
+                                .font(.title3)
+                        }
                     }
                 }
             }
+            .background(.clear)
+            .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
         }
     }
 }

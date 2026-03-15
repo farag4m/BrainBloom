@@ -1,16 +1,11 @@
 import SwiftUI
 import Combine
 
-// MARK: - Animated Rule Card
+// MARK: - Animated Rule Card (STEP 5 & 8)
 //
-// Visual states:
-//   ACTIVE  — glass surface with teal border glow and shadow.
-//   LOCKED  — glass surface with muted blue border glow.
-//   DEFAULT — plain glass surface.
-//
-// Cards are NEVER filled with solid colour — the active state is communicated
-// through border glow and shadow only. Text is always .primary/.secondary.
-// ALL state changes animate via .animation(value: item.badge).
+// Card uses GlassCard (ultraThinMaterial) — no teal/green fill.
+// Active state animates: border color, shadow intensity, badge color.
+// All animations use .spring(response: 0.4, dampingFraction: 0.8).
 
 struct RuleCardView: View {
     let item: RuleDisplayItem
@@ -18,9 +13,9 @@ struct RuleCardView: View {
     let onUpdate: (AppRule) -> Void
     let onDelete: () -> Void
 
-    @State private var showDetail  = false
+    @State private var showDetail    = false
     @State private var activeSession: UnlockSession? = nil
-    @State private var isPressed   = false
+    @State private var isPressed     = false
 
     private var isActive: Bool { item.badge == .active }
     private var isLocked: Bool { item.badge == .locked }
@@ -29,7 +24,7 @@ struct RuleCardView: View {
         VStack(alignment: .leading, spacing: 12) {
             // ── Top row ──────────────────────────────────────────────────────
             HStack(spacing: 12) {
-                // Accent strip — always in layout, opacity drives the animation
+                // Accent strip — teal brand gradient, fades in when active
                 RoundedRectangle(cornerRadius: 2)
                     .fill(AnyShapeStyle(SGGradient.brand))
                     .frame(width: 3, height: 36)
@@ -56,19 +51,19 @@ struct RuleCardView: View {
                 .tint(Color.sgTeal)
             }
 
-            // ── Status row (fades between states) ────────────────────────────
+            // ── Status row ───────────────────────────────────────────────────
             Group { statusRow }
                 .id(item.badge)
                 .transition(.opacity.animation(.easeInOut(duration: 0.22)))
         }
         .padding(18)
+        // GlassCard surface with animated active border (STEP 5 & 8)
         .sgCard(active: isActive, locked: isLocked)
         .scaleEffect(isPressed ? 0.97 : 1.0)
-        // Master spring — drives ALL visual changes on badge switch:
-        // card gradient, shimmer, shadows, text colours, badge, accent strip
-        .animation(.spring(response: 0.44, dampingFraction: 0.80), value: item.badge)
-        .animation(.spring(response: 0.44, dampingFraction: 0.80), value: isActive)
-        .animation(.spring(response: 0.44, dampingFraction: 0.80), value: isLocked)
+        // Animate background, shadow, badge, accent strip on state change
+        .animation(.spring(response: 0.4, dampingFraction: 0.8), value: item.badge)
+        .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isActive)
+        .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isLocked)
         .animation(.spring(response: 0.25, dampingFraction: 0.65), value: isPressed)
         .contextMenu {
             Button(role: .destructive, action: onDelete) {
