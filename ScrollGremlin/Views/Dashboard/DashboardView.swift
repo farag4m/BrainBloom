@@ -55,11 +55,7 @@ struct TodayView: View {
                 .navigationBarTitleDisplayMode(.large)
                 .toolbar {
                     ToolbarItem(placement: .primaryAction) {
-                        Button(action: { viewModel.showAddRule = true }) {
-                            Image(systemName: "plus.circle.fill")
-                                .foregroundStyle(Color.sgTeal)
-                                .font(.title3)
-                        }
+                        AddRuleButton(action: { viewModel.showAddRule = true })
                     }
                 }
             }

@@ -12,8 +12,8 @@ extension Color {
     static let scrollGremlinBackground = sgBackground
     static let sgCardSurface = Color(UIColor { t in
         t.userInterfaceStyle == .dark
-            ? UIColor(red: 0.14, green: 0.12, blue: 0.24, alpha: 1)
-            : UIColor(white: 1, alpha: 1)
+            ? UIColor(red: 0.12, green: 0.09, blue: 0.23, alpha: 1)
+            : UIColor(red: 0.84, green: 0.91, blue: 0.97, alpha: 1)
     })
     static let scrollGremlinSurface = Color(UIColor { t in
         t.userInterfaceStyle == .dark ? UIColor(white: 1, alpha: 0.07) : UIColor(white: 0, alpha: 0.04)
@@ -43,7 +43,7 @@ enum SGGradient {
             startPoint: .topLeading, endPoint: .bottomTrailing
         )
     }
-    /// Hero card: soft blue → lavender → pink
+    /// Hero + page blobs: soft blue → lavender → pink
     static var pastelHero: LinearGradient {
         LinearGradient(
             colors: [
@@ -81,20 +81,19 @@ enum SGGradient {
 
 // MARK: - GradientBackground
 //
-// Full-screen layered background. Must be placed OUTSIDE NavigationStack so it
-// bleeds behind the nav bar and tab bar.
+// Full-screen background. Placed OUTSIDE NavigationStack with ignoresSafeArea.
 //
 // LIGHT MODE
-//   Base: pastel linear gradient  #EAF6FF → #F3ECFF → #FFEFF6
-//   Blob 1: sky blue  (#A8E6FF) top-left      — opacity 0.42, blur 90
-//   Blob 2: lavender  (#C7B8FF) center-right  — opacity 0.36, blur 100
-//   Blob 3: soft pink (#FFC7E5) bottom        — opacity 0.34, blur 110
+//   Base gradient: clearly-blue #DAEEFF → clearly-lavender #E5DEFF → clearly-pink #FFDFF0
+//   Blob 1: sky blue    top-left        opacity 0.55  blur 80
+//   Blob 2: lavender    center-right    opacity 0.48  blur 95
+//   Blob 3: rose-pink   bottom          opacity 0.44  blur 105
 //
 // DARK MODE
-//   Base: deep indigo  #0D0C1E
-//   Blob 1: teal-cyan  top-right              — opacity 0.28, blur 90
-//   Blob 2: violet     center-left            — opacity 0.24, blur 100
-//   Blob 3: indigo-blue bottom-right          — opacity 0.20, blur 110
+//   Base gradient: deep navy #120D2A → deep indigo #0E0B22 → very dark purple #150E24
+//   Blob 1: bright teal    top-right    opacity 0.38  blur 80
+//   Blob 2: violet         center-left  opacity 0.32  blur 95
+//   Blob 3: royal blue     bottom-right opacity 0.28  blur 105
 
 struct GradientBackground: View {
     @Environment(\.colorScheme) private var scheme
@@ -105,17 +104,25 @@ struct GradientBackground: View {
             if scheme == .light {
                 LinearGradient(
                     colors: [
-                        Color(red: 0.918, green: 0.965, blue: 1.000),  // #EAF6FF
-                        Color(red: 0.953, green: 0.925, blue: 1.000),  // #F3ECFF
-                        Color(red: 1.000, green: 0.937, blue: 0.965),  // #FFEFF6
+                        Color(red: 0.855, green: 0.933, blue: 1.000),  // clearly sky-blue
+                        Color(red: 0.898, green: 0.871, blue: 1.000),  // clearly lavender
+                        Color(red: 1.000, green: 0.875, blue: 0.941),  // clearly soft pink
                     ],
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing
                 )
                 .ignoresSafeArea()
             } else {
-                Color(red: 0.051, green: 0.047, blue: 0.118) // deep indigo #0D0C1E
-                    .ignoresSafeArea()
+                LinearGradient(
+                    colors: [
+                        Color(red: 0.071, green: 0.051, blue: 0.165),  // deep navy-indigo
+                        Color(red: 0.055, green: 0.043, blue: 0.122),
+                        Color(red: 0.082, green: 0.055, blue: 0.141),  // deep purple
+                    ],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+                .ignoresSafeArea()
             }
 
             // ── Blurred radial blobs ──────────────────────────────────────────
@@ -126,46 +133,46 @@ struct GradientBackground: View {
                     if scheme == .light {
                         // Sky blue — top-left
                         Circle()
-                            .fill(Color(red: 0.659, green: 0.902, blue: 1.000).opacity(0.42))
-                            .frame(width: 380)
-                            .offset(x: -w * 0.15, y: -h * 0.04)
-                            .blur(radius: 90)
+                            .fill(Color(red: 0.549, green: 0.839, blue: 1.000).opacity(0.55))
+                            .frame(width: 360)
+                            .offset(x: -w * 0.18, y: -h * 0.02)
+                            .blur(radius: 80)
 
                         // Lavender — center-right
                         Circle()
-                            .fill(Color(red: 0.780, green: 0.722, blue: 1.000).opacity(0.36))
-                            .frame(width: 340)
-                            .offset(x: w * 0.40, y: h * 0.30)
-                            .blur(radius: 100)
+                            .fill(Color(red: 0.722, green: 0.647, blue: 1.000).opacity(0.48))
+                            .frame(width: 320)
+                            .offset(x: w * 0.42, y: h * 0.28)
+                            .blur(radius: 95)
 
-                        // Soft pink — bottom
+                        // Rose-pink — bottom
                         Circle()
-                            .fill(Color(red: 1.000, green: 0.780, blue: 0.898).opacity(0.34))
-                            .frame(width: 360)
-                            .offset(x: w * 0.08, y: h * 0.65)
-                            .blur(radius: 110)
+                            .fill(Color(red: 1.000, green: 0.671, blue: 0.831).opacity(0.44))
+                            .frame(width: 340)
+                            .offset(x: w * 0.06, y: h * 0.66)
+                            .blur(radius: 105)
 
                     } else {
-                        // Teal-cyan — top-right
+                        // Bright teal — top-right
                         Circle()
-                            .fill(Color(red: 0.10, green: 0.72, blue: 0.82).opacity(0.28))
-                            .frame(width: 360)
-                            .offset(x: w * 0.55, y: -h * 0.06)
-                            .blur(radius: 90)
+                            .fill(Color(red: 0.059, green: 0.780, blue: 0.780).opacity(0.38))
+                            .frame(width: 340)
+                            .offset(x: w * 0.50, y: -h * 0.04)
+                            .blur(radius: 80)
 
                         // Violet — center-left
                         Circle()
-                            .fill(Color(red: 0.52, green: 0.36, blue: 0.90).opacity(0.24))
-                            .frame(width: 340)
-                            .offset(x: -w * 0.10, y: h * 0.35)
-                            .blur(radius: 100)
-
-                        // Indigo-blue — bottom-right
-                        Circle()
-                            .fill(Color(red: 0.28, green: 0.44, blue: 0.90).opacity(0.20))
+                            .fill(Color(red: 0.561, green: 0.318, blue: 0.961).opacity(0.32))
                             .frame(width: 320)
-                            .offset(x: w * 0.45, y: h * 0.70)
-                            .blur(radius: 110)
+                            .offset(x: -w * 0.08, y: h * 0.33)
+                            .blur(radius: 95)
+
+                        // Royal blue — bottom-right
+                        Circle()
+                            .fill(Color(red: 0.200, green: 0.400, blue: 0.961).opacity(0.28))
+                            .frame(width: 300)
+                            .offset(x: w * 0.48, y: h * 0.68)
+                            .blur(radius: 105)
                     }
                 }
                 .allowsHitTesting(false)
@@ -180,13 +187,10 @@ typealias SGAmbientBackground = GradientBackground
 
 // MARK: - GlassCard
 //
-// Adaptive translucent card. Looks designed in both light and dark mode.
+// Explicitly tinted glass surface. Does NOT use white fill.
 //
-// Light: bright white-glass (white 0.72) + top shimmer + white stroke
-// Dark:  deep indigo-glass (#231F3D at 0.78) + top shimmer + soft white stroke
-//
-// ultraThinMaterial is added as an additional blur layer so any background
-// colour bleeds through softly.
+// Light: soft periwinkle-blue tint  rgb(0.82, 0.90, 0.97) at 88% — clearly blue-tinted
+// Dark:  deep indigo-purple tint    rgb(0.12, 0.09, 0.23) at 92% — clearly purple
 
 struct GlassCard: View {
     var cornerRadius: CGFloat = 24
@@ -194,32 +198,32 @@ struct GlassCard: View {
 
     var body: some View {
         ZStack {
-            // Base adaptive fill
+            // Explicit tinted base — what makes it NOT white/black
             RoundedRectangle(cornerRadius: cornerRadius)
                 .fill(scheme == .dark
-                    ? Color(red: 0.137, green: 0.122, blue: 0.239) // #231F3D
-                    : Color.white.opacity(0.72)
+                    ? Color(red: 0.118, green: 0.090, blue: 0.227)
+                    : Color(red: 0.820, green: 0.902, blue: 0.969)
                 )
 
-            // Material blur layer (picks up background colour)
+            // ultraThinMaterial as a softening layer only
             RoundedRectangle(cornerRadius: cornerRadius)
                 .fill(.ultraThinMaterial)
-                .opacity(scheme == .dark ? 0.55 : 0.45)
+                .opacity(0.40)
 
-            // Top shimmer — the "lit from above" signature
+            // Top shimmer — lit from above
             RoundedRectangle(cornerRadius: cornerRadius)
                 .fill(LinearGradient(
                     colors: [
-                        Color.white.opacity(scheme == .dark ? 0.12 : 0.68),
+                        Color.white.opacity(scheme == .dark ? 0.14 : 0.55),
                         Color.clear,
                     ],
                     startPoint: .top,
-                    endPoint: UnitPoint(x: 0.5, y: 0.52)
+                    endPoint: UnitPoint(x: 0.5, y: 0.50)
                 ))
 
             // Stroke
             RoundedRectangle(cornerRadius: cornerRadius)
-                .stroke(Color.white.opacity(scheme == .dark ? 0.14 : 0.22), lineWidth: 1)
+                .stroke(Color.white.opacity(scheme == .dark ? 0.16 : 0.55), lineWidth: 1)
         }
     }
 }
@@ -227,10 +231,9 @@ struct GlassCard: View {
 // Legacy alias
 typealias GlassSurface = GlassCard
 
-// MARK: - SGHeroCardSurface
+// MARK: - Hero Card Surface
 //
 // Pastel iridescent gradient — blue → lavender → pink.
-// Used only for the dashboard hero banner.
 
 struct SGHeroCardSurface: View {
     var cornerRadius: CGFloat = 28
@@ -239,7 +242,6 @@ struct SGHeroCardSurface: View {
         ZStack {
             RoundedRectangle(cornerRadius: cornerRadius)
                 .fill(SGGradient.pastelHero)
-
             // Inner shimmer
             RoundedRectangle(cornerRadius: cornerRadius)
                 .fill(LinearGradient(
@@ -247,15 +249,14 @@ struct SGHeroCardSurface: View {
                     startPoint: .top,
                     endPoint: UnitPoint(x: 0.5, y: 0.55)
                 ))
-
             // Highlight stroke
             RoundedRectangle(cornerRadius: cornerRadius)
-                .stroke(Color.white.opacity(0.28), lineWidth: 1)
+                .stroke(Color.white.opacity(0.30), lineWidth: 1)
         }
     }
 }
 
-// MARK: - SGMascotFrame (STEP 9)
+// MARK: - SGMascotFrame
 
 struct SGMascotFrame: View {
     var size: CGFloat = 80
@@ -265,16 +266,16 @@ struct SGMascotFrame: View {
         ZStack {
             Circle()
                 .fill(scheme == .dark
-                    ? Color(red: 0.20, green: 0.18, blue: 0.34).opacity(0.90)
-                    : Color.white.opacity(0.55)
+                    ? Color(red: 0.20, green: 0.15, blue: 0.36)
+                    : Color(red: 0.78, green: 0.88, blue: 0.97)
                 )
                 .frame(width: size, height: size)
             Circle()
                 .fill(.ultraThinMaterial)
                 .frame(width: size, height: size)
-                .opacity(0.6)
+                .opacity(0.5)
             Circle()
-                .stroke(Color.white.opacity(0.24), lineWidth: 1)
+                .stroke(Color.white.opacity(0.30), lineWidth: 1)
                 .frame(width: size, height: size)
         }
         .shadow(radius: 10)
@@ -283,9 +284,12 @@ struct SGMascotFrame: View {
 
 // MARK: - SGCardModifier
 //
-// Wraps content in the GlassCard visual system.
-// Active state = teal border glow + teal shadow. Never a fill colour change.
-// Both light and dark mode look like premium glass panels.
+// The card surface. Explicitly tinted — does NOT use white fill.
+//
+// Light: periwinkle-blue rgb(0.82, 0.90, 0.97) base. Reads as soft blue glass.
+// Dark:  indigo-purple   rgb(0.12, 0.09, 0.22) base. Reads as deep purple glass.
+//
+// Active: teal glow border + shadow. No fill colour change.
 
 struct SGCardModifier: ViewModifier {
     @Environment(\.colorScheme) private var scheme
@@ -301,30 +305,30 @@ struct SGCardModifier: ViewModifier {
         content
             .background(
                 ZStack {
-                    // Adaptive base fill
+                    // Explicitly tinted base
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .fill(scheme == .dark
-                            ? Color(red: 0.137, green: 0.122, blue: 0.239)
-                            : Color.white.opacity(0.72)
+                            ? Color(red: 0.118, green: 0.090, blue: 0.220)
+                            : Color(red: 0.820, green: 0.902, blue: 0.969)
                         )
-                    // Material blur
+                    // ultraThinMaterial softening layer
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .fill(.ultraThinMaterial)
-                        .opacity(scheme == .dark ? 0.55 : 0.45)
-                    // Active tint — just 6% max, no heavy fill
+                        .opacity(0.40)
+                    // Active/locked accent wash — very subtle
                     if isActive || isLocked {
                         RoundedRectangle(cornerRadius: cornerRadius)
-                            .fill(glowColor.opacity(scheme == .dark ? 0.08 : 0.04))
+                            .fill(glowColor.opacity(scheme == .dark ? 0.10 : 0.06))
                     }
                     // Top shimmer
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .fill(LinearGradient(
                             colors: [
-                                Color.white.opacity(scheme == .dark ? 0.12 : 0.68),
+                                Color.white.opacity(scheme == .dark ? 0.14 : 0.55),
                                 Color.clear,
                             ],
                             startPoint: .top,
-                            endPoint: UnitPoint(x: 0.5, y: 0.52)
+                            endPoint: UnitPoint(x: 0.5, y: 0.50)
                         ))
                 }
             )
@@ -335,7 +339,7 @@ struct SGCardModifier: ViewModifier {
                     .stroke(
                         LinearGradient(
                             colors: [
-                                Color.white.opacity(scheme == .dark ? 0.18 : 0.72),
+                                Color.white.opacity(scheme == .dark ? 0.20 : 0.60),
                                 Color.white.opacity(0.02),
                             ],
                             startPoint: .top, endPoint: .bottom
@@ -343,19 +347,16 @@ struct SGCardModifier: ViewModifier {
                         lineWidth: 1
                     )
             )
-            // Active/locked accent border ring
+            // Active border ring
             .overlay(
                 RoundedRectangle(cornerRadius: cornerRadius)
-                    .stroke(glowColor.opacity(isActive || isLocked ? 0.50 : 0), lineWidth: 1.5)
+                    .stroke(glowColor.opacity(isActive || isLocked ? 0.55 : 0), lineWidth: 1.5)
             )
-            // Glow shadow when active/locked
+            // Glow shadow
+            .shadow(color: glowColor.opacity(isActive ? 0.25 : isLocked ? 0.16 : 0), radius: 18, y: 7)
+            // Depth shadow
             .shadow(
-                color: glowColor.opacity(isActive ? 0.22 : isLocked ? 0.14 : 0),
-                radius: 18, y: 7
-            )
-            // Base depth shadow
-            .shadow(
-                color: .black.opacity(scheme == .dark ? 0.35 : 0.08),
+                color: .black.opacity(scheme == .dark ? 0.40 : 0.10),
                 radius: isActive ? 18 : 14,
                 y: isActive ? 7 : 5
             )
@@ -368,11 +369,111 @@ extension View {
     }
 }
 
+// MARK: - AddRuleButton
+//
+// Teal gradient circle — replaces the plain white system button in toolbars.
+
+struct AddRuleButton: View {
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            ZStack {
+                // Teal gradient fill
+                Circle()
+                    .fill(SGGradient.brand)
+                    .frame(width: 34, height: 34)
+                // Inner shimmer
+                Circle()
+                    .fill(LinearGradient(
+                        colors: [.white.opacity(0.30), .clear],
+                        startPoint: .top, endPoint: .center
+                    ))
+                    .frame(width: 34, height: 34)
+                // Icon
+                Image(systemName: "plus")
+                    .font(.system(size: 15, weight: .semibold))
+                    .foregroundStyle(.white)
+            }
+            .shadow(color: Color.sgTeal.opacity(0.45), radius: 8, y: 3)
+        }
+        .buttonStyle(.plain)
+    }
+}
+
+// MARK: - Section Header
+//
+// Explicitly tinted glass strip — NOT plain white/clear.
+// Light: soft blue-tinted frosted band
+// Dark:  deep indigo-tinted frosted band
+
+struct SectionHeader: View {
+    let title: String
+    @Environment(\.colorScheme) private var scheme
+
+    var body: some View {
+        Text(title)
+            .font(.subheadline.weight(.semibold))
+            .foregroundStyle(scheme == .dark
+                ? Color.white.opacity(0.70)
+                : Color(red: 0.20, green: 0.28, blue: 0.45)
+            )
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.vertical, 8)
+            .padding(.horizontal, 4)
+            .background(
+                ZStack {
+                    scheme == .dark
+                        ? Color(red: 0.10, green: 0.08, blue: 0.20).opacity(0.92)
+                        : Color(red: 0.82, green: 0.90, blue: 0.97).opacity(0.88)
+                    Color.clear.background(.ultraThinMaterial).opacity(0.50)
+                }
+            )
+    }
+}
+
+// MARK: - Status Badge
+//
+// Tinted glass capsule — no plain solid pill.
+
+struct StatusBadgeView: View {
+    let badge: RuleStatusBadge
+    var onColoredSurface: Bool = false
+    @Environment(\.colorScheme) private var scheme
+
+    var body: some View {
+        HStack(spacing: 4) {
+            Circle()
+                .fill(onColoredSurface ? Color.white : badge.color)
+                .frame(width: 6, height: 6)
+            Text(badge.label)
+                .font(.caption2).fontWeight(.semibold)
+        }
+        .padding(.horizontal, 9)
+        .padding(.vertical, 5)
+        .background(
+            ZStack {
+                Capsule()
+                    .fill(onColoredSurface
+                        ? Color.white.opacity(0.25)
+                        : (scheme == .dark
+                            ? badge.color.opacity(0.22)
+                            : badge.color.opacity(0.15))
+                    )
+                Capsule()
+                    .stroke(Color.white.opacity(scheme == .dark ? 0.14 : 0.40), lineWidth: 0.5)
+            }
+        )
+        .foregroundStyle(onColoredSurface ? .white : badge.color)
+        .animation(.spring(response: 0.35, dampingFraction: 0.75), value: badge)
+    }
+}
+
 // MARK: - Surface Background
 
 struct SurfaceBackgroundModifier: ViewModifier {
     func body(content: Content) -> some View {
-        ZStack { GradientBackground(); content }
+        ZStack { GradientBackground().ignoresSafeArea(); content }
     }
 }
 
@@ -400,23 +501,6 @@ struct SGMascotGlow: View {
     }
 }
 
-// MARK: - Section Header
-
-struct SectionHeader: View {
-    let title: String
-    @Environment(\.colorScheme) private var scheme
-
-    var body: some View {
-        Text(title)
-            .font(.subheadline.weight(.semibold))
-            .foregroundStyle(scheme == .dark ? Color.white.opacity(0.55) : Color.primary.opacity(0.55))
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.vertical, 8)
-            .padding(.horizontal, 4)
-            .background(.ultraThinMaterial.opacity(0.90))
-    }
-}
-
 // MARK: - Typography
 
 extension View {
@@ -425,48 +509,6 @@ extension View {
     }
     func scrollGremlinSubtitle() -> some View {
         self.font(.subheadline).foregroundStyle(.white.opacity(0.5))
-    }
-}
-
-// MARK: - Status Badge (STEP 3)
-//
-// Glass-style badge — no plain solid pill.
-// Light: white-tinted glass with coloured text.
-// Dark: dark glass with coloured text.
-
-struct StatusBadgeView: View {
-    let badge: RuleStatusBadge
-    var onColoredSurface: Bool = false
-    @Environment(\.colorScheme) private var scheme
-
-    var body: some View {
-        HStack(spacing: 4) {
-            Circle()
-                .fill(onColoredSurface ? Color.white : badge.color)
-                .frame(width: 6, height: 6)
-            Text(badge.label)
-                .font(.caption2).fontWeight(.semibold)
-        }
-        .padding(.horizontal, 9)
-        .padding(.vertical, 5)
-        .background(
-            ZStack {
-                Capsule()
-                    .fill(onColoredSurface
-                        ? Color.white.opacity(0.22)
-                        : (scheme == .dark
-                            ? badge.color.opacity(0.18)
-                            : badge.color.opacity(0.12))
-                    )
-                Capsule()
-                    .fill(.ultraThinMaterial)
-                    .opacity(0.5)
-                Capsule()
-                    .stroke(Color.white.opacity(scheme == .dark ? 0.12 : 0.30), lineWidth: 0.5)
-            }
-        )
-        .foregroundStyle(onColoredSurface ? .white : badge.color)
-        .animation(.spring(response: 0.35, dampingFraction: 0.75), value: badge)
     }
 }
 
@@ -554,7 +596,6 @@ struct AccentButtonStyle: ButtonStyle {
     }
 }
 
-// GlassButtonStyle — white gradient capsule (STEP 6)
 struct GlassButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
