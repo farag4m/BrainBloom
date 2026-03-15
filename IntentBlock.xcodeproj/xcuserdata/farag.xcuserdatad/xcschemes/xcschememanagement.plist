@@ -7,7 +7,55 @@
 		<key>IntentBlock.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>IntentBlockMonitor.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
 			<integer>0</integer>
+		</dict>
+		<key>IntentBlockReport.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>IntentBlockShieldAction.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>IntentBlockShieldConfig.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>212A970E2F64A64700AE5F16</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3EF04529085F4775AFE4BF26</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>62414837D179411D819766CF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B72826CD374A4D12B89A9EAD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F22DCA15D8AF4838BA098532</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>
