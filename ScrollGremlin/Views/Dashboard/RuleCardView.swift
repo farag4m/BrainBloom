@@ -11,13 +11,16 @@ struct RuleCardView: View {
     @State private var activeSession: UnlockSession? = nil
     @State private var isPressed = false
 
+    private var isActive: Bool { item.badge == .active }
+    private var isLocked: Bool { item.badge == .locked }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(spacing: 10) {
-                // Left accent strip for active rules
-                if item.badge == .active {
-                    RoundedRectangle(cornerRadius: 2)
-                        .fill(Color.sgTeal)
+                // Accent strip on active cards
+                if isActive {
+                    Capsule()
+                        .fill(SGGradient.brand)
                         .frame(width: 3)
                         .padding(.vertical, 2)
                 }
@@ -44,17 +47,8 @@ struct RuleCardView: View {
 
             remainingRow
         }
-        .padding()
-        .background(Color(UIColor.secondarySystemGroupedBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 16))
-        .shadow(color: item.badge == .active ? Color.sgTeal.opacity(0.08) : .clear, radius: 8, y: 2)
-        .overlay(
-            RoundedRectangle(cornerRadius: 16)
-                .stroke(
-                    item.badge == .locked ? Color.sgTeal.opacity(0.25) : Color.clear,
-                    lineWidth: 1
-                )
-        )
+        .padding(16)
+        .sgCard(active: isActive, locked: isLocked)
         .scaleEffect(isPressed ? 0.97 : 1.0)
         .animation(.spring(response: 0.25, dampingFraction: 0.65), value: isPressed)
         .contextMenu {
@@ -64,7 +58,7 @@ struct RuleCardView: View {
         }
         .onTapGesture {
             isPressed = true
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { isPressed = false }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.12) { isPressed = false }
             showDetail = true
         }
         .onAppear { refreshSession() }
@@ -92,9 +86,8 @@ struct RuleCardView: View {
                     .scaledToFit()
                     .frame(width: 18, height: 18)
                 Text("Blocked — limit reached")
-                    .font(.caption)
+                    .font(.caption.weight(.medium))
                     .foregroundStyle(Color.sgTeal)
-                    .fontWeight(.medium)
             }
         case .active:
             if let session = activeSession {
@@ -170,7 +163,7 @@ struct RuleDetailView: View {
     var body: some View {
         NavigationStack {
             List {
-                // Annoyed gremlin when blocked
+                // Gremlin_Annoyed banner when blocked
                 if liveStatus == .locked {
                     Section {
                         HStack(spacing: 14) {
@@ -180,7 +173,7 @@ struct RuleDetailView: View {
                                 .frame(width: 48, height: 48)
                             VStack(alignment: .leading, spacing: 3) {
                                 Text("Limit reached")
-                                    .font(.subheadline).fontWeight(.semibold)
+                                    .font(.subheadline.weight(.semibold))
                                     .foregroundStyle(Color.sgTeal)
                                 Text("Your allowance is used up for this window.")
                                     .font(.caption)
@@ -189,7 +182,7 @@ struct RuleDetailView: View {
                         }
                         .padding(.vertical, 4)
                     }
-                    .listRowBackground(Color.sgTeal.opacity(0.06))
+                    .listRowBackground(Color.sgTeal.opacity(0.07))
                 }
 
                 Section("Rule Info") {
@@ -263,7 +256,7 @@ struct UnlockSessionRow: View {
         VStack(alignment: .leading, spacing: 4) {
             HStack {
                 Text(session.startedAt, style: .time)
-                    .font(.subheadline).fontWeight(.medium)
+                    .font(.subheadline.weight(.medium))
                 Spacer()
                 Text(session.unlockType.displayLabel)
                     .font(.caption)

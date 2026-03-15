@@ -5,41 +5,52 @@ struct AllRulesView: View {
 
     var body: some View {
         NavigationStack {
-            ZStack {
-                Color(UIColor.systemGroupedBackground).ignoresSafeArea()
-
+            Group {
                 if viewModel.rules.isEmpty {
                     EmptyDashboardView(onAddRule: { viewModel.showAddRule = true })
+                        .sgPageBackground()
                 } else {
-                    let groups = viewModel.allRulesDayGroups
-                    ScrollView {
-                        LazyVStack(spacing: 12, pinnedViews: .sectionHeaders) {
-                            ForEach(groups) { group in
-                                Section {
-                                    ForEach(group.items) { item in
-                                        RuleCardView(
-                                            item: item,
-                                            onToggle: { viewModel.toggleRule(item.rule) },
-                                            onUpdate: { viewModel.updateRule($0) },
-                                            onDelete: { viewModel.deleteRule(item.rule) }
-                                        )
+                    ZStack(alignment: .top) {
+                        Color(UIColor.systemGroupedBackground).ignoresSafeArea()
+                        SGGradient.pageTint
+                            .frame(maxWidth: .infinity, maxHeight: 380)
+                            .ignoresSafeArea(edges: .top)
+                            .allowsHitTesting(false)
+
+                        let groups = viewModel.allRulesDayGroups
+                        ScrollView {
+                            LazyVStack(spacing: 0, pinnedViews: .sectionHeaders) {
+                                ForEach(groups) { group in
+                                    Section {
+                                        ForEach(group.items) { item in
+                                            RuleCardView(
+                                                item: item,
+                                                onToggle: { viewModel.toggleRule(item.rule) },
+                                                onUpdate: { viewModel.updateRule($0) },
+                                                onDelete: { viewModel.deleteRule(item.rule) }
+                                            )
+                                            .padding(.horizontal, 16)
+                                            .padding(.bottom, 10)
+                                        }
+                                    } header: {
+                                        SectionHeader(title: group.title)
+                                            .padding(.horizontal, 16)
                                     }
-                                } header: {
-                                    SectionHeader(title: group.title)
                                 }
                             }
+                            .padding(.vertical, 8)
                         }
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 8)
+                        .refreshable { viewModel.loadData() }
                     }
-                    .refreshable { viewModel.loadData() }
                 }
             }
             .navigationTitle("All Rules")
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button(action: { viewModel.showAddRule = true }) {
-                        Image(systemName: "plus")
+                        Image(systemName: "plus.circle.fill")
+                            .foregroundStyle(Color.sgTeal)
+                            .font(.title3)
                     }
                 }
             }

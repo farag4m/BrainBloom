@@ -11,7 +11,18 @@ struct UnlockFlowView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.sgBackground.ignoresSafeArea()
+                SGGradient.immersiveDark.ignoresSafeArea()
+
+                // Ambient glow that shifts per step
+                Circle()
+                    .fill(RadialGradient(
+                        colors: [Color.sgTeal.opacity(0.14), Color.clear],
+                        center: .center, startRadius: 0, endRadius: 200
+                    ))
+                    .frame(width: 400, height: 400)
+                    .offset(y: -200)
+                    .blur(radius: 40)
+                    .allowsHitTesting(false)
 
                 Group {
                     switch viewModel.currentStep {
@@ -25,7 +36,8 @@ struct UnlockFlowView: View {
                         .transition(.opacity)
 
                     case .mathChallenge:
-                        MathChallengeView(difficulty: viewModel.mathDifficulty, onSolved: { viewModel.advanceFromMathChallenge() })
+                        MathChallengeView(difficulty: viewModel.mathDifficulty,
+                                          onSolved: { viewModel.advanceFromMathChallenge() })
                             .transition(.opacity)
 
                     case .chooseDuration:
@@ -33,8 +45,10 @@ struct UnlockFlowView: View {
                             selected: $viewModel.selectedDuration,
                             onNext: { viewModel.proceedFromDuration() }
                         )
-                        .transition(.asymmetric(insertion: .move(edge: .trailing).combined(with: .opacity),
-                                                removal: .opacity))
+                        .transition(.asymmetric(
+                            insertion: .move(edge: .trailing).combined(with: .opacity),
+                            removal: .opacity
+                        ))
 
                     case .intention:
                         IntentionView(
@@ -42,9 +56,7 @@ struct UnlockFlowView: View {
                             isConfirmEnabled: viewModel.isConfirmEnabled,
                             delayRemaining: viewModel.delayRemaining,
                             friction: viewModel.effectiveFriction,
-                            onConfirm: {
-                                Task { await viewModel.confirmUnlock() }
-                            }
+                            onConfirm: { Task { await viewModel.confirmUnlock() } }
                         )
                         .transition(.opacity)
 
@@ -56,11 +68,13 @@ struct UnlockFlowView: View {
                             duration: viewModel.selectedDuration,
                             onDismiss: { dismiss() }
                         )
-                        .transition(.asymmetric(insertion: .scale(scale: 0.85).combined(with: .opacity),
-                                                removal: .opacity))
+                        .transition(.asymmetric(
+                            insertion: .scale(scale: 0.82).combined(with: .opacity),
+                            removal: .opacity
+                        ))
                     }
                 }
-                .animation(.easeInOut(duration: 0.3), value: viewModel.currentStep)
+                .animation(.easeInOut(duration: 0.32), value: viewModel.currentStep)
             }
             .toolbar {
                 if viewModel.currentStep != .done && viewModel.currentStep != .confirming {
@@ -69,7 +83,7 @@ struct UnlockFlowView: View {
                             viewModel.cancel()
                             dismiss()
                         }
-                        .foregroundStyle(.white.opacity(0.5))
+                        .foregroundStyle(.white.opacity(0.50))
                     }
                 }
             }
@@ -89,35 +103,37 @@ struct BreathingView: View {
             Spacer()
 
             Text(phase.label)
-                .font(.title).fontWeight(.thin)
-                .foregroundStyle(.white.opacity(0.9))
+                .font(.title.weight(.thin))
+                .foregroundStyle(.white.opacity(0.90))
                 .animation(.easeInOut(duration: 0.4), value: phase.label)
 
             ZStack {
-                // Outer ring
+                // Static outer ring
                 Circle()
-                    .stroke(Color.sgTeal.opacity(0.12), lineWidth: 1.5)
+                    .stroke(Color.sgTeal.opacity(0.10), lineWidth: 1)
                     .frame(width: 240, height: 240)
 
-                // Breathing blob — teal fill
+                // Breathing glow blob
                 Circle()
-                    .fill(
-                        RadialGradient(
-                            colors: [Color.sgTeal.opacity(0.35), Color.sgTeal.opacity(0.05)],
-                            center: .center,
-                            startRadius: 0,
-                            endRadius: 120
-                        )
-                    )
+                    .fill(RadialGradient(
+                        colors: [Color.sgTeal.opacity(0.32), Color.sgTeal.opacity(0.06), Color.clear],
+                        center: .center, startRadius: 0, endRadius: 130
+                    ))
                     .frame(
                         width:  CGFloat(120 + 120 * progress),
                         height: CGFloat(120 + 120 * progress)
                     )
                     .animation(.easeInOut(duration: 0.1), value: progress)
 
-                // Glow ring
+                // Crisp edge ring
                 Circle()
-                    .stroke(Color.sgTeal.opacity(0.55), lineWidth: 1.5)
+                    .stroke(
+                        LinearGradient(
+                            colors: [Color.sgTeal.opacity(0.65), Color.sgTeal.opacity(0.25)],
+                            startPoint: .topLeading, endPoint: .bottomTrailing
+                        ),
+                        lineWidth: 1.5
+                    )
                     .frame(
                         width:  CGFloat(120 + 120 * progress),
                         height: CGFloat(120 + 120 * progress)
@@ -131,11 +147,16 @@ struct BreathingView: View {
 
             Spacer()
 
+            // Pill-style cycle progress
             HStack(spacing: 8) {
                 ForEach(0..<3, id: \.self) { i in
                     Capsule()
-                        .fill(i <= cycle ? Color.sgTeal : Color.white.opacity(0.18))
-                        .frame(width: i <= cycle ? 20 : 8, height: 8)
+                        .fill(i <= cycle
+                              ? LinearGradient(colors: [Color.sgTeal, Color.sgTealDark],
+                                               startPoint: .leading, endPoint: .trailing)
+                              : LinearGradient(colors: [Color.white.opacity(0.18), Color.white.opacity(0.18)],
+                                               startPoint: .leading, endPoint: .trailing))
+                        .frame(width: i <= cycle ? 22 : 8, height: 8)
                         .animation(.spring(response: 0.35), value: cycle)
                 }
             }
@@ -156,9 +177,9 @@ struct DurationPickerView: View {
 
             VStack(spacing: 8) {
                 Text("How long do you need?")
-                    .font(.title2).fontWeight(.semibold).foregroundStyle(.white)
+                    .font(.title2.weight(.semibold)).foregroundStyle(.white)
                 Text("You can always unlock again if needed.")
-                    .font(.subheadline).foregroundStyle(.white.opacity(0.5))
+                    .font(.subheadline).foregroundStyle(.white.opacity(0.50))
             }
 
             VStack(spacing: 10) {
@@ -172,12 +193,10 @@ struct DurationPickerView: View {
 
             Spacer()
 
-            Button(action: onNext) {
-                Text("Continue")
-            }
-            .buttonStyle(PrimaryButtonStyle())
-            .padding(.horizontal, 24)
-            .padding(.bottom, 52)
+            Button(action: onNext) { Text("Continue") }
+                .buttonStyle(PrimaryButtonStyle())
+                .padding(.horizontal, 24)
+                .padding(.bottom, 52)
         }
     }
 }
@@ -196,30 +215,40 @@ struct DurationOptionRow: View {
                     Text(type.displayLabel)
                         .font(.headline).foregroundStyle(.white)
                     Text(type.subtitle)
-                        .font(.caption).foregroundStyle(.white.opacity(0.5))
+                        .font(.caption).foregroundStyle(.white.opacity(0.50))
                 }
                 Spacer()
                 ZStack {
                     Circle()
-                        .stroke(isSelected ? Color.sgTeal : Color.white.opacity(0.2), lineWidth: 2)
+                        .stroke(isSelected ? Color.sgTeal : Color.white.opacity(0.22), lineWidth: 2)
                         .frame(width: 22, height: 22)
                     if isSelected {
                         Circle()
-                            .fill(Color.sgTeal)
-                            .frame(width: 12, height: 12)
+                            .fill(SGGradient.brand)
+                            .frame(width: 13, height: 13)
                     }
                 }
             }
-            .padding()
-            .background(isSelected ? Color.sgTeal.opacity(0.14) : Color.white.opacity(0.06))
-            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .padding(14)
+            .background(
+                ZStack {
+                    RoundedRectangle(cornerRadius: 14)
+                        .fill(isSelected
+                              ? Color.sgTeal.opacity(0.16)
+                              : Color.white.opacity(0.06))
+                    if isSelected {
+                        RoundedRectangle(cornerRadius: 14)
+                            .fill(SGGradient.cardSheen(opacity: 0.10))
+                    }
+                }
+            )
+            .clipShape(RoundedRectangle(cornerRadius: 14))
             .overlay(
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(isSelected ? Color.sgTeal.opacity(0.6) : Color.clear, lineWidth: 1.5)
+                RoundedRectangle(cornerRadius: 14)
+                    .stroke(isSelected ? Color.sgTeal.opacity(0.55) : Color.clear, lineWidth: 1.5)
             )
         }
         .buttonStyle(.plain)
-        .interactivePress()
     }
 }
 
@@ -233,7 +262,6 @@ struct IntentionView: View {
     let onConfirm: () -> Void
     @FocusState private var isFocused: Bool
 
-    // Timer must have elapsed AND, when intention is required, text must be non-empty.
     private var canConfirm: Bool {
         guard isConfirmEnabled else { return false }
         if friction.includesIntention {
@@ -248,24 +276,28 @@ struct IntentionView: View {
 
             VStack(spacing: 8) {
                 Text(friction.includesIntention ? "Why are you unlocking?" : "Ready to unlock?")
-                    .font(.title2).fontWeight(.semibold).foregroundStyle(.white)
-                Text(friction.includesIntention ? "Writing it down builds awareness." : "Take a breath before you continue.")
-                    .font(.subheadline).foregroundStyle(.white.opacity(0.5))
+                    .font(.title2.weight(.semibold)).foregroundStyle(.white)
+                Text(friction.includesIntention
+                     ? "Writing it down builds awareness."
+                     : "Take a breath before you continue.")
+                    .font(.subheadline).foregroundStyle(.white.opacity(0.50))
             }
 
             if friction.includesIntention {
-                TextField("", text: $text, prompt: Text("e.g. Checking a message").foregroundColor(.white.opacity(0.3)))
+                TextField("", text: $text,
+                          prompt: Text("e.g. Checking a message")
+                              .foregroundColor(.white.opacity(0.30)))
                     .foregroundStyle(.white)
-                    .padding()
-                    .background(Color.white.opacity(0.08))
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .padding(14)
+                    .background(.ultraThinMaterial)
+                    .clipShape(RoundedRectangle(cornerRadius: 14))
                     .overlay(
-                        RoundedRectangle(cornerRadius: 12)
+                        RoundedRectangle(cornerRadius: 14)
                             .stroke(
                                 text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
                                     ? Color.white.opacity(0.12)
-                                    : Color.sgTeal.opacity(0.5),
-                                lineWidth: 1
+                                    : Color.sgTeal.opacity(0.55),
+                                lineWidth: 1.5
                             )
                     )
                     .focused($isFocused)
@@ -304,7 +336,7 @@ struct ConfirmingView: View {
                 .scaleEffect(1.5)
             Text("Unlocking...")
                 .font(.subheadline)
-                .foregroundStyle(.white.opacity(0.6))
+                .foregroundStyle(.white.opacity(0.60))
         }
     }
 }
@@ -320,47 +352,46 @@ struct UnlockDoneView: View {
         VStack(spacing: 24) {
             Spacer()
 
-            Image("Gremlin")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 130, height: 130)
-                .scaleEffect(appeared ? 1.0 : 0.5)
-                .opacity(appeared ? 1 : 0)
-                .animation(.spring(response: 0.55, dampingFraction: 0.55), value: appeared)
+            ZStack {
+                SGMascotGlow(size: 200)
+                Image("Gremlin")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 130, height: 130)
+                    .shadow(color: Color.sgTeal.opacity(0.30), radius: 20, y: 8)
+            }
+            .scaleEffect(appeared ? 1.0 : 0.50)
+            .opacity(appeared ? 1 : 0)
+            .animation(.spring(response: 0.55, dampingFraction: 0.55), value: appeared)
 
             VStack(spacing: 8) {
                 Text("You're in!")
-                    .font(.title2).fontWeight(.semibold).foregroundStyle(.white)
-                    .opacity(appeared ? 1 : 0)
-                    .animation(.easeOut(duration: 0.4).delay(0.15), value: appeared)
-
+                    .font(.title2.weight(.semibold)).foregroundStyle(.white)
                 if let minutes = duration.minutes {
                     Text("You have \(minutes) minutes. Use them well.")
-                        .font(.subheadline).foregroundStyle(.white.opacity(0.6))
+                        .font(.subheadline).foregroundStyle(.white.opacity(0.60))
                 } else {
                     Text("Unlocked for the rest of today.")
-                        .font(.subheadline).foregroundStyle(.white.opacity(0.6))
+                        .font(.subheadline).foregroundStyle(.white.opacity(0.60))
                 }
             }
             .opacity(appeared ? 1 : 0)
-            .animation(.easeOut(duration: 0.4).delay(0.2), value: appeared)
+            .animation(.easeOut(duration: 0.4).delay(0.20), value: appeared)
 
             Text("Switch back to the app manually.")
                 .font(.caption)
-                .foregroundStyle(.white.opacity(0.3))
+                .foregroundStyle(.white.opacity(0.30))
                 .opacity(appeared ? 1 : 0)
-                .animation(.easeOut(duration: 0.4).delay(0.3), value: appeared)
+                .animation(.easeOut(duration: 0.4).delay(0.30), value: appeared)
 
             Spacer()
 
-            Button(action: onDismiss) {
-                Text("Done")
-            }
-            .buttonStyle(SecondaryButtonStyle())
-            .padding(.horizontal, 24)
-            .padding(.bottom, 52)
-            .opacity(appeared ? 1 : 0)
-            .animation(.easeOut(duration: 0.4).delay(0.35), value: appeared)
+            Button(action: onDismiss) { Text("Done") }
+                .buttonStyle(SecondaryButtonStyle())
+                .padding(.horizontal, 24)
+                .padding(.bottom, 52)
+                .opacity(appeared ? 1 : 0)
+                .animation(.easeOut(duration: 0.4).delay(0.38), value: appeared)
         }
         .onAppear { appeared = true }
     }
@@ -399,13 +430,13 @@ struct MathChallengeView: View {
 
             VStack(spacing: 8) {
                 Text("Quick Check")
-                    .font(.title2).fontWeight(.semibold).foregroundStyle(.white)
+                    .font(.title2.weight(.semibold)).foregroundStyle(.white)
                 if problemsRequired > 1 {
                     Text("Problem \(solvedCount + 1) of \(problemsRequired)")
-                        .font(.subheadline).foregroundStyle(.white.opacity(0.5))
+                        .font(.subheadline).foregroundStyle(.white.opacity(0.50))
                 } else {
                     Text("Solve to continue.")
-                        .font(.subheadline).foregroundStyle(.white.opacity(0.5))
+                        .font(.subheadline).foregroundStyle(.white.opacity(0.50))
                 }
             }
 
@@ -416,16 +447,19 @@ struct MathChallengeView: View {
             VStack(spacing: 8) {
                 TextField("", text: $userAnswer)
                     .keyboardType(.numberPad)
-                    .font(.title2).fontWeight(.semibold)
+                    .font(.title2.weight(.semibold))
                     .foregroundStyle(.white)
                     .multilineTextAlignment(.center)
                     .focused($isFocused)
-                    .padding()
-                    .background(Color.white.opacity(0.08))
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .padding(14)
+                    .background(.ultraThinMaterial)
+                    .clipShape(RoundedRectangle(cornerRadius: 14))
                     .overlay(
-                        RoundedRectangle(cornerRadius: 12)
-                            .stroke(isWrong ? Color.red.opacity(0.6) : Color.sgTeal.opacity(0.3), lineWidth: 1.5)
+                        RoundedRectangle(cornerRadius: 14)
+                            .stroke(isWrong
+                                    ? Color.red.opacity(0.65)
+                                    : Color.sgTeal.opacity(0.35),
+                                    lineWidth: 1.5)
                     )
                     .padding(.horizontal, 48)
                     .offset(x: shakeOffset)
@@ -433,20 +467,18 @@ struct MathChallengeView: View {
                 if isWrong {
                     Text("Not quite — try again")
                         .font(.caption)
-                        .foregroundStyle(.red.opacity(0.8))
+                        .foregroundStyle(.red.opacity(0.80))
                         .transition(.opacity)
                 }
             }
 
             Spacer()
 
-            Button("Submit") {
-                submitAnswer()
-            }
-            .buttonStyle(PrimaryButtonStyle(isEnabled: !userAnswer.isEmpty))
-            .disabled(userAnswer.isEmpty)
-            .padding(.horizontal, 24)
-            .padding(.bottom, 52)
+            Button("Submit") { submitAnswer() }
+                .buttonStyle(PrimaryButtonStyle(isEnabled: !userAnswer.isEmpty))
+                .disabled(userAnswer.isEmpty)
+                .padding(.horizontal, 24)
+                .padding(.bottom, 52)
         }
         .onAppear { isFocused = true }
         .animation(.easeInOut(duration: 0.2), value: isWrong)
@@ -468,7 +500,6 @@ struct MathChallengeView: View {
             isWrong = true
             userAnswer = ""
             problem = .generate(difficulty: difficulty)
-            // Shake animation
             withAnimation(.default) { shakeOffset = -8 }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.07) {
                 withAnimation(.default) { shakeOffset = 8 }
@@ -489,32 +520,22 @@ struct MathProblem {
     static func generate(difficulty: Int) -> MathProblem {
         switch difficulty {
         case 0:
-            let a = Int.random(in: 3...15)
-            let b = Int.random(in: 1...9)
-            if Bool.random() || a <= b {
-                return MathProblem(expression: "\(a) + \(b) = ?", answer: a + b)
-            } else {
-                return MathProblem(expression: "\(a) − \(b) = ?", answer: a - b)
-            }
+            let a = Int.random(in: 3...15), b = Int.random(in: 1...9)
+            return Bool.random() || a <= b
+                ? MathProblem(expression: "\(a) + \(b) = ?", answer: a + b)
+                : MathProblem(expression: "\(a) − \(b) = ?", answer: a - b)
         case 1:
-            let a = Int.random(in: 12...35)
-            let b = Int.random(in: 3...15)
-            if Bool.random() {
-                return MathProblem(expression: "\(a) + \(b) = ?", answer: a + b)
-            } else {
-                return MathProblem(expression: "\(a) − \(b) = ?", answer: a - b)
-            }
+            let a = Int.random(in: 12...35), b = Int.random(in: 3...15)
+            return Bool.random()
+                ? MathProblem(expression: "\(a) + \(b) = ?", answer: a + b)
+                : MathProblem(expression: "\(a) − \(b) = ?", answer: a - b)
         case 2:
-            let a = Int.random(in: 12...40)
-            let b = Int.random(in: 3...15)
-            if Bool.random() {
-                return MathProblem(expression: "\(a) × \(b) = ?", answer: a * b)
-            } else {
-                return MathProblem(expression: "\(a) + \(b) = ?", answer: a + b)
-            }
+            let a = Int.random(in: 12...40), b = Int.random(in: 3...15)
+            return Bool.random()
+                ? MathProblem(expression: "\(a) × \(b) = ?", answer: a * b)
+                : MathProblem(expression: "\(a) + \(b) = ?", answer: a + b)
         default:
-            let a = Int.random(in: 15...49)
-            let b = Int.random(in: 6...19)
+            let a = Int.random(in: 15...49), b = Int.random(in: 6...19)
             return MathProblem(expression: "\(a) × \(b) = ?", answer: a * b)
         }
     }

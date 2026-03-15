@@ -1,12 +1,5 @@
 import SwiftUI
 
-// MARK: - FrictionPreviewView
-//
-// Presents an interactive, no-side-effect preview of a FrictionType's full UI flow.
-// Reuses every production friction component (BreathingView, MathChallengeView,
-// IntentionView) — no static screenshots, no fake UI.
-// "Confirm / Unlock" advances to a preview-complete screen instead of mutating any state.
-
 struct FrictionPreviewView: View {
     @StateObject private var viewModel: FrictionPreviewViewModel
     @Environment(\.dismiss) private var dismiss
@@ -18,7 +11,18 @@ struct FrictionPreviewView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.sgBackground.ignoresSafeArea()
+                SGGradient.immersiveDark.ignoresSafeArea()
+
+                // Ambient top glow
+                Circle()
+                    .fill(RadialGradient(
+                        colors: [Color.sgTeal.opacity(0.12), Color.clear],
+                        center: .center, startRadius: 0, endRadius: 180
+                    ))
+                    .frame(width: 360, height: 360)
+                    .offset(x: 100, y: -180)
+                    .blur(radius: 30)
+                    .allowsHitTesting(false)
 
                 Group {
                     switch viewModel.currentStep {
@@ -31,7 +35,8 @@ struct FrictionPreviewView: View {
                         .onAppear { viewModel.startBreathing() }
 
                     case .mathChallenge:
-                        MathChallengeView(difficulty: 0, onSolved: { viewModel.advanceFromMathChallenge() })
+                        MathChallengeView(difficulty: 0,
+                                          onSolved: { viewModel.advanceFromMathChallenge() })
                             .transition(.opacity)
 
                     case .intention:
@@ -58,18 +63,15 @@ struct FrictionPreviewView: View {
                 }
                 .animation(.easeInOut(duration: 0.3), value: viewModel.currentStep)
 
-                // Preview mode pill — always visible
+                // PREVIEW pill — always visible at top
                 VStack {
                     Text("PREVIEW")
-                        .font(.caption2).fontWeight(.bold)
-                        .foregroundStyle(Color.sgTeal.opacity(0.9))
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 4)
-                        .background(Color.sgTeal.opacity(0.15))
-                        .overlay(
-                            Capsule()
-                                .stroke(Color.sgTeal.opacity(0.35), lineWidth: 1)
-                        )
+                        .font(.caption2.weight(.bold))
+                        .foregroundStyle(Color.sgTeal)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 5)
+                        .background(Color.sgTeal.opacity(0.14))
+                        .overlay(Capsule().stroke(Color.sgTeal.opacity(0.40), lineWidth: 1))
                         .clipShape(Capsule())
                         .padding(.top, 8)
                     Spacer()
@@ -78,11 +80,8 @@ struct FrictionPreviewView: View {
             .toolbar {
                 if viewModel.currentStep != .complete {
                     ToolbarItem(placement: .cancellationAction) {
-                        Button("Close") {
-                            viewModel.cancel()
-                            dismiss()
-                        }
-                        .foregroundStyle(.white.opacity(0.6))
+                        Button("Close") { viewModel.cancel(); dismiss() }
+                            .foregroundStyle(.white.opacity(0.55))
                     }
                 }
             }
@@ -103,24 +102,27 @@ private struct FrictionPreviewCompleteView: View {
         VStack(spacing: 24) {
             Spacer()
 
-            // Gremlin_Annoyed shows the "wall" users hit; plain Gremlin for no-friction
-            (isNone ? Image("Gremlin") : Image("Gremlin_Annoyed"))
-                .resizable()
-                .scaledToFit()
-                .frame(width: 120, height: 120)
-                .scaleEffect(appeared ? 1.0 : 0.6)
-                .opacity(appeared ? 1 : 0)
-                .animation(.spring(response: 0.55, dampingFraction: 0.6), value: appeared)
+            ZStack {
+                SGMascotGlow(size: 180)
+                (isNone ? Image("Gremlin") : Image("Gremlin_Annoyed"))
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 120, height: 120)
+                    .shadow(color: Color.sgTeal.opacity(0.28), radius: 16, y: 6)
+            }
+            .scaleEffect(appeared ? 1.0 : 0.60)
+            .opacity(appeared ? 1 : 0)
+            .animation(.spring(response: 0.55, dampingFraction: 0.58), value: appeared)
 
             VStack(spacing: 8) {
                 Text(isNone ? "No Friction" : "Preview Complete")
-                    .font(.title2).fontWeight(.semibold).foregroundStyle(.white)
+                    .font(.title2.weight(.semibold)).foregroundStyle(.white)
 
                 Text(isNone
-                     ? "No friction is configured. When the limit is hit the app unlocks immediately — no extra steps."
-                     : "That's exactly what users will see before unlocking with \"\(friction.displayName)\" friction.")
+                     ? "No friction is configured. Unlocks immediately — no extra steps."
+                     : "That's exactly what users will see with \"\(friction.displayName)\" friction.")
                     .font(.subheadline)
-                    .foregroundStyle(.white.opacity(0.6))
+                    .foregroundStyle(.white.opacity(0.60))
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 32)
             }
@@ -129,14 +131,12 @@ private struct FrictionPreviewCompleteView: View {
 
             Spacer()
 
-            Button(action: onDismiss) {
-                Text("Done")
-            }
-            .buttonStyle(SecondaryButtonStyle())
-            .padding(.horizontal, 24)
-            .padding(.bottom, 52)
-            .opacity(appeared ? 1 : 0)
-            .animation(.easeOut(duration: 0.4).delay(0.25), value: appeared)
+            Button(action: onDismiss) { Text("Done") }
+                .buttonStyle(SecondaryButtonStyle())
+                .padding(.horizontal, 24)
+                .padding(.bottom, 52)
+                .opacity(appeared ? 1 : 0)
+                .animation(.easeOut(duration: 0.4).delay(0.25), value: appeared)
         }
         .onAppear { appeared = true }
     }

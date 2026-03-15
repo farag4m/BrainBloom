@@ -5,9 +5,7 @@ struct OnboardingFlow: View {
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
     @State private var step: OnboardingStep = .welcome
 
-    enum OnboardingStep {
-        case welcome, permission, firstRule
-    }
+    enum OnboardingStep { case welcome, permission, firstRule }
 
     var body: some View {
         switch step {
@@ -35,29 +33,44 @@ struct OnboardingFirstRuleView: View {
 
     var body: some View {
         ZStack {
-            Color.sgBackground.ignoresSafeArea()
+            SGGradient.immersiveDark.ignoresSafeArea()
+
+            // Bottom glow
+            Circle()
+                .fill(RadialGradient(
+                    colors: [Color.sgTeal.opacity(0.12), Color.clear],
+                    center: .center, startRadius: 0, endRadius: 200
+                ))
+                .frame(width: 400, height: 400)
+                .offset(y: 250)
+                .blur(radius: 40)
+                .allowsHitTesting(false)
 
             VStack(spacing: 32) {
                 Spacer()
 
                 VStack(spacing: 20) {
-                    Image("Gremlin")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 140, height: 140)
-                        .scaleEffect(appeared ? 1.0 : 0.7)
-                        .opacity(appeared ? 1 : 0)
-                        .animation(.spring(response: 0.6, dampingFraction: 0.6), value: appeared)
+                    ZStack {
+                        SGMascotGlow(size: 180)
+                        Image("Gremlin")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 140, height: 140)
+                            .shadow(color: Color.sgTeal.opacity(0.28), radius: 18, y: 6)
+                    }
+                    .scaleEffect(appeared ? 1.0 : 0.65)
+                    .opacity(appeared ? 1 : 0)
+                    .animation(.spring(response: 0.60, dampingFraction: 0.58), value: appeared)
 
                     Text("Add Your First Rule")
-                        .font(.title2).fontWeight(.bold).foregroundStyle(.white)
+                        .font(.title2.weight(.bold)).foregroundStyle(.white)
                         .opacity(appeared ? 1 : 0)
-                        .offset(y: appeared ? 0 : 12)
+                        .offset(y: appeared ? 0 : 14)
                         .animation(.easeOut(duration: 0.4).delay(0.15), value: appeared)
 
                     Text("Pick the app you find most distracting and set a daily time limit.")
                         .font(.body)
-                        .foregroundStyle(.white.opacity(0.6))
+                        .foregroundStyle(.white.opacity(0.60))
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 24)
                         .opacity(appeared ? 1 : 0)
@@ -67,16 +80,12 @@ struct OnboardingFirstRuleView: View {
                 Spacer()
 
                 VStack(spacing: 12) {
-                    Button("Add an App to Block") {
-                        showRuleEditor = true
-                    }
-                    .buttonStyle(AccentButtonStyle())
+                    Button("Add an App to Block") { showRuleEditor = true }
+                        .buttonStyle(AccentButtonStyle())
 
-                    Button("Skip for now") {
-                        onComplete()
-                    }
-                    .font(.subheadline)
-                    .foregroundStyle(.white.opacity(0.4))
+                    Button("Skip for now") { onComplete() }
+                        .font(.subheadline)
+                        .foregroundStyle(.white.opacity(0.40))
                 }
                 .padding(.horizontal, 24)
                 .padding(.bottom, 52)

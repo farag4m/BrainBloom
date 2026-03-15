@@ -8,54 +8,58 @@ struct OnboardingPermissionView: View {
 
     var body: some View {
         ZStack {
-            Color.sgBackground.ignoresSafeArea()
+            SGGradient.immersiveDark.ignoresSafeArea()
+
+            // Ambient glow top-left
+            Circle()
+                .fill(RadialGradient(
+                    colors: [Color.sgTeal.opacity(0.14), Color.clear],
+                    center: .center, startRadius: 0, endRadius: 160
+                ))
+                .frame(width: 320, height: 320)
+                .offset(x: -140, y: -180)
+                .blur(radius: 30)
+                .allowsHitTesting(false)
 
             VStack(spacing: 0) {
                 Spacer()
 
                 VStack(spacing: 24) {
-                    // Mascot with teal halo
+                    // Mascot halo
                     ZStack {
+                        SGMascotGlow(size: 160)
                         Circle()
-                            .fill(Color.sgTeal.opacity(0.12))
-                            .frame(width: 140, height: 140)
-                        Circle()
-                            .stroke(Color.sgTeal.opacity(0.25), lineWidth: 1.5)
+                            .stroke(Color.sgTeal.opacity(0.22), lineWidth: 1)
                             .frame(width: 140, height: 140)
                         Image("Gremlin")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 110, height: 110)
+                            .shadow(color: Color.sgTeal.opacity(0.25), radius: 14, y: 5)
                     }
 
                     Text("Screen Time Access")
-                        .font(.title2).fontWeight(.bold).foregroundStyle(.white)
+                        .font(.title2.weight(.bold)).foregroundStyle(.white)
 
                     Text("ScrollGremlin needs Screen Time access to monitor app usage and apply blocks when your limits are reached.")
                         .font(.body)
-                        .foregroundStyle(.white.opacity(0.6))
+                        .foregroundStyle(.white.opacity(0.60))
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 8)
                 }
 
                 Spacer()
 
-                VStack(spacing: 12) {
-                    PermissionInfoRow(
-                        icon: "eye.slash",
-                        title: "Privacy first",
-                        detail: "App usage data never leaves your device"
-                    )
-                    PermissionInfoRow(
-                        icon: "shield.lefthalf.filled",
-                        title: "You're in control",
-                        detail: "No parental lock or PIN required"
-                    )
-                    PermissionInfoRow(
-                        icon: "arrow.counterclockwise",
-                        title: "Revokable anytime",
-                        detail: "Disable in Settings > Screen Time"
-                    )
+                VStack(spacing: 10) {
+                    PermissionInfoRow(icon: "eye.slash",
+                                     title: "Privacy first",
+                                     detail: "App usage data never leaves your device")
+                    PermissionInfoRow(icon: "shield.lefthalf.filled",
+                                     title: "You're in control",
+                                     detail: "No parental lock or PIN required")
+                    PermissionInfoRow(icon: "arrow.counterclockwise",
+                                     title: "Revokable anytime",
+                                     detail: "Disable in Settings > Screen Time")
                 }
                 .padding(.horizontal, 24)
                 .padding(.bottom, 32)
@@ -64,10 +68,9 @@ struct OnboardingPermissionView: View {
                     VStack(spacing: 12) {
                         Text("Screen Time access was denied. Please enable it in Settings.")
                             .font(.caption)
-                            .foregroundStyle(.red.opacity(0.8))
+                            .foregroundStyle(.red.opacity(0.85))
                             .multilineTextAlignment(.center)
                             .padding(.horizontal, 24)
-
                         Button("Open Settings") {
                             if let url = URL(string: UIApplication.openSettingsURLString) {
                                 UIApplication.shared.open(url)
@@ -93,9 +96,7 @@ struct OnboardingPermissionView: View {
             }
         }
         .onChange(of: authManager.status) { newStatus in
-            if newStatus == .authorized {
-                onAuthorized()
-            }
+            if newStatus == .authorized { onAuthorized() }
         }
     }
 
@@ -114,23 +115,27 @@ private struct PermissionInfoRow: View {
     let detail: String
 
     var body: some View {
-        HStack(spacing: 16) {
-            Image(systemName: icon)
-                .font(.title3)
-                .foregroundStyle(Color.sgTeal)
-                .frame(width: 32)
+        HStack(spacing: 14) {
+            ZStack {
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(Color.sgTeal.opacity(0.18))
+                    .frame(width: 40, height: 40)
+                Image(systemName: icon)
+                    .font(.callout)
+                    .foregroundStyle(Color.sgTeal)
+            }
             VStack(alignment: .leading, spacing: 2) {
-                Text(title).font(.subheadline).fontWeight(.medium).foregroundStyle(.white)
-                Text(detail).font(.caption).foregroundStyle(.white.opacity(0.5))
+                Text(title).font(.subheadline.weight(.semibold)).foregroundStyle(.white)
+                Text(detail).font(.caption).foregroundStyle(.white.opacity(0.50))
             }
             Spacer()
         }
-        .padding()
-        .background(Color.scrollGremlinSurface)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .padding(14)
+        .background(.ultraThinMaterial)
+        .clipShape(RoundedRectangle(cornerRadius: 14))
         .overlay(
-            RoundedRectangle(cornerRadius: 12)
-                .stroke(Color.sgTeal.opacity(0.2), lineWidth: 1)
+            RoundedRectangle(cornerRadius: 14)
+                .stroke(Color.sgTeal.opacity(0.18), lineWidth: 1)
         )
     }
 }
