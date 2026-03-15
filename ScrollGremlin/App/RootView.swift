@@ -34,17 +34,21 @@ struct MainTabView: View {
     var body: some View {
         TabView {
             TodayView(viewModel: viewModel)
-                .tabItem { Label("Today", systemImage: "shield") }
+                .tabItem { Label("Today", systemImage: "shield.fill") }
 
             AllRulesView(viewModel: viewModel)
                 .tabItem { Label("Rules", systemImage: "list.bullet") }
 
             HistoryView()
-                .tabItem { Label("History", systemImage: "chart.bar") }
+                .tabItem { Label("History", systemImage: "chart.bar.fill") }
 
             SettingsView()
-                .tabItem { Label("Settings", systemImage: "gearshape") }
+                .tabItem { Label("Settings", systemImage: "gearshape.fill") }
         }
+        // Frosted glass tab bar — selected tint matches brand
+        .tint(Color.sgTeal)
+        .toolbarBackground(.ultraThinMaterial, for: .tabBar)
+        .toolbarBackground(.visible, for: .tabBar)
         // Sheets live here so they work from either tab without duplication.
         .sheet(isPresented: $viewModel.showAddRule) {
             AddRuleView { rule in

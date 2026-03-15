@@ -11,11 +11,7 @@ struct AllRulesView: View {
                         .sgPageBackground()
                 } else {
                     ZStack(alignment: .top) {
-                        Color(UIColor.systemGroupedBackground).ignoresSafeArea()
-                        SGGradient.pageTint
-                            .frame(maxWidth: .infinity, maxHeight: 380)
-                            .ignoresSafeArea(edges: .top)
-                            .allowsHitTesting(false)
+                        SGAmbientBackground()
 
                         let groups = viewModel.allRulesDayGroups
                         ScrollView {

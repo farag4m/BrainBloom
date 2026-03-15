@@ -73,8 +73,15 @@ struct OnboardingWelcomeView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 18))
                 .overlay(
                     RoundedRectangle(cornerRadius: 18)
-                        .stroke(Color.sgTeal.opacity(0.18), lineWidth: 1)
+                        .stroke(
+                            LinearGradient(
+                                colors: [.white.opacity(0.30), .white.opacity(0.06)],
+                                startPoint: .top, endPoint: .bottom
+                            ),
+                            lineWidth: 1
+                        )
                 )
+                .shadow(color: .black.opacity(0.14), radius: 12, y: 4)
                 .padding(.horizontal, 24)
                 .padding(.bottom, 24)
                 .opacity(appeared ? 1 : 0)

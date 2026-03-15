@@ -1,33 +1,44 @@
 import SwiftUI
 import Combine
 
+// MARK: - Animated Rule Card
+//
+// Visual states:
+//   ACTIVE  — glass surface with teal border glow and shadow.
+//   LOCKED  — glass surface with muted blue border glow.
+//   DEFAULT — plain glass surface.
+//
+// Cards are NEVER filled with solid colour — the active state is communicated
+// through border glow and shadow only. Text is always .primary/.secondary.
+// ALL state changes animate via .animation(value: item.badge).
+
 struct RuleCardView: View {
     let item: RuleDisplayItem
     let onToggle: () -> Void
     let onUpdate: (AppRule) -> Void
     let onDelete: () -> Void
 
-    @State private var showDetail = false
+    @State private var showDetail  = false
     @State private var activeSession: UnlockSession? = nil
-    @State private var isPressed = false
+    @State private var isPressed   = false
 
     private var isActive: Bool { item.badge == .active }
     private var isLocked: Bool { item.badge == .locked }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            HStack(spacing: 10) {
-                // Accent strip on active cards
-                if isActive {
-                    Capsule()
-                        .fill(SGGradient.brand)
-                        .frame(width: 3)
-                        .padding(.vertical, 2)
-                }
+        VStack(alignment: .leading, spacing: 12) {
+            // ── Top row ──────────────────────────────────────────────────────
+            HStack(spacing: 12) {
+                // Accent strip — always in layout, opacity drives the animation
+                RoundedRectangle(cornerRadius: 2)
+                    .fill(AnyShapeStyle(SGGradient.brand))
+                    .frame(width: 3, height: 36)
+                    .opacity(isActive ? 1.0 : 0.0)
 
                 VStack(alignment: .leading, spacing: 3) {
                     Text(item.rule.name)
                         .font(.headline)
+                        .foregroundStyle(.primary)
                     Text(item.rule.policy.displayLabel)
                         .font(.caption)
                         .foregroundStyle(.secondary)
@@ -45,11 +56,19 @@ struct RuleCardView: View {
                 .tint(Color.sgTeal)
             }
 
-            remainingRow
+            // ── Status row (fades between states) ────────────────────────────
+            Group { statusRow }
+                .id(item.badge)
+                .transition(.opacity.animation(.easeInOut(duration: 0.22)))
         }
-        .padding(16)
+        .padding(18)
         .sgCard(active: isActive, locked: isLocked)
         .scaleEffect(isPressed ? 0.97 : 1.0)
+        // Master spring — drives ALL visual changes on badge switch:
+        // card gradient, shimmer, shadows, text colours, badge, accent strip
+        .animation(.spring(response: 0.44, dampingFraction: 0.80), value: item.badge)
+        .animation(.spring(response: 0.44, dampingFraction: 0.80), value: isActive)
+        .animation(.spring(response: 0.44, dampingFraction: 0.80), value: isLocked)
         .animation(.spring(response: 0.25, dampingFraction: 0.65), value: isPressed)
         .contextMenu {
             Button(role: .destructive, action: onDelete) {
@@ -72,49 +91,52 @@ struct RuleCardView: View {
         }
     }
 
+    // MARK: Status row
+
     @ViewBuilder
-    private var remainingRow: some View {
+    private var statusRow: some View {
         switch item.badge {
         case .disabled:
             EmptyView()
         case .offToday:
-            timeRow(icon: "moon.zzz", text: "Not active today")
+            infoRow(icon: "moon.zzz", text: "Not active today")
         case .locked:
-            HStack(spacing: 6) {
+            HStack(spacing: 8) {
                 Image("Gremlin_Annoyed")
-                    .resizable()
-                    .scaledToFit()
+                    .resizable().scaledToFit()
                     .frame(width: 18, height: 18)
                 Text("Blocked — limit reached")
                     .font(.caption.weight(.medium))
-                    .foregroundStyle(Color.sgTeal)
+                    .foregroundStyle(Color(red: 0.30, green: 0.52, blue: 0.82))
             }
         case .active:
             if let session = activeSession {
                 if let expiresAt = session.expiresAt {
                     TimelineView(.periodic(from: .now, by: 1)) { _ in
                         let secs = max(0, Int(expiresAt.timeIntervalSinceNow))
-                        timeRow(icon: "clock", text: "\(formatHHMMSS(secs)) remaining")
+                        infoRow(icon: "clock", text: "\(formatHHMMSS(secs)) remaining")
                     }
                 } else {
-                    timeRow(icon: "clock", text: "Unlocked for today")
+                    infoRow(icon: "clock", text: "Unlocked for today")
                 }
             } else {
-                timeRow(icon: "clock", text: "\(formatHHMMSS(item.rule.policy.allowedMinutes * 60)) remaining")
+                infoRow(icon: "clock", text: "\(formatHHMMSS(item.rule.policy.allowedMinutes * 60)) remaining")
             }
         }
     }
 
-    private func timeRow(icon: String, text: String) -> some View {
+    private func infoRow(icon: String, text: String) -> some View {
         HStack(spacing: 6) {
             Image(systemName: icon)
                 .font(.caption2)
-                .foregroundStyle(Color.sgTeal.opacity(0.7))
+                .foregroundStyle(Color.sgTeal.opacity(0.75))
             Text(text)
                 .font(.caption)
                 .foregroundStyle(.secondary)
         }
     }
+
+    // MARK: Helpers
 
     private func refreshSession() {
         activeSession = AppGroupStore.shared.loadUnlockSessions()
@@ -128,10 +150,7 @@ struct RuleCardView: View {
     }
 
     private func formatHHMMSS(_ seconds: Int) -> String {
-        let h = seconds / 3600
-        let m = (seconds % 3600) / 60
-        let s = seconds % 60
-        return String(format: "%02d:%02d:%02d", h, m, s)
+        String(format: "%02d:%02d:%02d", seconds / 3600, (seconds % 3600) / 60, seconds % 60)
     }
 }
 
@@ -146,10 +165,10 @@ struct RuleDetailView: View {
     @State private var unlockSessions: [UnlockSession] = []
     @State private var liveStatus: RuleStatusBadge
 
-    init(rule: AppRule, status: RuleStatusBadge, onUpdate: @escaping (AppRule) -> Void, onDelete: @escaping () -> Void) {
-        self.rule = rule
-        self.onUpdate = onUpdate
-        self.onDelete = onDelete
+    init(rule: AppRule, status: RuleStatusBadge,
+         onUpdate: @escaping (AppRule) -> Void,
+         onDelete: @escaping () -> Void) {
+        self.rule = rule; self.onUpdate = onUpdate; self.onDelete = onDelete
         self._liveStatus = State(initialValue: status)
     }
 
@@ -163,21 +182,17 @@ struct RuleDetailView: View {
     var body: some View {
         NavigationStack {
             List {
-                // Gremlin_Annoyed banner when blocked
                 if liveStatus == .locked {
                     Section {
                         HStack(spacing: 14) {
                             Image("Gremlin_Annoyed")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 48, height: 48)
+                                .resizable().scaledToFit().frame(width: 48, height: 48)
                             VStack(alignment: .leading, spacing: 3) {
                                 Text("Limit reached")
                                     .font(.subheadline.weight(.semibold))
                                     .foregroundStyle(Color.sgTeal)
                                 Text("Your allowance is used up for this window.")
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
+                                    .font(.caption).foregroundStyle(.secondary)
                             }
                         }
                         .padding(.vertical, 4)
@@ -187,63 +202,44 @@ struct RuleDetailView: View {
 
                 Section("Rule Info") {
                     LabeledContent("Allowance") {
-                        Text(rule.policy.displayLabel)
-                            .foregroundStyle(.secondary)
+                        Text(rule.policy.displayLabel).foregroundStyle(.secondary)
                     }
-                    LabeledContent("Status") {
-                        StatusBadgeView(badge: liveStatus)
-                    }
+                    LabeledContent("Status") { StatusBadgeView(badge: liveStatus) }
                 }
 
                 if !unlockSessions.isEmpty {
                     Section("Today's Unlocks") {
-                        ForEach(unlockSessions) { session in
-                            UnlockSessionRow(session: session)
-                        }
+                        ForEach(unlockSessions) { UnlockSessionRow(session: $0) }
                     }
                 }
 
                 Section {
                     Button("Edit Rule") { showEdit = true }
-                    Button("Delete Rule", role: .destructive) {
-                        onDelete()
-                        dismiss()
-                    }
+                    Button("Delete Rule", role: .destructive) { onDelete(); dismiss() }
                 }
             }
             .navigationTitle(rule.name)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Done") { dismiss() }
-                }
+                ToolbarItem(placement: .cancellationAction) { Button("Done") { dismiss() } }
             }
         }
         .sheet(isPresented: $showEdit) {
-            RuleEditorView(rule: rule, onDelete: {
-                onDelete()
-                dismiss()
-            }, onSave: { updatedRule in
-                onUpdate(updatedRule)
-                dismiss()
+            RuleEditorView(rule: rule, onDelete: { onDelete(); dismiss() }, onSave: { updatedRule in
+                onUpdate(updatedRule); dismiss()
             })
         }
         .onAppear {
             liveStatus = computeStatus()
             unlockSessions = AppGroupStore.shared.loadUnlockSessions()
-                .filter {
-                    $0.ruleID == rule.id &&
-                    Calendar.current.isDateInToday($0.startedAt)
-                }
+                .filter { $0.ruleID == rule.id && Calendar.current.isDateInToday($0.startedAt) }
                 .sorted { $0.startedAt > $1.startedAt }
         }
         .onReceive(
             NotificationCenter.default
                 .publisher(for: UserDefaults.didChangeNotification)
                 .debounce(for: .milliseconds(200), scheduler: RunLoop.main)
-        ) { _ in
-            liveStatus = computeStatus()
-        }
+        ) { _ in liveStatus = computeStatus() }
     }
 }
 
@@ -251,21 +247,15 @@ struct RuleDetailView: View {
 
 struct UnlockSessionRow: View {
     let session: UnlockSession
-
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack {
-                Text(session.startedAt, style: .time)
-                    .font(.subheadline.weight(.medium))
+                Text(session.startedAt, style: .time).font(.subheadline.weight(.medium))
                 Spacer()
-                Text(session.unlockType.displayLabel)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                Text(session.unlockType.displayLabel).font(.caption).foregroundStyle(.secondary)
             }
             if let intention = session.intention, !intention.isEmpty {
-                Text(intention)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                Text(intention).font(.caption).foregroundStyle(.secondary)
             }
         }
     }

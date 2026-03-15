@@ -6,11 +6,7 @@ struct HistoryView: View {
     var body: some View {
         NavigationStack {
             ZStack(alignment: .top) {
-                Color(UIColor.systemGroupedBackground).ignoresSafeArea()
-                SGGradient.pageTint
-                    .frame(maxWidth: .infinity, maxHeight: 380)
-                    .ignoresSafeArea(edges: .top)
-                    .allowsHitTesting(false)
+                SGAmbientBackground()
 
                 List {
                     if viewModel.sessions.isEmpty {
