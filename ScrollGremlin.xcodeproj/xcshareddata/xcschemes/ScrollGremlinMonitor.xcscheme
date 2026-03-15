@@ -15,10 +15,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3EF04529085F4775AFE4BF26"
-               BuildableName = "ScrollGremlinReport.appex"
-               BlueprintName = "ScrollGremlinReport"
-               ReferencedContainer = "container:IntentBlock.xcodeproj">
+               BlueprintIdentifier = "F22DCA15D8AF4838BA098532"
+               BuildableName = "ScrollGremlinMonitor.appex"
+               BlueprintName = "ScrollGremlinMonitor"
+               ReferencedContainer = "container:ScrollGremlin.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -32,7 +32,7 @@
                BlueprintIdentifier = "212A970E2F64A64700AE5F16"
                BuildableName = "ScrollGremlin.app"
                BlueprintName = "ScrollGremlin"
-               ReferencedContainer = "container:IntentBlock.xcodeproj">
+               ReferencedContainer = "container:ScrollGremlin.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -63,7 +63,7 @@
             BlueprintIdentifier = "212A970E2F64A64700AE5F16"
             BuildableName = "ScrollGremlin.app"
             BlueprintName = "ScrollGremlin"
-            ReferencedContainer = "container:IntentBlock.xcodeproj">
+            ReferencedContainer = "container:ScrollGremlin.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -82,7 +82,7 @@
             BlueprintIdentifier = "212A970E2F64A64700AE5F16"
             BuildableName = "ScrollGremlin.app"
             BlueprintName = "ScrollGremlin"
-            ReferencedContainer = "container:IntentBlock.xcodeproj">
+            ReferencedContainer = "container:ScrollGremlin.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

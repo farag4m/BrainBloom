@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "2630"
-   version = "1.7">
+   version = "2.0">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES"
@@ -15,10 +15,24 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "3EF04529085F4775AFE4BF26"
+               BuildableName = "ScrollGremlinReport.appex"
+               BlueprintName = "ScrollGremlinReport"
+               ReferencedContainer = "container:ScrollGremlin.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "212A970E2F64A64700AE5F16"
                BuildableName = "ScrollGremlin.app"
                BlueprintName = "ScrollGremlin"
-               ReferencedContainer = "container:IntentBlock.xcodeproj">
+               ReferencedContainer = "container:ScrollGremlin.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,14 +46,16 @@
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
-      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
-      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      selectedDebuggerIdentifier = ""
+      selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
       launchStyle = "0"
+      askForAppToLaunch = "Yes"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
-      allowLocationSimulation = "YES">
+      allowLocationSimulation = "YES"
+      launchAutomaticallySubstyle = "2">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
@@ -47,7 +63,7 @@
             BlueprintIdentifier = "212A970E2F64A64700AE5F16"
             BuildableName = "ScrollGremlin.app"
             BlueprintName = "ScrollGremlin"
-            ReferencedContainer = "container:IntentBlock.xcodeproj">
+            ReferencedContainer = "container:ScrollGremlin.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -56,7 +72,9 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
-      debugDocumentVersioning = "YES">
+      debugDocumentVersioning = "YES"
+      askForAppToLaunch = "Yes"
+      launchAutomaticallySubstyle = "2">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
@@ -64,7 +82,7 @@
             BlueprintIdentifier = "212A970E2F64A64700AE5F16"
             BuildableName = "ScrollGremlin.app"
             BlueprintName = "ScrollGremlin"
-            ReferencedContainer = "container:IntentBlock.xcodeproj">
+            ReferencedContainer = "container:ScrollGremlin.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

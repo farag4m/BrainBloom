@@ -357,7 +357,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 212A970A2F64A64700AE5F16 /* Build configuration list for PBXProject "IntentBlock" */;
+			buildConfigurationList = 212A970A2F64A64700AE5F16 /* Build configuration list for PBXProject "ScrollGremlin" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -872,7 +872,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		212A970A2F64A64700AE5F16 /* Build configuration list for PBXProject "IntentBlock" */ = {
+		212A970A2F64A64700AE5F16 /* Build configuration list for PBXProject "ScrollGremlin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				212A97182F64A64800AE5F16 /* Debug */,
