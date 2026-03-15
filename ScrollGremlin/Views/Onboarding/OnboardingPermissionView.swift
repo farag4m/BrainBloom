@@ -8,12 +8,12 @@ struct OnboardingPermissionView: View {
 
     var body: some View {
         ZStack {
-            SGGradient.immersiveDark.ignoresSafeArea()
+            GradientBackground().ignoresSafeArea()
 
-            // Ambient glow top-left
+            // Ambient violet glow — top-left
             Circle()
                 .fill(RadialGradient(
-                    colors: [Color.sgTeal.opacity(0.14), Color.clear],
+                    colors: [Color(red: 0.55, green: 0.40, blue: 0.92).opacity(0.18), Color.clear],
                     center: .center, startRadius: 0, endRadius: 160
                 ))
                 .frame(width: 320, height: 320)
@@ -39,11 +39,11 @@ struct OnboardingPermissionView: View {
                     }
 
                     Text("Screen Time Access")
-                        .font(.title2.weight(.bold)).foregroundStyle(.white)
+                        .font(.title2.weight(.bold)).foregroundStyle(.primary)
 
                     Text("ScrollGremlin needs Screen Time access to monitor app usage and apply blocks when your limits are reached.")
                         .font(.body)
-                        .foregroundStyle(.white.opacity(0.60))
+                        .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 8)
                 }
@@ -84,7 +84,7 @@ struct OnboardingPermissionView: View {
 
                 Button(action: requestAccess) {
                     if isRequesting {
-                        ProgressView().tint(Color.sgBackground)
+                        ProgressView().tint(.white)
                     } else {
                         Text("Allow Access")
                     }
@@ -125,17 +125,12 @@ private struct PermissionInfoRow: View {
                     .foregroundStyle(Color.sgTeal)
             }
             VStack(alignment: .leading, spacing: 2) {
-                Text(title).font(.subheadline.weight(.semibold)).foregroundStyle(.white)
-                Text(detail).font(.caption).foregroundStyle(.white.opacity(0.50))
+                Text(title).font(.subheadline.weight(.semibold)).foregroundStyle(.primary)
+                Text(detail).font(.caption).foregroundStyle(.secondary)
             }
             Spacer()
         }
         .padding(14)
-        .background(.ultraThinMaterial)
-        .clipShape(RoundedRectangle(cornerRadius: 14))
-        .overlay(
-            RoundedRectangle(cornerRadius: 14)
-                .stroke(Color.sgTeal.opacity(0.18), lineWidth: 1)
-        )
+        .sgCard(cornerRadius: 14)
     }
 }

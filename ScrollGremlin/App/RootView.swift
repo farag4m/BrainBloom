@@ -32,27 +32,33 @@ struct MainTabView: View {
     @StateObject private var viewModel = DashboardViewModel()
 
     var body: some View {
-        TabView {
-            TodayView(viewModel: viewModel)
-                .tabItem { Label("Today", systemImage: "shield.fill") }
+        ZStack {
+            // Full-screen gradient sits behind the TabView so it shows through
+            // the tab bar's ultraThinMaterial and any transparent tab content.
+            GradientBackground().ignoresSafeArea()
 
-            AllRulesView(viewModel: viewModel)
-                .tabItem { Label("Rules", systemImage: "list.bullet") }
+            TabView {
+                TodayView(viewModel: viewModel)
+                    .tabItem { Label("Today", systemImage: "shield.fill") }
 
-            HistoryView()
-                .tabItem { Label("History", systemImage: "chart.bar.fill") }
+                AllRulesView(viewModel: viewModel)
+                    .tabItem { Label("Rules", systemImage: "list.bullet") }
 
-            SettingsView()
-                .tabItem { Label("Settings", systemImage: "gearshape.fill") }
-        }
-        // Tab bar — frosted glass surface matching the design system
-        .tint(Color.sgTeal)
-        .toolbarBackground(.ultraThinMaterial, for: .tabBar)
-        .toolbarBackground(.visible, for: .tabBar)
-        // Sheets live here so they work from either tab without duplication.
-        .sheet(isPresented: $viewModel.showAddRule) {
-            AddRuleView { rule in
-                viewModel.addRule(rule)
+                HistoryView()
+                    .tabItem { Label("History", systemImage: "chart.bar.fill") }
+
+                SettingsView()
+                    .tabItem { Label("Settings", systemImage: "gearshape.fill") }
+            }
+            // Soft lavender-periwinkle tint — matches the card shimmer palette, not neon
+            .tint(Color(red: 0.62, green: 0.58, blue: 0.98))
+            .toolbarBackground(.ultraThinMaterial, for: .tabBar)
+            .toolbarBackground(.visible, for: .tabBar)
+            // Sheets live here so they work from either tab without duplication.
+            .sheet(isPresented: $viewModel.showAddRule) {
+                AddRuleView { rule in
+                    viewModel.addRule(rule)
+                }
             }
         }
     }

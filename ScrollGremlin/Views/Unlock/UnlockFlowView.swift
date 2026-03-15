@@ -11,12 +11,12 @@ struct UnlockFlowView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                SGGradient.immersiveDark.ignoresSafeArea()
+                GradientBackground().ignoresSafeArea()
 
-                // Ambient glow that shifts per step
+                // Ambient violet glow — top
                 Circle()
                     .fill(RadialGradient(
-                        colors: [Color.sgTeal.opacity(0.14), Color.clear],
+                        colors: [Color(red: 0.55, green: 0.40, blue: 0.92).opacity(0.20), Color.clear],
                         center: .center, startRadius: 0, endRadius: 200
                     ))
                     .frame(width: 400, height: 400)

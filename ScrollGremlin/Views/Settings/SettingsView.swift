@@ -7,7 +7,9 @@ struct SettingsView: View {
     @State private var showResetAlert = false
 
     var body: some View {
-        NavigationStack {
+        ZStack {
+            GradientBackground().ignoresSafeArea()
+            NavigationStack {
             Form {
                 Section {
                     Picker("Default Friction", selection: $settings.defaultFriction) {
@@ -76,8 +78,14 @@ struct SettingsView: View {
                     }
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background(.clear)
             .navigationTitle("Settings")
+            .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
         }
+        .background(.clear)
+        } // ZStack
         .onChange(of: settings) { newSettings in
             AppGroupStore.shared.saveSettings(newSettings)
         }

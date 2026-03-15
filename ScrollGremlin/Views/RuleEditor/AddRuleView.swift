@@ -37,6 +37,9 @@ struct AddRuleView: View {
                 }
             }
         }
+        .background(.clear)
+        .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
+        .toolbarBackground(.visible, for: .navigationBar)
         .sheet(isPresented: $showWorkEditor) {
             RuleEditorView(templateSchedule: .workDays) { rule in
                 onSave(rule)
@@ -118,15 +121,14 @@ private struct PresetsScreen: View {
                                 .foregroundStyle(.tertiary)
                         }
                         .padding()
-                        .background(Color(UIColor.secondarySystemGroupedBackground))
-                        .clipShape(RoundedRectangle(cornerRadius: 14))
+                        .sgCard(cornerRadius: 14)
                     }
                     .buttonStyle(.plain)
                 }
             }
             .padding(16)
         }
-        .background(Color(UIColor.systemGroupedBackground).ignoresSafeArea())
+        .background(.clear)
         .navigationTitle("New Rule")
     }
 }
@@ -155,8 +157,7 @@ private struct PresetCard: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding()
             .frame(minHeight: 100)
-            .background(Color(UIColor.secondarySystemGroupedBackground))
-            .clipShape(RoundedRectangle(cornerRadius: 14))
+            .sgCard(cornerRadius: 14)
         }
         .buttonStyle(.plain)
     }
@@ -185,8 +186,7 @@ private struct WorkPresetCard: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding()
             .frame(minHeight: 100)
-            .background(Color(UIColor.secondarySystemGroupedBackground))
-            .clipShape(RoundedRectangle(cornerRadius: 14))
+            .sgCard(cornerRadius: 14)
         }
         .buttonStyle(.plain)
     }
@@ -253,6 +253,9 @@ private struct CustomBuilderScreen: View {
                 }
             }
         }
+        .scrollContentBackground(.hidden)
+        .background(.clear)
+        .listStyle(.plain)
         .navigationTitle("Custom Rule")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -337,7 +340,7 @@ private struct RuleSetupScreen: View {
 
             Section("Rule Name") {
                 TextField("e.g. Social Media", text: $ruleName)
-            }
+                }
 
             Section("Apps to Block") {
                 Button {
@@ -356,7 +359,7 @@ private struct RuleSetupScreen: View {
 
             Section("Active Days") {
                 ActiveDaysPicker(activeDays: $activeDays)
-            }
+                }
 
             Section("Blocking Duration") {
                 Picker("Duration", selection: $unlockDurationKey) {
@@ -385,6 +388,9 @@ private struct RuleSetupScreen: View {
                 }
             }
         }
+        .scrollContentBackground(.hidden)
+        .background(.clear)
+        .listStyle(.plain)
         .navigationTitle("Rule Details")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {

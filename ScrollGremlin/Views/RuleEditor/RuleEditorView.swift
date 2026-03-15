@@ -125,6 +125,9 @@ struct RuleEditorView: View {
                     }
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background(.clear)
+            .listStyle(.plain)
             .navigationTitle(viewModel.isEditing ? "Edit Rule" : "New Rule")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -152,6 +155,9 @@ struct RuleEditorView: View {
                 }
                 Button("Cancel", role: .cancel) {}
             }
+            .background(.clear)
+            .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
         }
         .fullScreenCover(isPresented: $showFrictionPreview) {
             FrictionPreviewView(friction: resolvedPreviewFriction)

@@ -186,10 +186,10 @@ enum RuleStatusBadge {
 
     var color: Color {
         switch self {
-        case .active:   return .green
-        case .locked:   return .red
+        case .active:   return Color(red: 0.55, green: 0.62, blue: 0.98)  // soft periwinkle
+        case .locked:   return Color(red: 0.85, green: 0.45, blue: 0.55)  // muted rose
         case .disabled: return .secondary
-        case .offToday: return .orange
+        case .offToday: return Color(red: 0.90, green: 0.68, blue: 0.42)  // warm amber
         }
     }
 }

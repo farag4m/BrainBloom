@@ -6,13 +6,12 @@ struct OnboardingWelcomeView: View {
 
     var body: some View {
         ZStack {
-            // Rich multi-stop gradient background
-            SGGradient.immersiveDark.ignoresSafeArea()
+            GradientBackground().ignoresSafeArea()
 
-            // Ambient top-right teal glow
+            // Ambient lavender glow — top-right
             Circle()
                 .fill(RadialGradient(
-                    colors: [Color.sgTeal.opacity(0.18), Color.clear],
+                    colors: [Color(red: 0.62, green: 0.50, blue: 0.98).opacity(0.22), Color.clear],
                     center: .center, startRadius: 0, endRadius: 180
                 ))
                 .frame(width: 360, height: 360)
@@ -30,7 +29,7 @@ struct OnboardingWelcomeView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 180, height: 180)
-                        .shadow(color: Color.sgTeal.opacity(0.30), radius: 20, y: 8)
+                        .shadow(color: Color(red: 0.62, green: 0.55, blue: 0.98).opacity(0.30), radius: 20, y: 8)
                 }
                 .scaleEffect(appeared ? 1.0 : 0.55)
                 .opacity(appeared ? 1 : 0)
@@ -41,10 +40,11 @@ struct OnboardingWelcomeView: View {
                 VStack(spacing: 10) {
                     Text("Meet Your")
                         .font(.largeTitle.weight(.bold))
-                        .foregroundStyle(.white)
+                        .foregroundStyle(Color.white.opacity(0.78))
                     Text("ScrollGremlin")
                         .font(.largeTitle.weight(.bold))
-                        .foregroundStyle(Color.sgTeal)
+                        .foregroundStyle(Color.white)
+                        .shadow(color: Color.white.opacity(0.25), radius: 8, y: 2)
                 }
                 .opacity(appeared ? 1 : 0)
                 .offset(y: appeared ? 0 : 20)
@@ -53,7 +53,7 @@ struct OnboardingWelcomeView: View {
                 // Body
                 Text("Set daily limits for your most distracting apps.\nWhen time's up, ScrollGremlin helps you pause and decide — instead of endlessly scrolling.")
                     .font(.body)
-                    .foregroundStyle(.white.opacity(0.60))
+                    .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 28)
                     .padding(.top, 14)
@@ -62,26 +62,14 @@ struct OnboardingWelcomeView: View {
 
                 Spacer()
 
-                // Feature rows on frosted card
+                // Feature rows on glass card
                 VStack(spacing: 12) {
                     FeatureRow(icon: "timer",          text: "Set daily time budgets per app")
                     FeatureRow(icon: "lungs.fill",     text: "Mindful unlock flow with breathing")
                     FeatureRow(icon: "chart.bar.fill", text: "Track your habits over time")
                 }
                 .padding(18)
-                .background(.ultraThinMaterial)
-                .clipShape(RoundedRectangle(cornerRadius: 18))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 18)
-                        .stroke(
-                            LinearGradient(
-                                colors: [.white.opacity(0.30), .white.opacity(0.06)],
-                                startPoint: .top, endPoint: .bottom
-                            ),
-                            lineWidth: 1
-                        )
-                )
-                .shadow(color: .black.opacity(0.14), radius: 12, y: 4)
+                .sgCard(cornerRadius: 18)
                 .padding(.horizontal, 24)
                 .padding(.bottom, 24)
                 .opacity(appeared ? 1 : 0)
@@ -91,7 +79,7 @@ struct OnboardingWelcomeView: View {
                 Button(action: onGetStarted) {
                     Text("Get Started")
                 }
-                .buttonStyle(AccentButtonStyle())
+                .buttonStyle(PrimaryButtonStyle())
                 .padding(.horizontal, 24)
                 .padding(.bottom, 52)
                 .opacity(appeared ? 1 : 0)
@@ -118,7 +106,7 @@ private struct FeatureRow: View {
             }
             Text(text)
                 .font(.subheadline)
-                .foregroundStyle(.white.opacity(0.80))
+                .foregroundStyle(.primary)
             Spacer()
         }
     }

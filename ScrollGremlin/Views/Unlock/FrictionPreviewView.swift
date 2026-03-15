@@ -11,12 +11,12 @@ struct FrictionPreviewView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                SGGradient.immersiveDark.ignoresSafeArea()
+                GradientBackground().ignoresSafeArea()
 
-                // Ambient top glow
+                // Ambient lavender glow — top
                 Circle()
                     .fill(RadialGradient(
-                        colors: [Color.sgTeal.opacity(0.12), Color.clear],
+                        colors: [Color(red: 0.62, green: 0.50, blue: 0.98).opacity(0.18), Color.clear],
                         center: .center, startRadius: 0, endRadius: 180
                     ))
                     .frame(width: 360, height: 360)

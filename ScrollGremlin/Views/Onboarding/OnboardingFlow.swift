@@ -27,18 +27,19 @@ struct OnboardingFlow: View {
 }
 
 struct OnboardingFirstRuleView: View {
+    @EnvironmentObject var ruleManager: RuleManager
     let onComplete: () -> Void
     @State private var showRuleEditor = false
     @State private var appeared = false
 
     var body: some View {
         ZStack {
-            SGGradient.immersiveDark.ignoresSafeArea()
+            GradientBackground().ignoresSafeArea()
 
-            // Bottom glow
+            // Soft pink-lavender bloom — bottom
             Circle()
                 .fill(RadialGradient(
-                    colors: [Color.sgTeal.opacity(0.12), Color.clear],
+                    colors: [Color(red: 0.72, green: 0.50, blue: 0.98).opacity(0.18), Color.clear],
                     center: .center, startRadius: 0, endRadius: 200
                 ))
                 .frame(width: 400, height: 400)
@@ -63,14 +64,14 @@ struct OnboardingFirstRuleView: View {
                     .animation(.spring(response: 0.60, dampingFraction: 0.58), value: appeared)
 
                     Text("Add Your First Rule")
-                        .font(.title2.weight(.bold)).foregroundStyle(.white)
+                        .font(.title2.weight(.bold)).foregroundStyle(.primary)
                         .opacity(appeared ? 1 : 0)
                         .offset(y: appeared ? 0 : 14)
                         .animation(.easeOut(duration: 0.4).delay(0.15), value: appeared)
 
                     Text("Pick the app you find most distracting and set a daily time limit.")
                         .font(.body)
-                        .foregroundStyle(.white.opacity(0.60))
+                        .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 24)
                         .opacity(appeared ? 1 : 0)
@@ -81,11 +82,11 @@ struct OnboardingFirstRuleView: View {
 
                 VStack(spacing: 12) {
                     Button("Add an App to Block") { showRuleEditor = true }
-                        .buttonStyle(AccentButtonStyle())
+                        .buttonStyle(PrimaryButtonStyle())
 
                     Button("Skip for now") { onComplete() }
                         .font(.subheadline)
-                        .foregroundStyle(.white.opacity(0.40))
+                        .foregroundStyle(.secondary)
                 }
                 .padding(.horizontal, 24)
                 .padding(.bottom, 52)
@@ -95,7 +96,12 @@ struct OnboardingFirstRuleView: View {
         }
         .onAppear { appeared = true }
         .sheet(isPresented: $showRuleEditor) {
-            RuleEditorView(rule: nil) { _ in
+            RuleEditorView(rule: nil) { rule in
+                do {
+                    try ruleManager.addRule(rule)
+                } catch {
+                    // If monitoring fails, the rule still persists; allow onboarding to continue.
+                }
                 showRuleEditor = false
                 onComplete()
             }
