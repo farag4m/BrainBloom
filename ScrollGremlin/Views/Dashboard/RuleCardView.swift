@@ -11,9 +11,17 @@ struct RuleCardView: View {
     @State private var activeSession: UnlockSession? = nil
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(spacing: 10) {
+                // Left accent strip for active rules
+                if item.badge == .active {
+                    RoundedRectangle(cornerRadius: 2)
+                        .fill(Color.sgTeal)
+                        .frame(width: 3)
+                        .padding(.vertical, 2)
+                }
+
+                VStack(alignment: .leading, spacing: 3) {
                     Text(item.rule.name)
                         .font(.headline)
                     Text(item.rule.policy.displayLabel)
@@ -30,6 +38,7 @@ struct RuleCardView: View {
                     set: { _ in onToggle() }
                 ))
                 .labelsHidden()
+                .tint(Color.sgTeal)
             }
 
             remainingRow
@@ -37,6 +46,15 @@ struct RuleCardView: View {
         .padding()
         .background(Color(UIColor.secondarySystemGroupedBackground))
         .clipShape(RoundedRectangle(cornerRadius: 16))
+        .shadow(color: item.badge == .active ? Color.sgTeal.opacity(0.08) : .clear, radius: 8, y: 2)
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(
+                    item.badge == .locked ? Color.sgTeal.opacity(0.25) : Color.clear,
+                    lineWidth: 1
+                )
+        )
+        .interactivePress()
         .contextMenu {
             Button(role: .destructive, action: onDelete) {
                 Label("Delete Rule", systemImage: "trash")
@@ -60,9 +78,18 @@ struct RuleCardView: View {
         case .disabled:
             EmptyView()
         case .offToday:
-            timeRow(icon: "clock", text: "Not active today")
+            timeRow(icon: "moon.zzz", text: "Not active today")
         case .locked:
-            timeRow(icon: "lock.fill", text: "00:00:00 remaining")
+            HStack(spacing: 6) {
+                Image("Gremlin_Annoyed")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 18, height: 18)
+                Text("Blocked — limit reached")
+                    .font(.caption)
+                    .foregroundStyle(Color.sgTeal)
+                    .fontWeight(.medium)
+            }
         case .active:
             if let session = activeSession {
                 if let expiresAt = session.expiresAt {
@@ -80,10 +107,10 @@ struct RuleCardView: View {
     }
 
     private func timeRow(icon: String, text: String) -> some View {
-        HStack(spacing: 8) {
+        HStack(spacing: 6) {
             Image(systemName: icon)
                 .font(.caption2)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(Color.sgTeal.opacity(0.7))
             Text(text)
                 .font(.caption)
                 .foregroundStyle(.secondary)
@@ -137,6 +164,28 @@ struct RuleDetailView: View {
     var body: some View {
         NavigationStack {
             List {
+                // Annoyed gremlin when blocked
+                if liveStatus == .locked {
+                    Section {
+                        HStack(spacing: 14) {
+                            Image("Gremlin_Annoyed")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 48, height: 48)
+                            VStack(alignment: .leading, spacing: 3) {
+                                Text("Limit reached")
+                                    .font(.subheadline).fontWeight(.semibold)
+                                    .foregroundStyle(Color.sgTeal)
+                                Text("Your allowance is used up for this window.")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                        .padding(.vertical, 4)
+                    }
+                    .listRowBackground(Color.sgTeal.opacity(0.06))
+                }
+
                 Section("Rule Info") {
                     LabeledContent("Allowance") {
                         Text(rule.policy.displayLabel)

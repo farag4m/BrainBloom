@@ -4,7 +4,6 @@ struct OnboardingFlow: View {
     @EnvironmentObject var authManager: AuthorizationManager
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
     @State private var step: OnboardingStep = .welcome
-    @State private var showFirstRule = false
 
     enum OnboardingStep {
         case welcome, permission, firstRule
@@ -32,28 +31,37 @@ struct OnboardingFlow: View {
 struct OnboardingFirstRuleView: View {
     let onComplete: () -> Void
     @State private var showRuleEditor = false
-    @State private var ruleCreated = false
+    @State private var appeared = false
 
     var body: some View {
         ZStack {
-            Color.scrollGremlinBackground.ignoresSafeArea()
+            Color.sgBackground.ignoresSafeArea()
 
             VStack(spacing: 32) {
                 Spacer()
 
-                VStack(spacing: 16) {
-                    Image(systemName: "plus.circle.fill")
-                        .font(.system(size: 64))
-                        .foregroundStyle(Color.scrollGremlinPrimary)
+                VStack(spacing: 20) {
+                    Image("Gremlin")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 140, height: 140)
+                        .scaleEffect(appeared ? 1.0 : 0.7)
+                        .opacity(appeared ? 1 : 0)
+                        .animation(.spring(response: 0.6, dampingFraction: 0.6), value: appeared)
 
                     Text("Add Your First Rule")
                         .font(.title2).fontWeight(.bold).foregroundStyle(.white)
+                        .opacity(appeared ? 1 : 0)
+                        .offset(y: appeared ? 0 : 12)
+                        .animation(.easeOut(duration: 0.4).delay(0.15), value: appeared)
 
                     Text("Pick the app you find most distracting and set a daily time limit.")
                         .font(.body)
                         .foregroundStyle(.white.opacity(0.6))
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 24)
+                        .opacity(appeared ? 1 : 0)
+                        .animation(.easeOut(duration: 0.4).delay(0.25), value: appeared)
                 }
 
                 Spacer()
@@ -62,7 +70,7 @@ struct OnboardingFirstRuleView: View {
                     Button("Add an App to Block") {
                         showRuleEditor = true
                     }
-                    .buttonStyle(PrimaryButtonStyle())
+                    .buttonStyle(AccentButtonStyle())
 
                     Button("Skip for now") {
                         onComplete()
@@ -71,9 +79,12 @@ struct OnboardingFirstRuleView: View {
                     .foregroundStyle(.white.opacity(0.4))
                 }
                 .padding(.horizontal, 24)
-                .padding(.bottom, 48)
+                .padding(.bottom, 52)
+                .opacity(appeared ? 1 : 0)
+                .animation(.easeOut(duration: 0.4).delay(0.35), value: appeared)
             }
         }
+        .onAppear { appeared = true }
         .sheet(isPresented: $showRuleEditor) {
             RuleEditorView(rule: nil) { _ in
                 showRuleEditor = false

@@ -5,23 +5,27 @@ struct OnboardingPermissionView: View {
     let onAuthorized: () -> Void
 
     @State private var isRequesting = false
-    @State private var showDeniedAlert = false
 
     var body: some View {
         ZStack {
-            Color.scrollGremlinBackground.ignoresSafeArea()
+            Color.sgBackground.ignoresSafeArea()
 
             VStack(spacing: 0) {
                 Spacer()
 
                 VStack(spacing: 24) {
+                    // Mascot with teal halo
                     ZStack {
                         Circle()
-                            .fill(Color.scrollGremlinPrimary.opacity(0.15))
-                            .frame(width: 120, height: 120)
-                        Image(systemName: "person.badge.shield.checkmark.fill")
-                            .font(.system(size: 52))
-                            .foregroundStyle(Color.scrollGremlinPrimary)
+                            .fill(Color.sgTeal.opacity(0.12))
+                            .frame(width: 140, height: 140)
+                        Circle()
+                            .stroke(Color.sgTeal.opacity(0.25), lineWidth: 1.5)
+                            .frame(width: 140, height: 140)
+                        Image("Gremlin")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 110, height: 110)
                     }
 
                     Text("Screen Time Access")
@@ -77,7 +81,7 @@ struct OnboardingPermissionView: View {
 
                 Button(action: requestAccess) {
                     if isRequesting {
-                        ProgressView().tint(.white)
+                        ProgressView().tint(Color.sgBackground)
                     } else {
                         Text("Allow Access")
                     }
@@ -85,7 +89,7 @@ struct OnboardingPermissionView: View {
                 .buttonStyle(PrimaryButtonStyle())
                 .disabled(isRequesting)
                 .padding(.horizontal, 24)
-                .padding(.bottom, 48)
+                .padding(.bottom, 52)
             }
         }
         .onChange(of: authManager.status) { newStatus in
@@ -113,7 +117,7 @@ private struct PermissionInfoRow: View {
         HStack(spacing: 16) {
             Image(systemName: icon)
                 .font(.title3)
-                .foregroundStyle(Color.scrollGremlinPrimary)
+                .foregroundStyle(Color.sgTeal)
                 .frame(width: 32)
             VStack(alignment: .leading, spacing: 2) {
                 Text(title).font(.subheadline).fontWeight(.medium).foregroundStyle(.white)
@@ -124,5 +128,9 @@ private struct PermissionInfoRow: View {
         .padding()
         .background(Color.scrollGremlinSurface)
         .clipShape(RoundedRectangle(cornerRadius: 12))
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.sgTeal.opacity(0.2), lineWidth: 1)
+        )
     }
 }

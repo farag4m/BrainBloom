@@ -15,16 +15,14 @@ struct TodayView: View {
                 if viewModel.rules.isEmpty {
                     EmptyDashboardView(onAddRule: { viewModel.showAddRule = true })
                 } else if items.isEmpty {
-                    VStack(spacing: 16) {
-                        Image(systemName: "moon.zzz")
-                            .font(.system(size: 48))
-                            .foregroundStyle(.secondary)
-                        Text("No rules scheduled for today")
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                    }
+                    NoRulesTodayView()
                 } else {
                     ScrollView {
+                        // Brand header
+                        GremlinHeader()
+                            .padding(.horizontal, 16)
+                            .padding(.top, 8)
+
                         LazyVStack(spacing: 12, pinnedViews: .sectionHeaders) {
                             Section {
                                 ForEach(items) { item in
@@ -46,11 +44,13 @@ struct TodayView: View {
                 }
             }
             .navigationTitle("Today")
+            .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button(action: { viewModel.showAddRule = true }) {
                         Image(systemName: "plus")
                     }
+                    .tint(Color.sgTeal)
                 }
             }
         }
@@ -60,6 +60,55 @@ struct TodayView: View {
         let fmt = DateFormatter()
         fmt.dateFormat = "EEEE, MMM d"
         return fmt.string(from: Date())
+    }
+}
+
+// MARK: - Brand Header
+
+private struct GremlinHeader: View {
+    var body: some View {
+        HStack(spacing: 12) {
+            Image("Gremlin")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 44, height: 44)
+
+            VStack(alignment: .leading, spacing: 1) {
+                Text("ScrollGremlin")
+                    .font(.subheadline).fontWeight(.bold)
+                    .foregroundStyle(Color.sgTeal)
+                Text("Watching your limits")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+
+            Spacer()
+        }
+        .padding(.horizontal, 14)
+        .padding(.vertical, 10)
+        .background(Color.sgTeal.opacity(0.08))
+        .clipShape(RoundedRectangle(cornerRadius: 14))
+        .overlay(
+            RoundedRectangle(cornerRadius: 14)
+                .stroke(Color.sgTeal.opacity(0.18), lineWidth: 1)
+        )
+    }
+}
+
+// MARK: - No Rules Today
+
+private struct NoRulesTodayView: View {
+    var body: some View {
+        VStack(spacing: 16) {
+            Image("Gremlin")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 80, height: 80)
+                .opacity(0.7)
+            Text("Nothing scheduled today")
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+        }
     }
 }
 
@@ -84,9 +133,10 @@ struct EmptyDashboardView: View {
 
     var body: some View {
         VStack(spacing: 24) {
-            Image(systemName: "shield.slash")
-                .font(.system(size: 64))
-                .foregroundStyle(.secondary)
+            Image("Gremlin_Annoyed")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 120, height: 120)
 
             VStack(spacing: 8) {
                 Text("No Rules Yet")
@@ -99,11 +149,13 @@ struct EmptyDashboardView: View {
 
             Button(action: onAddRule) {
                 Label("Add First Rule", systemImage: "plus")
+                    .font(.subheadline.weight(.semibold))
                     .padding(.horizontal, 24)
                     .padding(.vertical, 12)
-                    .background(Color.scrollGremlinPrimary)
-                    .foregroundStyle(.white)
+                    .background(Color.sgTeal)
+                    .foregroundStyle(Color.sgBackground)
                     .clipShape(Capsule())
+                    .shadow(color: Color.sgTeal.opacity(0.35), radius: 8, y: 3)
             }
         }
         .padding(32)

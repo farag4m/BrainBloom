@@ -18,7 +18,7 @@ struct FrictionPreviewView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.scrollGremlinBackground.ignoresSafeArea()
+                Color.sgBackground.ignoresSafeArea()
 
                 Group {
                     switch viewModel.currentStep {
@@ -50,19 +50,26 @@ struct FrictionPreviewView: View {
                             friction: viewModel.friction,
                             onDismiss: { dismiss() }
                         )
-                        .transition(.opacity)
+                        .transition(.asymmetric(
+                            insertion: .scale(scale: 0.88).combined(with: .opacity),
+                            removal: .opacity
+                        ))
                     }
                 }
                 .animation(.easeInOut(duration: 0.3), value: viewModel.currentStep)
 
-                // Preview mode indicator — always visible at the top
+                // Preview mode pill — always visible
                 VStack {
                     Text("PREVIEW")
                         .font(.caption2).fontWeight(.bold)
-                        .foregroundStyle(.white.opacity(0.45))
+                        .foregroundStyle(Color.sgTeal.opacity(0.9))
                         .padding(.horizontal, 10)
                         .padding(.vertical, 4)
-                        .background(Color.white.opacity(0.1))
+                        .background(Color.sgTeal.opacity(0.15))
+                        .overlay(
+                            Capsule()
+                                .stroke(Color.sgTeal.opacity(0.35), lineWidth: 1)
+                        )
                         .clipShape(Capsule())
                         .padding(.top, 8)
                     Spacer()
@@ -88,6 +95,7 @@ struct FrictionPreviewView: View {
 private struct FrictionPreviewCompleteView: View {
     let friction: FrictionType
     let onDismiss: () -> Void
+    @State private var appeared = false
 
     private var isNone: Bool { friction == .none }
 
@@ -95,9 +103,14 @@ private struct FrictionPreviewCompleteView: View {
         VStack(spacing: 24) {
             Spacer()
 
-            Image(systemName: isNone ? "circle.slash" : "checkmark.circle.fill")
-                .font(.system(size: 72))
-                .foregroundStyle(isNone ? Color.white.opacity(0.3) : Color.scrollGremlinPrimary)
+            // Gremlin_Annoyed shows the "wall" users hit; plain Gremlin for no-friction
+            (isNone ? Image("Gremlin") : Image("Gremlin_Annoyed"))
+                .resizable()
+                .scaledToFit()
+                .frame(width: 120, height: 120)
+                .scaleEffect(appeared ? 1.0 : 0.6)
+                .opacity(appeared ? 1 : 0)
+                .animation(.spring(response: 0.55, dampingFraction: 0.6), value: appeared)
 
             VStack(spacing: 8) {
                 Text(isNone ? "No Friction" : "Preview Complete")
@@ -111,6 +124,8 @@ private struct FrictionPreviewCompleteView: View {
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 32)
             }
+            .opacity(appeared ? 1 : 0)
+            .animation(.easeOut(duration: 0.4).delay(0.15), value: appeared)
 
             Spacer()
 
@@ -119,7 +134,10 @@ private struct FrictionPreviewCompleteView: View {
             }
             .buttonStyle(SecondaryButtonStyle())
             .padding(.horizontal, 24)
-            .padding(.bottom, 48)
+            .padding(.bottom, 52)
+            .opacity(appeared ? 1 : 0)
+            .animation(.easeOut(duration: 0.4).delay(0.25), value: appeared)
         }
+        .onAppear { appeared = true }
     }
 }

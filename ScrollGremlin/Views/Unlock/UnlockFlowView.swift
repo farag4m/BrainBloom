@@ -11,7 +11,7 @@ struct UnlockFlowView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.scrollGremlinBackground.ignoresSafeArea()
+                Color.sgBackground.ignoresSafeArea()
 
                 Group {
                     switch viewModel.currentStep {
@@ -22,6 +22,7 @@ struct UnlockFlowView: View {
                             cycle: viewModel.breathingCycle
                         )
                         .onAppear { viewModel.startBreathing() }
+                        .transition(.opacity)
 
                     case .mathChallenge:
                         MathChallengeView(difficulty: viewModel.mathDifficulty, onSolved: { viewModel.advanceFromMathChallenge() })
@@ -32,7 +33,8 @@ struct UnlockFlowView: View {
                             selected: $viewModel.selectedDuration,
                             onNext: { viewModel.proceedFromDuration() }
                         )
-                        .transition(.opacity)
+                        .transition(.asymmetric(insertion: .move(edge: .trailing).combined(with: .opacity),
+                                                removal: .opacity))
 
                     case .intention:
                         IntentionView(
@@ -54,7 +56,8 @@ struct UnlockFlowView: View {
                             duration: viewModel.selectedDuration,
                             onDismiss: { dismiss() }
                         )
-                        .transition(.opacity)
+                        .transition(.asymmetric(insertion: .scale(scale: 0.85).combined(with: .opacity),
+                                                removal: .opacity))
                     }
                 }
                 .animation(.easeInOut(duration: 0.3), value: viewModel.currentStep)
@@ -66,13 +69,15 @@ struct UnlockFlowView: View {
                             viewModel.cancel()
                             dismiss()
                         }
-                        .foregroundStyle(.white.opacity(0.6))
+                        .foregroundStyle(.white.opacity(0.5))
                     }
                 }
             }
         }
     }
 }
+
+// MARK: - BreathingView
 
 struct BreathingView: View {
     let progress: Double
@@ -89,22 +94,32 @@ struct BreathingView: View {
                 .animation(.easeInOut(duration: 0.4), value: phase.label)
 
             ZStack {
+                // Outer ring
                 Circle()
-                    .stroke(.white.opacity(0.1), lineWidth: 1)
+                    .stroke(Color.sgTeal.opacity(0.12), lineWidth: 1.5)
                     .frame(width: 240, height: 240)
 
+                // Breathing blob — teal fill
                 Circle()
-                    .fill(Color.scrollGremlinPrimary.opacity(0.15))
+                    .fill(
+                        RadialGradient(
+                            colors: [Color.sgTeal.opacity(0.35), Color.sgTeal.opacity(0.05)],
+                            center: .center,
+                            startRadius: 0,
+                            endRadius: 120
+                        )
+                    )
                     .frame(
-                        width: CGFloat(120 + 120 * progress),
+                        width:  CGFloat(120 + 120 * progress),
                         height: CGFloat(120 + 120 * progress)
                     )
                     .animation(.easeInOut(duration: 0.1), value: progress)
 
+                // Glow ring
                 Circle()
-                    .stroke(Color.scrollGremlinPrimary.opacity(0.5), lineWidth: 2)
+                    .stroke(Color.sgTeal.opacity(0.55), lineWidth: 1.5)
                     .frame(
-                        width: CGFloat(120 + 120 * progress),
+                        width:  CGFloat(120 + 120 * progress),
                         height: CGFloat(120 + 120 * progress)
                     )
                     .animation(.easeInOut(duration: 0.1), value: progress)
@@ -118,15 +133,18 @@ struct BreathingView: View {
 
             HStack(spacing: 8) {
                 ForEach(0..<3, id: \.self) { i in
-                    Circle()
-                        .fill(i <= cycle ? Color.scrollGremlinPrimary : Color.white.opacity(0.2))
-                        .frame(width: 8, height: 8)
+                    Capsule()
+                        .fill(i <= cycle ? Color.sgTeal : Color.white.opacity(0.18))
+                        .frame(width: i <= cycle ? 20 : 8, height: 8)
+                        .animation(.spring(response: 0.35), value: cycle)
                 }
             }
-            .padding(.bottom, 48)
+            .padding(.bottom, 52)
         }
     }
 }
+
+// MARK: - DurationPickerView
 
 struct DurationPickerView: View {
     @Binding var selected: UnlockType
@@ -146,7 +164,7 @@ struct DurationPickerView: View {
             VStack(spacing: 10) {
                 ForEach(UnlockType.allCases, id: \.self) { type in
                     DurationOptionRow(type: type, isSelected: selected == type) {
-                        selected = type
+                        withAnimation(.spring(response: 0.3)) { selected = type }
                     }
                 }
             }
@@ -159,10 +177,12 @@ struct DurationPickerView: View {
             }
             .buttonStyle(PrimaryButtonStyle())
             .padding(.horizontal, 24)
-            .padding(.bottom, 48)
+            .padding(.bottom, 52)
         }
     }
 }
+
+// MARK: - DurationOptionRow
 
 struct DurationOptionRow: View {
     let type: UnlockType
@@ -179,21 +199,31 @@ struct DurationOptionRow: View {
                         .font(.caption).foregroundStyle(.white.opacity(0.5))
                 }
                 Spacer()
-                if isSelected {
-                    Image(systemName: "checkmark.circle.fill")
-                        .foregroundStyle(Color.scrollGremlinPrimary)
+                ZStack {
+                    Circle()
+                        .stroke(isSelected ? Color.sgTeal : Color.white.opacity(0.2), lineWidth: 2)
+                        .frame(width: 22, height: 22)
+                    if isSelected {
+                        Circle()
+                            .fill(Color.sgTeal)
+                            .frame(width: 12, height: 12)
+                    }
                 }
             }
             .padding()
-            .background(isSelected ? Color.scrollGremlinPrimary.opacity(0.15) : Color.white.opacity(0.06))
+            .background(isSelected ? Color.sgTeal.opacity(0.14) : Color.white.opacity(0.06))
             .clipShape(RoundedRectangle(cornerRadius: 12))
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(isSelected ? Color.scrollGremlinPrimary : Color.clear, lineWidth: 1.5)
+                    .stroke(isSelected ? Color.sgTeal.opacity(0.6) : Color.clear, lineWidth: 1.5)
             )
         }
+        .buttonStyle(.plain)
+        .interactivePress()
     }
 }
+
+// MARK: - IntentionView
 
 struct IntentionView: View {
     @Binding var text: String
@@ -219,7 +249,7 @@ struct IntentionView: View {
             VStack(spacing: 8) {
                 Text(friction.includesIntention ? "Why are you unlocking?" : "Ready to unlock?")
                     .font(.title2).fontWeight(.semibold).foregroundStyle(.white)
-                Text(friction.includesIntention ? "Writing it down helps build awareness." : "Take a breath before you continue.")
+                Text(friction.includesIntention ? "Writing it down builds awareness." : "Take a breath before you continue.")
                     .font(.subheadline).foregroundStyle(.white.opacity(0.5))
             }
 
@@ -229,42 +259,48 @@ struct IntentionView: View {
                     .padding()
                     .background(Color.white.opacity(0.08))
                     .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(
+                                text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                                    ? Color.white.opacity(0.12)
+                                    : Color.sgTeal.opacity(0.5),
+                                lineWidth: 1
+                            )
+                    )
                     .focused($isFocused)
                     .padding(.horizontal, 24)
+                    .animation(.easeInOut(duration: 0.2), value: text.isEmpty)
             }
 
             Spacer()
 
-            VStack(spacing: 8) {
-                Button(action: onConfirm) {
-                    if friction.includesDelay && !isConfirmEnabled {
-                        Text("Wait \(delayRemaining)s...")
-                    } else if !isConfirmEnabled {
-                        Text("Just a moment...")
-                    } else {
-                        Text("Unlock")
-                    }
-                }
-                .buttonStyle(PrimaryButtonStyle(isEnabled: canConfirm))
-                .disabled(!canConfirm)
-                .animation(.easeInOut(duration: 0.3), value: canConfirm)
-                .padding(.horizontal, 24)
-
-                if friction.includesIntention && !text.isEmpty {
-                    // intent provided, confirm enabled faster
+            Button(action: onConfirm) {
+                if friction.includesDelay && !isConfirmEnabled {
+                    Text("Wait \(delayRemaining)s...")
+                } else if !isConfirmEnabled {
+                    Text("Just a moment...")
+                } else {
+                    Text("Unlock")
                 }
             }
-            .padding(.bottom, 48)
+            .buttonStyle(PrimaryButtonStyle(isEnabled: canConfirm))
+            .disabled(!canConfirm)
+            .animation(.easeInOut(duration: 0.3), value: canConfirm)
+            .padding(.horizontal, 24)
+            .padding(.bottom, 52)
         }
         .onAppear { if friction.includesIntention { isFocused = true } }
     }
 }
 
+// MARK: - ConfirmingView
+
 struct ConfirmingView: View {
     var body: some View {
         VStack(spacing: 20) {
             ProgressView()
-                .tint(.white)
+                .tint(Color.sgTeal)
                 .scaleEffect(1.5)
             Text("Unlocking...")
                 .font(.subheadline)
@@ -273,21 +309,31 @@ struct ConfirmingView: View {
     }
 }
 
+// MARK: - UnlockDoneView
+
 struct UnlockDoneView: View {
     let duration: UnlockType
     let onDismiss: () -> Void
+    @State private var appeared = false
 
     var body: some View {
         VStack(spacing: 24) {
             Spacer()
 
-            Image(systemName: "checkmark.circle.fill")
-                .font(.system(size: 72))
-                .foregroundStyle(Color.scrollGremlinPrimary)
+            Image("Gremlin")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 130, height: 130)
+                .scaleEffect(appeared ? 1.0 : 0.5)
+                .opacity(appeared ? 1 : 0)
+                .animation(.spring(response: 0.55, dampingFraction: 0.55), value: appeared)
 
             VStack(spacing: 8) {
-                Text("Unlocked")
+                Text("You're in!")
                     .font(.title2).fontWeight(.semibold).foregroundStyle(.white)
+                    .opacity(appeared ? 1 : 0)
+                    .animation(.easeOut(duration: 0.4).delay(0.15), value: appeared)
+
                 if let minutes = duration.minutes {
                     Text("You have \(minutes) minutes. Use them well.")
                         .font(.subheadline).foregroundStyle(.white.opacity(0.6))
@@ -296,10 +342,14 @@ struct UnlockDoneView: View {
                         .font(.subheadline).foregroundStyle(.white.opacity(0.6))
                 }
             }
+            .opacity(appeared ? 1 : 0)
+            .animation(.easeOut(duration: 0.4).delay(0.2), value: appeared)
 
             Text("Switch back to the app manually.")
                 .font(.caption)
-                .foregroundStyle(.white.opacity(0.35))
+                .foregroundStyle(.white.opacity(0.3))
+                .opacity(appeared ? 1 : 0)
+                .animation(.easeOut(duration: 0.4).delay(0.3), value: appeared)
 
             Spacer()
 
@@ -308,24 +358,27 @@ struct UnlockDoneView: View {
             }
             .buttonStyle(SecondaryButtonStyle())
             .padding(.horizontal, 24)
-            .padding(.bottom, 48)
+            .padding(.bottom, 52)
+            .opacity(appeared ? 1 : 0)
+            .animation(.easeOut(duration: 0.4).delay(0.35), value: appeared)
         }
+        .onAppear { appeared = true }
     }
 }
 
 // MARK: - MathChallengeView
 
 struct MathChallengeView: View {
-    let difficulty: Int   // 0 = first unlock, 1 = second, 2 = third, 3+ = fourth+
+    let difficulty: Int
     let onSolved: () -> Void
 
     @State private var problem: MathProblem
     @State private var solvedCount = 0
     @State private var userAnswer = ""
     @State private var isWrong = false
+    @State private var shakeOffset: CGFloat = 0
     @FocusState private var isFocused: Bool
 
-    // Number of problems required scales with difficulty.
     private var problemsRequired: Int {
         switch difficulty {
         case 0, 1: return 1
@@ -351,7 +404,7 @@ struct MathChallengeView: View {
                     Text("Problem \(solvedCount + 1) of \(problemsRequired)")
                         .font(.subheadline).foregroundStyle(.white.opacity(0.5))
                 } else {
-                    Text("Solve the problem to continue.")
+                    Text("Solve to continue.")
                         .font(.subheadline).foregroundStyle(.white.opacity(0.5))
                 }
             }
@@ -368,43 +421,62 @@ struct MathChallengeView: View {
                     .multilineTextAlignment(.center)
                     .focused($isFocused)
                     .padding()
-                    .background(Color.white.opacity(0.1))
+                    .background(Color.white.opacity(0.08))
                     .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(isWrong ? Color.red.opacity(0.6) : Color.sgTeal.opacity(0.3), lineWidth: 1.5)
+                    )
                     .padding(.horizontal, 48)
+                    .offset(x: shakeOffset)
 
                 if isWrong {
                     Text("Not quite — try again")
                         .font(.caption)
-                        .foregroundStyle(.red)
+                        .foregroundStyle(.red.opacity(0.8))
+                        .transition(.opacity)
                 }
             }
 
             Spacer()
 
             Button("Submit") {
-                if let ans = Int(userAnswer), ans == problem.answer {
-                    let next = solvedCount + 1
-                    if next >= problemsRequired {
-                        onSolved()
-                    } else {
-                        solvedCount = next
-                        userAnswer = ""
-                        isWrong = false
-                        problem = .generate(difficulty: difficulty)
-                        isFocused = true
-                    }
-                } else {
-                    isWrong = true
-                    userAnswer = ""
-                    problem = .generate(difficulty: difficulty)
-                }
+                submitAnswer()
             }
             .buttonStyle(PrimaryButtonStyle(isEnabled: !userAnswer.isEmpty))
             .disabled(userAnswer.isEmpty)
             .padding(.horizontal, 24)
-            .padding(.bottom, 48)
+            .padding(.bottom, 52)
         }
         .onAppear { isFocused = true }
+        .animation(.easeInOut(duration: 0.2), value: isWrong)
+    }
+
+    private func submitAnswer() {
+        if let ans = Int(userAnswer), ans == problem.answer {
+            let next = solvedCount + 1
+            if next >= problemsRequired {
+                onSolved()
+            } else {
+                solvedCount = next
+                userAnswer = ""
+                isWrong = false
+                problem = .generate(difficulty: difficulty)
+                isFocused = true
+            }
+        } else {
+            isWrong = true
+            userAnswer = ""
+            problem = .generate(difficulty: difficulty)
+            // Shake animation
+            withAnimation(.default) { shakeOffset = -8 }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.07) {
+                withAnimation(.default) { shakeOffset = 8 }
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.14) {
+                withAnimation(.spring()) { shakeOffset = 0 }
+            }
+        }
     }
 }
 
@@ -414,11 +486,6 @@ struct MathProblem {
     let expression: String
     let answer: Int
 
-    /// Generates a problem scaled to the current difficulty level.
-    /// difficulty 0 — first unlock:   1 easy add/subtract, small numbers
-    /// difficulty 1 — second unlock:  1 harder add/subtract, larger numbers
-    /// difficulty 2 — third unlock:   2 problems, introduces multiplication
-    /// difficulty 3+ — fourth+ unlock: 3 problems, multiplication with large numbers
     static func generate(difficulty: Int) -> MathProblem {
         switch difficulty {
         case 0:
