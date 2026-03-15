@@ -3,6 +3,11 @@ import Foundation
 public final class AppGroupStore {
     public static let appGroupID = "group.com.yourco.scrollgremlin"
     public static let shared = AppGroupStore()
+    private static let dayFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }()
 
     private let defaults: UserDefaults
     private let encoder = JSONEncoder()
@@ -144,9 +149,7 @@ public final class AppGroupStore {
     // MARK: - Helpers
 
     public static var todayString: String {
-        let fmt = DateFormatter()
-        fmt.dateFormat = "yyyy-MM-dd"
-        return fmt.string(from: Date())
+        dayFormatter.string(from: Date())
     }
 
     private enum Keys {
@@ -159,4 +162,3 @@ public final class AppGroupStore {
         static let monitorPolicies = "monitor_policies_v2"  // bumped: MonitorPolicy.policy added
     }
 }
-

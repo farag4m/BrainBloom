@@ -36,6 +36,13 @@ public final class RuleManager: ObservableObject {
         store.saveRules(rules)
     }
 
+    public func toggleRule(id: UUID) throws {
+        guard let idx = rules.firstIndex(where: { $0.id == id }) else { return }
+        rules[idx].isEnabled.toggle()
+        store.saveRules(rules)
+        try monitoringService.updateMonitoring(for: rules[idx])
+    }
+
     public func handlePendingUnlockRequest() {
         guard let request = store.loadPendingUnlockRequest() else { return }
         unlockRuleID = request.ruleID

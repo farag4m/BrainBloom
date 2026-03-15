@@ -141,7 +141,7 @@ public final class MonitoringService: ObservableObject {
     public func removeShield(for rule: AppRule) {
         let settingsStore = ManagedSettingsStore(named: ManagedSettingsStore.Name(rule.storeName))
         settingsStore.shield.applications = nil
-        settingsStore.shield.applicationCategories = .none
+        settingsStore.shield.applicationCategories = ShieldSettings.ActivityCategoryPolicy<Application>.none
         store.setShielded(rule.id, isShielded: false)
     }
 

@@ -70,33 +70,33 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		B31BFC97DDB3465090626EF3 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		0026C2E3455741E682F11132 /* Exceptions for "ScrollGremlinShieldConfig" folder in "ScrollGremlinShieldConfig" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = F22DCA15D8AF4838BA098532 /* ScrollGremlinMonitor */;
+			target = 62414837D179411D819766CF /* ScrollGremlinShieldConfig */;
 		};
-		E9489DA11E134F0A88299518 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 3EF04529085F4775AFE4BF26 /* ScrollGremlinReport */;
-		};
-		4AD0BF7E0F6044429165BB98 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		4AD0BF7E0F6044429165BB98 /* Exceptions for "ScrollGremlinShieldAction" folder in "ScrollGremlinShieldAction" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
 			target = B72826CD374A4D12B89A9EAD /* ScrollGremlinShieldAction */;
 		};
-		0026C2E3455741E682F11132 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		B31BFC97DDB3465090626EF3 /* Exceptions for "ScrollGremlinMonitor" folder in "ScrollGremlinMonitor" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = 62414837D179411D819766CF /* ScrollGremlinShieldConfig */;
+			target = F22DCA15D8AF4838BA098532 /* ScrollGremlinMonitor */;
+		};
+		E9489DA11E134F0A88299518 /* Exceptions for "ScrollGremlinReport" folder in "ScrollGremlinReport" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 3EF04529085F4775AFE4BF26 /* ScrollGremlinReport */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -104,7 +104,7 @@
 		033EAA858AD742ED8F99A062 /* ScrollGremlinMonitor */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				B31BFC97DDB3465090626EF3 /* PBXFileSystemSynchronizedBuildFileExceptionSet */,
+				B31BFC97DDB3465090626EF3 /* Exceptions for "ScrollGremlinMonitor" folder in "ScrollGremlinMonitor" target */,
 			);
 			path = ScrollGremlinMonitor;
 			sourceTree = "<group>";
@@ -117,7 +117,7 @@
 		1FA4AB89B4BB4D70B571CA21 /* ScrollGremlinReport */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				E9489DA11E134F0A88299518 /* PBXFileSystemSynchronizedBuildFileExceptionSet */,
+				E9489DA11E134F0A88299518 /* Exceptions for "ScrollGremlinReport" folder in "ScrollGremlinReport" target */,
 			);
 			path = ScrollGremlinReport;
 			sourceTree = "<group>";
@@ -130,7 +130,7 @@
 		2298F07AB35D422FBEF38784 /* ScrollGremlinShieldConfig */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				0026C2E3455741E682F11132 /* PBXFileSystemSynchronizedBuildFileExceptionSet */,
+				0026C2E3455741E682F11132 /* Exceptions for "ScrollGremlinShieldConfig" folder in "ScrollGremlinShieldConfig" target */,
 			);
 			path = ScrollGremlinShieldConfig;
 			sourceTree = "<group>";
@@ -138,7 +138,7 @@
 		80B96CA831B24D159151C6B0 /* ScrollGremlinShieldAction */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				4AD0BF7E0F6044429165BB98 /* PBXFileSystemSynchronizedBuildFileExceptionSet */,
+				4AD0BF7E0F6044429165BB98 /* Exceptions for "ScrollGremlinShieldAction" folder in "ScrollGremlinShieldAction" target */,
 			);
 			path = ScrollGremlinShieldAction;
 			sourceTree = "<group>";

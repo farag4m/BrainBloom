@@ -30,6 +30,8 @@ final class UnlockViewModel: ObservableObject {
     private var breathingTask: Task<Void, Never>?
     private var delayTask: Task<Void, Never>?
     let effectiveFriction: FrictionType
+    private var requiresIntention: Bool { effectiveFriction.includesIntention || settings.requireIntentionText }
+    private var requiresDelay: Bool { effectiveFriction.includesDelay }
 
     init(ruleID: UUID) {
         self.ruleID = ruleID
@@ -113,10 +115,10 @@ final class UnlockViewModel: ObservableObject {
     }
 
     func proceedFromDuration() {
-        if effectiveFriction.includesIntention {
+        if requiresIntention {
             currentStep = .intention
             startMinimumDelay()
-        } else if effectiveFriction.includesDelay {
+        } else if requiresDelay {
             startCountdownDelay()
         } else {
             startMinimumDelay()
@@ -174,7 +176,7 @@ final class UnlockViewModel: ObservableObject {
         let session = UnlockSession(
             ruleID: ruleID,
             unlockType: selectedDuration,
-            frictionType: settings.defaultFriction,
+            frictionType: effectiveFriction,
             intention: intentionText.isEmpty ? nil : intentionText
         )
         store.appendUnlockSession(session)

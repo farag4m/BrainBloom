@@ -22,11 +22,13 @@ struct HistoryView: View {
                                     label: "Unlocks this week",
                                     icon: "lock.open"
                                 )
-                                StatCard(
-                                    value: "\(viewModel.currentStreak)",
-                                    label: "Day streak",
-                                    icon: "flame"
-                                )
+                                if viewModel.settings.showStreakCounter {
+                                    StatCard(
+                                        value: "\(viewModel.currentStreak)",
+                                        label: "Day streak",
+                                        icon: "flame"
+                                    )
+                                }
                             }
                             .padding(.vertical, 2)
                         }

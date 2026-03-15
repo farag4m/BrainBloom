@@ -168,10 +168,7 @@ struct RuleDetailView: View {
     }
 
     private func computeStatus() -> RuleStatusBadge {
-        if !rule.isEnabled { return .disabled }
-        if AppGroupStore.shared.isShielded(rule.id) { return .locked }
-        if !rule.schedule.isActiveNow { return .offToday }
-        return .active
+        RuleStatusBadge.make(for: rule, isShielded: AppGroupStore.shared.isShielded(rule.id))
     }
 
     var body: some View {

@@ -4,8 +4,8 @@ import Combine
 @MainActor
 final class HistoryViewModel: ObservableObject {
     @Published var sessions: [UnlockSession] = []
-    @Published var selectedDate: Date = Date()
     @Published var rules: [AppRule] = []
+    @Published var settings: UserSettings = .default
 
     private let store = AppGroupStore.shared
 
@@ -17,13 +17,7 @@ final class HistoryViewModel: ObservableObject {
         sessions = store.loadUnlockSessions()
             .sorted { $0.startedAt > $1.startedAt }
         rules = store.loadRules()
-    }
-
-    var sessionsForSelectedDate: [UnlockSession] {
-        let calendar = Calendar.current
-        return sessions.filter {
-            calendar.isDate($0.startedAt, inSameDayAs: selectedDate)
-        }
+        settings = store.loadSettings()
     }
 
     var sessionsGroupedByDate: [(Date, [UnlockSession])] {

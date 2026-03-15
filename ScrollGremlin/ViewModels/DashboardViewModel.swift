@@ -45,7 +45,7 @@ final class DashboardViewModel: ObservableObject {
     @Published var showAddRule = false
 
     private let store = AppGroupStore.shared
-    private let monitoringService = MonitoringService.shared
+    private let ruleManager = RuleManager.shared
     private var cancellables = Set<AnyCancellable>()
 
     init() {
@@ -56,9 +56,10 @@ final class DashboardViewModel: ObservableObject {
     // MARK: - Data loading
 
     func loadData() {
-        rules = store.loadRules()
+        ruleManager.reloadRules()
+        rules = ruleManager.rules
         refreshShieldStates()
-        RuleManager.shared.handlePendingUnlockRequest()
+        ruleManager.handlePendingUnlockRequest()
     }
 
     func refreshShieldStates() {
@@ -70,32 +71,26 @@ final class DashboardViewModel: ObservableObject {
     // MARK: - Mutations
 
     func addRule(_ rule: AppRule) {
-        rules.append(rule)
-        store.saveRules(rules)
-        try? monitoringService.startMonitoring(for: rule)
+        try? ruleManager.addRule(rule)
+        rules = ruleManager.rules
         refreshShieldStates()
     }
 
     func deleteRule(_ rule: AppRule) {
-        monitoringService.stopMonitoring(for: rule)
-        rules.removeAll { $0.id == rule.id }
-        store.saveRules(rules)
+        ruleManager.deleteRule(id: rule.id)
+        rules = ruleManager.rules
         refreshShieldStates()
     }
 
     func updateRule(_ rule: AppRule) {
-        guard let idx = rules.firstIndex(where: { $0.id == rule.id }) else { return }
-        rules[idx] = rule
-        store.saveRules(rules)
-        try? monitoringService.updateMonitoring(for: rule)
+        try? ruleManager.updateRule(rule)
+        rules = ruleManager.rules
         refreshShieldStates()
     }
 
     func toggleRule(_ rule: AppRule) {
-        guard let idx = rules.firstIndex(where: { $0.id == rule.id }) else { return }
-        rules[idx].isEnabled.toggle()
-        store.saveRules(rules)
-        try? monitoringService.updateMonitoring(for: rules[idx])
+        try? ruleManager.toggleRule(id: rule.id)
+        rules = ruleManager.rules
         refreshShieldStates()
     }
 
@@ -143,10 +138,7 @@ final class DashboardViewModel: ObservableObject {
     }
 
     private func computeBadge(for rule: AppRule) -> RuleStatusBadge {
-        if !rule.isEnabled              { return .disabled }
-        if shieldStates[rule.id] == true { return .locked  }
-        if !rule.schedule.isActiveNow   { return .offToday }
-        return .active
+        RuleStatusBadge.make(for: rule, isShielded: shieldStates[rule.id] == true)
     }
 
     private func sectionPriority(_ days: Set<Int>) -> Int {
@@ -157,6 +149,14 @@ final class DashboardViewModel: ObservableObject {
     }
 
     private func observeChanges() {
+        ruleManager.$rules
+            .receive(on: RunLoop.main)
+            .sink { [weak self] rules in
+                self?.rules = rules
+                self?.refreshShieldStates()
+            }
+            .store(in: &cancellables)
+
         NotificationCenter.default
             .publisher(for: UserDefaults.didChangeNotification)
             .debounce(for: .milliseconds(200), scheduler: RunLoop.main)
@@ -174,6 +174,13 @@ final class DashboardViewModel: ObservableObject {
 
 enum RuleStatusBadge {
     case active, locked, disabled, offToday
+
+    static func make(for rule: AppRule, isShielded: Bool) -> RuleStatusBadge {
+        if !rule.isEnabled { return .disabled }
+        if isShielded { return .locked }
+        if !rule.schedule.isActiveNow { return .offToday }
+        return .active
+    }
 
     var label: String {
         switch self {

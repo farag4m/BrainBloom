@@ -325,7 +325,7 @@ public struct UserSettings: Codable, Equatable {
         notificationsEnabled: Bool,
         requireIntentionText: Bool,
         showStreakCounter: Bool,
-        colorScheme: AppColorScheme = .system
+        colorScheme: AppColorScheme = .light
     ) {
         self.defaultFriction = defaultFriction
         self.defaultUnlockType = defaultUnlockType
@@ -346,7 +346,7 @@ public struct UserSettings: Codable, Equatable {
         colorScheme: .light
     )
 
-    // Backward-compatible decoding: existing data without colorScheme defaults to .system
+    // Backward-compatible decoding: existing data without colorScheme defaults to .light.
     enum CodingKeys: String, CodingKey {
         case defaultFriction, defaultUnlockType, warningMinutes
         case notificationsEnabled, requireIntentionText, showStreakCounter, colorScheme
@@ -360,7 +360,11 @@ public struct UserSettings: Codable, Equatable {
         notificationsEnabled = try c.decode(Bool.self,           forKey: .notificationsEnabled)
         requireIntentionText = try c.decode(Bool.self,           forKey: .requireIntentionText)
         showStreakCounter     = try c.decode(Bool.self,           forKey: .showStreakCounter)
-        colorScheme          = try c.decodeIfPresent(AppColorScheme.self, forKey: .colorScheme) ?? .system
+        if let rawColorScheme = try c.decodeIfPresent(String.self, forKey: .colorScheme) {
+            colorScheme = AppColorScheme(rawValue: rawColorScheme) ?? .light
+        } else {
+            colorScheme = .light
+        }
     }
 }
 
@@ -421,13 +425,11 @@ extension DailyState {
 // MARK: - AppColorScheme
 
 public enum AppColorScheme: String, Codable, CaseIterable {
-    case system
     case light
     case dark
 
     public var displayName: String {
         switch self {
-        case .system: return "System"
         case .light:  return "Light"
         case .dark:   return "Dark"
         }
