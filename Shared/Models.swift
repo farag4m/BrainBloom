@@ -107,7 +107,7 @@ public struct AppRule: Codable, Identifiable, Equatable {
 
     public var activityName: String { "rule-\(id.uuidString)" }
     public var eventName: String    { "limit-\(id.uuidString)" }
-    public var storeName: String    { "intentblock-\(id.uuidString)" }
+    public var storeName: String    { "scrollgremlin-\(id.uuidString)" }
 }
 
 // MARK: - RuleSchedule
@@ -381,7 +381,7 @@ public struct UnlockRequest: Codable {
 // MARK: - MonitorPolicy (lean snapshot for extensions)
 //
 // Extensions cannot call DeviceActivityCenter.startMonitoring (entitlement-gated).
-// This struct is written by the main app and read by IntentBlockMonitor.
+// This struct is written by the main app and read by ScrollGremlinMonitor.
 // It carries everything the extension needs to respond to callbacks correctly.
 
 public struct MonitorPolicy: Codable {

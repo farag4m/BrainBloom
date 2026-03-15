@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3AF631C95D6E491BB7AA1842 /* IntentBlockMonitor.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8BEFDCA57E5041B4BD8D4FE1 /* IntentBlockMonitor.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		58E64EA9E804406EAB106897 /* IntentBlockShieldConfig.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 75F5FE18FED6409BB7136238 /* IntentBlockShieldConfig.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		D07B3343426943FB9D437F05 /* IntentBlockShieldAction.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 3E85C518A60C4C36BFDD880D /* IntentBlockShieldAction.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		FFEC3C0E8CA44642A38C64C7 /* IntentBlockReport.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 560D2BBCAF4440F8ADC59711 /* IntentBlockReport.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		3AF631C95D6E491BB7AA1842 /* ScrollGremlinMonitor.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8BEFDCA57E5041B4BD8D4FE1 /* ScrollGremlinMonitor.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		58E64EA9E804406EAB106897 /* ScrollGremlinShieldConfig.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 75F5FE18FED6409BB7136238 /* ScrollGremlinShieldConfig.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D07B3343426943FB9D437F05 /* ScrollGremlinShieldAction.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 3E85C518A60C4C36BFDD880D /* ScrollGremlinShieldAction.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		FFEC3C0E8CA44642A38C64C7 /* ScrollGremlinReport.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 560D2BBCAF4440F8ADC59711 /* ScrollGremlinReport.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -19,28 +19,28 @@
 			containerPortal = 212A97072F64A64700AE5F16 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = F22DCA15D8AF4838BA098532;
-			remoteInfo = IntentBlockMonitor;
+			remoteInfo = ScrollGremlinMonitor;
 		};
 		7295BFC513D3420EB34DCB04 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 212A97072F64A64700AE5F16 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 3EF04529085F4775AFE4BF26;
-			remoteInfo = IntentBlockReport;
+			remoteInfo = ScrollGremlinReport;
 		};
 		BAE0454B04FC4D579F2317FF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 212A97072F64A64700AE5F16 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = B72826CD374A4D12B89A9EAD;
-			remoteInfo = IntentBlockShieldAction;
+			remoteInfo = ScrollGremlinShieldAction;
 		};
 		D98178B0A6A44ECEBBAA73B6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 212A97072F64A64700AE5F16 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 62414837D179411D819766CF;
-			remoteInfo = IntentBlockShieldConfig;
+			remoteInfo = ScrollGremlinShieldConfig;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -51,10 +51,10 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				3AF631C95D6E491BB7AA1842 /* IntentBlockMonitor.appex in Embed Foundation Extensions */,
-				D07B3343426943FB9D437F05 /* IntentBlockShieldAction.appex in Embed Foundation Extensions */,
-				58E64EA9E804406EAB106897 /* IntentBlockShieldConfig.appex in Embed Foundation Extensions */,
-				FFEC3C0E8CA44642A38C64C7 /* IntentBlockReport.appex in Embed Foundation Extensions */,
+				3AF631C95D6E491BB7AA1842 /* ScrollGremlinMonitor.appex in Embed Foundation Extensions */,
+				D07B3343426943FB9D437F05 /* ScrollGremlinShieldAction.appex in Embed Foundation Extensions */,
+				58E64EA9E804406EAB106897 /* ScrollGremlinShieldConfig.appex in Embed Foundation Extensions */,
+				FFEC3C0E8CA44642A38C64C7 /* ScrollGremlinReport.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -62,51 +62,51 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		212A970F2F64A64700AE5F16 /* IntentBlock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntentBlock.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		3E85C518A60C4C36BFDD880D /* IntentBlockShieldAction.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = IntentBlockShieldAction.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		560D2BBCAF4440F8ADC59711 /* IntentBlockReport.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = IntentBlockReport.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		75F5FE18FED6409BB7136238 /* IntentBlockShieldConfig.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = IntentBlockShieldConfig.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		8BEFDCA57E5041B4BD8D4FE1 /* IntentBlockMonitor.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = IntentBlockMonitor.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		212A970F2F64A64700AE5F16 /* ScrollGremlin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScrollGremlin.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E85C518A60C4C36BFDD880D /* ScrollGremlinShieldAction.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ScrollGremlinShieldAction.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		560D2BBCAF4440F8ADC59711 /* ScrollGremlinReport.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ScrollGremlinReport.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		75F5FE18FED6409BB7136238 /* ScrollGremlinShieldConfig.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ScrollGremlinShieldConfig.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		8BEFDCA57E5041B4BD8D4FE1 /* ScrollGremlinMonitor.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ScrollGremlinMonitor.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		15C5C8DDB2424F6482234EE6 /* Exceptions for "IntentBlockShieldAction" folder in "IntentBlockShieldAction" target */ = {
+		B31BFC97DDB3465090626EF3 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = B72826CD374A4D12B89A9EAD /* IntentBlockShieldAction */;
+			target = F22DCA15D8AF4838BA098532 /* ScrollGremlinMonitor */;
 		};
-		18508DFBC0A94A77A8B8D183 /* Exceptions for "IntentBlockMonitor" folder in "IntentBlockMonitor" target */ = {
+		E9489DA11E134F0A88299518 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = F22DCA15D8AF4838BA098532 /* IntentBlockMonitor */;
+			target = 3EF04529085F4775AFE4BF26 /* ScrollGremlinReport */;
 		};
-		1ACC9F68DF31448E966F1C64 /* Exceptions for "IntentBlockReport" folder in "IntentBlockReport" target */ = {
+		4AD0BF7E0F6044429165BB98 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = 3EF04529085F4775AFE4BF26 /* IntentBlockReport */;
+			target = B72826CD374A4D12B89A9EAD /* ScrollGremlinShieldAction */;
 		};
-		D11F32FC66BC4A8887D8887A /* Exceptions for "IntentBlockShieldConfig" folder in "IntentBlockShieldConfig" target */ = {
+		0026C2E3455741E682F11132 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = 62414837D179411D819766CF /* IntentBlockShieldConfig */;
+			target = 62414837D179411D819766CF /* ScrollGremlinShieldConfig */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		033EAA858AD742ED8F99A062 /* IntentBlockMonitor */ = {
+		033EAA858AD742ED8F99A062 /* ScrollGremlinMonitor */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				18508DFBC0A94A77A8B8D183 /* Exceptions for "IntentBlockMonitor" folder in "IntentBlockMonitor" target */,
+				B31BFC97DDB3465090626EF3 /* PBXFileSystemSynchronizedBuildFileExceptionSet */,
 			);
-			path = IntentBlockMonitor;
+			path = ScrollGremlinMonitor;
 			sourceTree = "<group>";
 		};
 		18E18C7568B84ACCAA8AB9B2 /* Shared */ = {
@@ -114,33 +114,33 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
-		1FA4AB89B4BB4D70B571CA21 /* IntentBlockReport */ = {
+		1FA4AB89B4BB4D70B571CA21 /* ScrollGremlinReport */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				1ACC9F68DF31448E966F1C64 /* Exceptions for "IntentBlockReport" folder in "IntentBlockReport" target */,
+				E9489DA11E134F0A88299518 /* PBXFileSystemSynchronizedBuildFileExceptionSet */,
 			);
-			path = IntentBlockReport;
+			path = ScrollGremlinReport;
 			sourceTree = "<group>";
 		};
-		212A97112F64A64700AE5F16 /* IntentBlock */ = {
+		212A97112F64A64700AE5F16 /* ScrollGremlin */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = IntentBlock;
+			path = ScrollGremlin;
 			sourceTree = "<group>";
 		};
-		2298F07AB35D422FBEF38784 /* IntentBlockShieldConfig */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				D11F32FC66BC4A8887D8887A /* Exceptions for "IntentBlockShieldConfig" folder in "IntentBlockShieldConfig" target */,
-			);
-			path = IntentBlockShieldConfig;
-			sourceTree = "<group>";
-		};
-		80B96CA831B24D159151C6B0 /* IntentBlockShieldAction */ = {
+		2298F07AB35D422FBEF38784 /* ScrollGremlinShieldConfig */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				15C5C8DDB2424F6482234EE6 /* Exceptions for "IntentBlockShieldAction" folder in "IntentBlockShieldAction" target */,
+				0026C2E3455741E682F11132 /* PBXFileSystemSynchronizedBuildFileExceptionSet */,
 			);
-			path = IntentBlockShieldAction;
+			path = ScrollGremlinShieldConfig;
+			sourceTree = "<group>";
+		};
+		80B96CA831B24D159151C6B0 /* ScrollGremlinShieldAction */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				4AD0BF7E0F6044429165BB98 /* PBXFileSystemSynchronizedBuildFileExceptionSet */,
+			);
+			path = ScrollGremlinShieldAction;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -187,12 +187,12 @@
 		212A97062F64A64700AE5F16 = {
 			isa = PBXGroup;
 			children = (
-				212A97112F64A64700AE5F16 /* IntentBlock */,
+				212A97112F64A64700AE5F16 /* ScrollGremlin */,
 				18E18C7568B84ACCAA8AB9B2 /* Shared */,
-				033EAA858AD742ED8F99A062 /* IntentBlockMonitor */,
-				80B96CA831B24D159151C6B0 /* IntentBlockShieldAction */,
-				2298F07AB35D422FBEF38784 /* IntentBlockShieldConfig */,
-				1FA4AB89B4BB4D70B571CA21 /* IntentBlockReport */,
+				033EAA858AD742ED8F99A062 /* ScrollGremlinMonitor */,
+				80B96CA831B24D159151C6B0 /* ScrollGremlinShieldAction */,
+				2298F07AB35D422FBEF38784 /* ScrollGremlinShieldConfig */,
+				1FA4AB89B4BB4D70B571CA21 /* ScrollGremlinReport */,
 				212A97102F64A64700AE5F16 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -200,11 +200,11 @@
 		212A97102F64A64700AE5F16 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				212A970F2F64A64700AE5F16 /* IntentBlock.app */,
-				8BEFDCA57E5041B4BD8D4FE1 /* IntentBlockMonitor.appex */,
-				3E85C518A60C4C36BFDD880D /* IntentBlockShieldAction.appex */,
-				75F5FE18FED6409BB7136238 /* IntentBlockShieldConfig.appex */,
-				560D2BBCAF4440F8ADC59711 /* IntentBlockReport.appex */,
+				212A970F2F64A64700AE5F16 /* ScrollGremlin.app */,
+				8BEFDCA57E5041B4BD8D4FE1 /* ScrollGremlinMonitor.appex */,
+				3E85C518A60C4C36BFDD880D /* ScrollGremlinShieldAction.appex */,
+				75F5FE18FED6409BB7136238 /* ScrollGremlinShieldConfig.appex */,
+				560D2BBCAF4440F8ADC59711 /* ScrollGremlinReport.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -212,9 +212,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		212A970E2F64A64700AE5F16 /* IntentBlock */ = {
+		212A970E2F64A64700AE5F16 /* ScrollGremlin */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 212A971A2F64A64800AE5F16 /* Build configuration list for PBXNativeTarget "IntentBlock" */;
+			buildConfigurationList = 212A971A2F64A64800AE5F16 /* Build configuration list for PBXNativeTarget "ScrollGremlin" */;
 			buildPhases = (
 				212A970B2F64A64700AE5F16 /* Sources */,
 				212A970C2F64A64700AE5F16 /* Frameworks */,
@@ -231,18 +231,18 @@
 			);
 			fileSystemSynchronizedGroups = (
 				18E18C7568B84ACCAA8AB9B2 /* Shared */,
-				212A97112F64A64700AE5F16 /* IntentBlock */,
+				212A97112F64A64700AE5F16 /* ScrollGremlin */,
 			);
-			name = IntentBlock;
+			name = ScrollGremlin;
 			packageProductDependencies = (
 			);
-			productName = IntentBlock;
-			productReference = 212A970F2F64A64700AE5F16 /* IntentBlock.app */;
+			productName = ScrollGremlin;
+			productReference = 212A970F2F64A64700AE5F16 /* ScrollGremlin.app */;
 			productType = "com.apple.product-type.application";
 		};
-		3EF04529085F4775AFE4BF26 /* IntentBlockReport */ = {
+		3EF04529085F4775AFE4BF26 /* ScrollGremlinReport */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5797747CBB2D4EF69E324340 /* Build configuration list for PBXNativeTarget "IntentBlockReport" */;
+			buildConfigurationList = 5797747CBB2D4EF69E324340 /* Build configuration list for PBXNativeTarget "ScrollGremlinReport" */;
 			buildPhases = (
 				76A3CDB4DD4B4365B253B93D /* Sources */,
 				3352B403664249CE85735906 /* Frameworks */,
@@ -253,18 +253,18 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				1FA4AB89B4BB4D70B571CA21 /* IntentBlockReport */,
+				1FA4AB89B4BB4D70B571CA21 /* ScrollGremlinReport */,
 			);
-			name = IntentBlockReport;
+			name = ScrollGremlinReport;
 			packageProductDependencies = (
 			);
-			productName = IntentBlockReport;
-			productReference = 560D2BBCAF4440F8ADC59711 /* IntentBlockReport.appex */;
+			productName = ScrollGremlinReport;
+			productReference = 560D2BBCAF4440F8ADC59711 /* ScrollGremlinReport.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		62414837D179411D819766CF /* IntentBlockShieldConfig */ = {
+		62414837D179411D819766CF /* ScrollGremlinShieldConfig */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 17DC455088D94E169C1FD4B6 /* Build configuration list for PBXNativeTarget "IntentBlockShieldConfig" */;
+			buildConfigurationList = 17DC455088D94E169C1FD4B6 /* Build configuration list for PBXNativeTarget "ScrollGremlinShieldConfig" */;
 			buildPhases = (
 				73AC6A05D9144A5BB05D2232 /* Sources */,
 				9F55400AAF93444284F0C5EA /* Frameworks */,
@@ -275,18 +275,18 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				2298F07AB35D422FBEF38784 /* IntentBlockShieldConfig */,
+				2298F07AB35D422FBEF38784 /* ScrollGremlinShieldConfig */,
 			);
-			name = IntentBlockShieldConfig;
+			name = ScrollGremlinShieldConfig;
 			packageProductDependencies = (
 			);
-			productName = IntentBlockShieldConfig;
-			productReference = 75F5FE18FED6409BB7136238 /* IntentBlockShieldConfig.appex */;
+			productName = ScrollGremlinShieldConfig;
+			productReference = 75F5FE18FED6409BB7136238 /* ScrollGremlinShieldConfig.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		B72826CD374A4D12B89A9EAD /* IntentBlockShieldAction */ = {
+		B72826CD374A4D12B89A9EAD /* ScrollGremlinShieldAction */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2C1FF5141C6F4C41B5BD81CC /* Build configuration list for PBXNativeTarget "IntentBlockShieldAction" */;
+			buildConfigurationList = 2C1FF5141C6F4C41B5BD81CC /* Build configuration list for PBXNativeTarget "ScrollGremlinShieldAction" */;
 			buildPhases = (
 				58BA4B7C00A649D9B55670C7 /* Sources */,
 				B5800D97FB5C4A188B63E156 /* Frameworks */,
@@ -298,18 +298,18 @@
 			);
 			fileSystemSynchronizedGroups = (
 				18E18C7568B84ACCAA8AB9B2 /* Shared */,
-				80B96CA831B24D159151C6B0 /* IntentBlockShieldAction */,
+				80B96CA831B24D159151C6B0 /* ScrollGremlinShieldAction */,
 			);
-			name = IntentBlockShieldAction;
+			name = ScrollGremlinShieldAction;
 			packageProductDependencies = (
 			);
-			productName = IntentBlockShieldAction;
-			productReference = 3E85C518A60C4C36BFDD880D /* IntentBlockShieldAction.appex */;
+			productName = ScrollGremlinShieldAction;
+			productReference = 3E85C518A60C4C36BFDD880D /* ScrollGremlinShieldAction.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		F22DCA15D8AF4838BA098532 /* IntentBlockMonitor */ = {
+		F22DCA15D8AF4838BA098532 /* ScrollGremlinMonitor */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F1A5FDC0725941F583EF1A51 /* Build configuration list for PBXNativeTarget "IntentBlockMonitor" */;
+			buildConfigurationList = F1A5FDC0725941F583EF1A51 /* Build configuration list for PBXNativeTarget "ScrollGremlinMonitor" */;
 			buildPhases = (
 				B3201324C29647B6A6A6D27F /* Sources */,
 				B333AD4EC9AC48EA824B716B /* Frameworks */,
@@ -320,14 +320,14 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				033EAA858AD742ED8F99A062 /* IntentBlockMonitor */,
+				033EAA858AD742ED8F99A062 /* ScrollGremlinMonitor */,
 				18E18C7568B84ACCAA8AB9B2 /* Shared */,
 			);
-			name = IntentBlockMonitor;
+			name = ScrollGremlinMonitor;
 			packageProductDependencies = (
 			);
-			productName = IntentBlockMonitor;
-			productReference = 8BEFDCA57E5041B4BD8D4FE1 /* IntentBlockMonitor.appex */;
+			productName = ScrollGremlinMonitor;
+			productReference = 8BEFDCA57E5041B4BD8D4FE1 /* ScrollGremlinMonitor.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -371,11 +371,11 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				212A970E2F64A64700AE5F16 /* IntentBlock */,
-				F22DCA15D8AF4838BA098532 /* IntentBlockMonitor */,
-				B72826CD374A4D12B89A9EAD /* IntentBlockShieldAction */,
-				62414837D179411D819766CF /* IntentBlockShieldConfig */,
-				3EF04529085F4775AFE4BF26 /* IntentBlockReport */,
+				212A970E2F64A64700AE5F16 /* ScrollGremlin */,
+				F22DCA15D8AF4838BA098532 /* ScrollGremlinMonitor */,
+				B72826CD374A4D12B89A9EAD /* ScrollGremlinShieldAction */,
+				62414837D179411D819766CF /* ScrollGremlinShieldConfig */,
+				3EF04529085F4775AFE4BF26 /* ScrollGremlinReport */,
 			);
 		};
 /* End PBXProject section */
@@ -459,22 +459,22 @@
 /* Begin PBXTargetDependency section */
 		015021B3B40046279FBEEAEB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = F22DCA15D8AF4838BA098532 /* IntentBlockMonitor */;
+			target = F22DCA15D8AF4838BA098532 /* ScrollGremlinMonitor */;
 			targetProxy = 262F45FCF5BD445890D3413A /* PBXContainerItemProxy */;
 		};
 		7BB467AF2E5D4CD3A7863962 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B72826CD374A4D12B89A9EAD /* IntentBlockShieldAction */;
+			target = B72826CD374A4D12B89A9EAD /* ScrollGremlinShieldAction */;
 			targetProxy = BAE0454B04FC4D579F2317FF /* PBXContainerItemProxy */;
 		};
 		E899C9D77EFD4B4EBBB47853 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3EF04529085F4775AFE4BF26 /* IntentBlockReport */;
+			target = 3EF04529085F4775AFE4BF26 /* ScrollGremlinReport */;
 			targetProxy = 7295BFC513D3420EB34DCB04 /* PBXContainerItemProxy */;
 		};
 		FBC5CA18D22248B995FABD55 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 62414837D179411D819766CF /* IntentBlockShieldConfig */;
+			target = 62414837D179411D819766CF /* ScrollGremlinShieldConfig */;
 			targetProxy = D98178B0A6A44ECEBBAA73B6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -599,7 +599,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = IntentBlock/Resources/IntentBlock.entitlements;
+				CODE_SIGN_ENTITLEMENTS = ScrollGremlin/Resources/ScrollGremlin.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BVD8RUQX4N;
@@ -607,6 +607,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = ScrollGremlin;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -622,7 +623,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 26.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = motesting.IntentBlock;
+				PRODUCT_BUNDLE_IDENTIFIER = motesting.ScrollGremlin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
@@ -643,7 +644,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = IntentBlock/Resources/IntentBlock.entitlements;
+				CODE_SIGN_ENTITLEMENTS = ScrollGremlin/Resources/ScrollGremlin.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BVD8RUQX4N;
@@ -651,6 +652,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = ScrollGremlin;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -666,7 +668,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 26.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = motesting.IntentBlock;
+				PRODUCT_BUNDLE_IDENTIFIER = motesting.ScrollGremlin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
@@ -685,16 +687,16 @@
 		5C554F3B5EF8445A9AAA3672 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = IntentBlockReport/IntentBlockReport.entitlements;
+				CODE_SIGN_ENTITLEMENTS = ScrollGremlinReport/ScrollGremlinReport.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BVD8RUQX4N;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = IntentBlockReport/Info.plist;
+				INFOPLIST_FILE = ScrollGremlinReport/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../../Frameworks";
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = motesting.IntentBlock.report;
+				PRODUCT_BUNDLE_IDENTIFIER = motesting.ScrollGremlin.report;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -707,16 +709,16 @@
 		68F876151C2A44C6B3FF94AA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = IntentBlockShieldConfig/IntentBlockShieldConfig.entitlements;
+				CODE_SIGN_ENTITLEMENTS = ScrollGremlinShieldConfig/ScrollGremlinShieldConfig.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BVD8RUQX4N;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = IntentBlockShieldConfig/Info.plist;
+				INFOPLIST_FILE = ScrollGremlinShieldConfig/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../../Frameworks";
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = motesting.IntentBlock.shieldconfig;
+				PRODUCT_BUNDLE_IDENTIFIER = motesting.ScrollGremlin.shieldconfig;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -729,16 +731,16 @@
 		722532A089534A1490F63989 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = IntentBlockShieldConfig/IntentBlockShieldConfig.entitlements;
+				CODE_SIGN_ENTITLEMENTS = ScrollGremlinShieldConfig/ScrollGremlinShieldConfig.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BVD8RUQX4N;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = IntentBlockShieldConfig/Info.plist;
+				INFOPLIST_FILE = ScrollGremlinShieldConfig/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../../Frameworks";
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = motesting.IntentBlock.shieldconfig;
+				PRODUCT_BUNDLE_IDENTIFIER = motesting.ScrollGremlin.shieldconfig;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -751,16 +753,16 @@
 		7BC4907E2B5142568C543A7C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = IntentBlockReport/IntentBlockReport.entitlements;
+				CODE_SIGN_ENTITLEMENTS = ScrollGremlinReport/ScrollGremlinReport.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BVD8RUQX4N;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = IntentBlockReport/Info.plist;
+				INFOPLIST_FILE = ScrollGremlinReport/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../../Frameworks";
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = motesting.IntentBlock.report;
+				PRODUCT_BUNDLE_IDENTIFIER = motesting.ScrollGremlin.report;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -773,16 +775,16 @@
 		9ABBAADF320D418EB032CC34 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = IntentBlockShieldAction/IntentBlockShieldAction.entitlements;
+				CODE_SIGN_ENTITLEMENTS = ScrollGremlinShieldAction/ScrollGremlinShieldAction.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BVD8RUQX4N;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = IntentBlockShieldAction/Info.plist;
+				INFOPLIST_FILE = ScrollGremlinShieldAction/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../../Frameworks";
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = motesting.IntentBlock.shieldaction;
+				PRODUCT_BUNDLE_IDENTIFIER = motesting.ScrollGremlin.shieldaction;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -795,16 +797,16 @@
 		BA870CB62C304353AA0FEF67 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = IntentBlockMonitor/IntentBlockMonitor.entitlements;
+				CODE_SIGN_ENTITLEMENTS = ScrollGremlinMonitor/ScrollGremlinMonitor.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BVD8RUQX4N;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = IntentBlockMonitor/Info.plist;
+				INFOPLIST_FILE = ScrollGremlinMonitor/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../../Frameworks";
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = motesting.IntentBlock.monitor;
+				PRODUCT_BUNDLE_IDENTIFIER = motesting.ScrollGremlin.monitor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -817,16 +819,16 @@
 		CB940F86111E4D9395320FD5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = IntentBlockMonitor/IntentBlockMonitor.entitlements;
+				CODE_SIGN_ENTITLEMENTS = ScrollGremlinMonitor/ScrollGremlinMonitor.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BVD8RUQX4N;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = IntentBlockMonitor/Info.plist;
+				INFOPLIST_FILE = ScrollGremlinMonitor/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../../Frameworks";
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = motesting.IntentBlock.monitor;
+				PRODUCT_BUNDLE_IDENTIFIER = motesting.ScrollGremlin.monitor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -839,16 +841,16 @@
 		D679A3C5BE4547029B35E578 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = IntentBlockShieldAction/IntentBlockShieldAction.entitlements;
+				CODE_SIGN_ENTITLEMENTS = ScrollGremlinShieldAction/ScrollGremlinShieldAction.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BVD8RUQX4N;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = IntentBlockShieldAction/Info.plist;
+				INFOPLIST_FILE = ScrollGremlinShieldAction/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../../Frameworks";
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = motesting.IntentBlock.shieldaction;
+				PRODUCT_BUNDLE_IDENTIFIER = motesting.ScrollGremlin.shieldaction;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -861,7 +863,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		17DC455088D94E169C1FD4B6 /* Build configuration list for PBXNativeTarget "IntentBlockShieldConfig" */ = {
+		17DC455088D94E169C1FD4B6 /* Build configuration list for PBXNativeTarget "ScrollGremlinShieldConfig" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				68F876151C2A44C6B3FF94AA /* Debug */,
@@ -879,7 +881,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		212A971A2F64A64800AE5F16 /* Build configuration list for PBXNativeTarget "IntentBlock" */ = {
+		212A971A2F64A64800AE5F16 /* Build configuration list for PBXNativeTarget "ScrollGremlin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				212A971B2F64A64800AE5F16 /* Debug */,
@@ -888,7 +890,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2C1FF5141C6F4C41B5BD81CC /* Build configuration list for PBXNativeTarget "IntentBlockShieldAction" */ = {
+		2C1FF5141C6F4C41B5BD81CC /* Build configuration list for PBXNativeTarget "ScrollGremlinShieldAction" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D679A3C5BE4547029B35E578 /* Debug */,
@@ -897,7 +899,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5797747CBB2D4EF69E324340 /* Build configuration list for PBXNativeTarget "IntentBlockReport" */ = {
+		5797747CBB2D4EF69E324340 /* Build configuration list for PBXNativeTarget "ScrollGremlinReport" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5C554F3B5EF8445A9AAA3672 /* Debug */,
@@ -906,7 +908,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F1A5FDC0725941F583EF1A51 /* Build configuration list for PBXNativeTarget "IntentBlockMonitor" */ = {
+		F1A5FDC0725941F583EF1A51 /* Build configuration list for PBXNativeTarget "ScrollGremlinMonitor" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BA870CB62C304353AA0FEF67 /* Debug */,

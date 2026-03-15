@@ -1,7 +1,7 @@
 import Foundation
 
 public final class AppGroupStore {
-    public static let appGroupID = "group.com.yourco.intentblock"
+    public static let appGroupID = "group.com.yourco.scrollgremlin"
     public static let shared = AppGroupStore()
 
     private let defaults: UserDefaults
