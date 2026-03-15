@@ -9,6 +9,7 @@ struct RuleCardView: View {
 
     @State private var showDetail = false
     @State private var activeSession: UnlockSession? = nil
+    @State private var isPressed = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -54,13 +55,18 @@ struct RuleCardView: View {
                     lineWidth: 1
                 )
         )
-        .interactivePress()
+        .scaleEffect(isPressed ? 0.97 : 1.0)
+        .animation(.spring(response: 0.25, dampingFraction: 0.65), value: isPressed)
         .contextMenu {
             Button(role: .destructive, action: onDelete) {
                 Label("Delete Rule", systemImage: "trash")
             }
         }
-        .onTapGesture { showDetail = true }
+        .onTapGesture {
+            isPressed = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { isPressed = false }
+            showDetail = true
+        }
         .onAppear { refreshSession() }
         .onReceive(
             NotificationCenter.default
