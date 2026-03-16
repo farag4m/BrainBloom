@@ -70,9 +70,16 @@ public final class MonitoringService: ObservableObject {
                     intervalEnd: slot.end,
                     repeats: false
                 )
-                // Use try? per slot; one failure (e.g. near system limit) won't abort the rest.
-                try? activityCenter.startMonitoring(name, during: schedule, events: [eName: event])
-                registeredNames.append(name.rawValue)
+                do {
+                    try activityCenter.startMonitoring(name, during: schedule, events: [eName: event])
+                    registeredNames.append(name.rawValue)
+                } catch {
+                    AppLogger.log(
+                        error: error,
+                        context: "Failed to start recurring monitoring slot \(slot.index) for rule \(rule.id)",
+                        category: "Monitoring"
+                    )
+                }
             }
         }
 
@@ -162,7 +169,11 @@ public final class MonitoringService: ObservableObject {
     public func startAllActive() {
         let rules = store.loadRules().filter { $0.isEnabled }
         for rule in rules {
-            try? startMonitoring(for: rule)
+            do {
+                try startMonitoring(for: rule)
+            } catch {
+                AppLogger.log(error: error, context: "Failed to start monitoring for rule \(rule.id)", category: "Monitoring")
+            }
         }
     }
 

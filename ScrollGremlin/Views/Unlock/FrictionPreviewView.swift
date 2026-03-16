@@ -44,7 +44,8 @@ struct FrictionPreviewView: View {
                             text: $viewModel.intentionText,
                             isConfirmEnabled: viewModel.isConfirmEnabled,
                             delayRemaining: viewModel.delayRemaining,
-                            friction: viewModel.friction,
+                            requiresIntention: viewModel.friction.includesIntention,
+                            showsCountdownDelay: viewModel.friction.includesDelay,
                             onConfirm: { viewModel.confirmPreview() }
                         )
                         .onAppear { viewModel.onIntentionAppear() }

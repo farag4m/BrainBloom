@@ -10,24 +10,33 @@ struct AddRuleView: View {
     let onSave: (AppRule) -> Void
     @Environment(\.dismiss) private var dismiss
     @State private var navPath = NavigationPath()
-    @State private var showWorkEditor = false
+    private let defaults = RuleFlowDefaults.current()
 
     var body: some View {
         NavigationStack(path: $navPath) {
-            PresetsScreen(
-                onNavigate: { destination in navPath.append(destination) },
-                onWorkPreset: { showWorkEditor = true }
-            )
-            .navigationDestination(for: AddRuleDest.self) { destination in
-                switch destination {
-                case .custom:
-                    CustomBuilderScreen { policy in
-                        navPath.append(AddRuleDest.setup(policy))
-                    }
-                case .setup(let policy):
-                    RuleSetupScreen(policy: policy) { rule in
-                        onSave(rule)
-                        dismiss()
+            ZStack {
+                RuleFlowBackground()
+
+                PresetsScreen(
+                    onNavigate: { destination in navPath.append(destination) },
+                    onWorkPreset: { navPath.append(AddRuleDest.workTemplate) }
+                )
+                .navigationDestination(for: AddRuleDest.self) { destination in
+                    switch destination {
+                    case .custom:
+                        CustomBuilderScreen { policy in
+                            navPath.append(AddRuleDest.setup(policy))
+                        }
+                    case .setup(let policy):
+                        RuleSetupScreen(policy: policy, defaults: defaults) { rule in
+                            onSave(rule)
+                            dismiss()
+                        }
+                    case .workTemplate:
+                        RuleEditorView(templateSchedule: .workDays, embedsInNavigationStack: false) { rule in
+                            onSave(rule)
+                            dismiss()
+                        }
                     }
                 }
             }
@@ -37,15 +46,8 @@ struct AddRuleView: View {
                 }
             }
         }
-        .background(.clear)
-        .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
+        .toolbarBackground(.regularMaterial, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
-        .sheet(isPresented: $showWorkEditor) {
-            RuleEditorView(templateSchedule: .workDays) { rule in
-                onSave(rule)
-                dismiss()
-            }
-        }
     }
 }
 
@@ -54,6 +56,7 @@ struct AddRuleView: View {
 enum AddRuleDest: Hashable {
     case custom
     case setup(UsagePolicy)
+    case workTemplate
 }
 
 // MARK: - Presets Screen
@@ -158,6 +161,7 @@ private struct PresetCard: View {
             .padding()
             .frame(minHeight: 100)
             .sgCard(cornerRadius: 14)
+            .contentShape(RoundedRectangle(cornerRadius: 14))
         }
         .buttonStyle(.plain)
     }
@@ -187,6 +191,7 @@ private struct WorkPresetCard: View {
             .padding()
             .frame(minHeight: 100)
             .sgCard(cornerRadius: 14)
+            .contentShape(RoundedRectangle(cornerRadius: 14))
         }
         .buttonStyle(.plain)
     }
@@ -254,7 +259,7 @@ private struct CustomBuilderScreen: View {
             }
         }
         .scrollContentBackground(.hidden)
-        .background(.clear)
+        .background(RuleFlowBackground())
         .listStyle(.plain)
         .navigationTitle("Custom Rule")
         .navigationBarTitleDisplayMode(.inline)
@@ -285,6 +290,7 @@ private struct CustomBuilderScreen: View {
 
 private struct RuleSetupScreen: View {
     let policy: UsagePolicy
+    let defaults: RuleFlowDefaults
     let onSave: (AppRule) -> Void
 
     @State private var ruleName = ""
@@ -297,7 +303,7 @@ private struct RuleSetupScreen: View {
 
     private var resolvedPreviewFriction: FrictionType {
         if frictionKey == "default" {
-            return AppGroupStore.shared.loadSettings().defaultFriction
+            return defaults.defaultFriction
         }
         return FrictionType(rawValue: frictionKey) ?? .confirmOnly
     }
@@ -363,8 +369,8 @@ private struct RuleSetupScreen: View {
 
             Section("Blocking Duration") {
                 Picker("Duration", selection: $unlockDurationKey) {
-                    Text("Default (follows Settings)").tag("default")
-                    ForEach(UnlockType.allCases, id: \.rawValue) { type in
+                    Text(defaults.defaultUnlockType.displayLabel).tag("default")
+                    ForEach(UnlockType.allCases.filter { $0 != defaults.defaultUnlockType }, id: \.rawValue) { type in
                         Text(type.displayLabel).tag(type.rawValue)
                     }
                 }
@@ -373,8 +379,8 @@ private struct RuleSetupScreen: View {
 
             Section("Blocking Friction") {
                 Picker("Friction", selection: $frictionKey) {
-                    Text("Default (follows Settings)").tag("default")
-                    ForEach(FrictionType.allCases, id: \.rawValue) { type in
+                    Text(defaults.defaultFriction.displayName).tag("default")
+                    ForEach(FrictionType.allCases.filter { $0 != defaults.defaultFriction }, id: \.rawValue) { type in
                         Text(type.displayName).tag(type.rawValue)
                     }
                 }
@@ -389,7 +395,7 @@ private struct RuleSetupScreen: View {
             }
         }
         .scrollContentBackground(.hidden)
-        .background(.clear)
+        .background(RuleFlowBackground())
         .listStyle(.plain)
         .navigationTitle("Rule Details")
         .navigationBarTitleDisplayMode(.inline)

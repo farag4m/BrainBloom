@@ -1,43 +1,6 @@
 import SwiftUI
 import Combine
 
-// MARK: - RuleDisplayItem
-
-/// A rule paired with its derived badge, computed atomically from the same state snapshot.
-/// Passing this type to views guarantees rule state and badge state are always in sync —
-/// there is no way for the badge to reflect a different version of the rule than what the
-/// card is rendering.
-struct RuleDisplayItem: Identifiable {
-    let rule: AppRule
-    let badge: RuleStatusBadge
-    var id: UUID { rule.id }
-}
-
-// MARK: - DayGroup
-
-/// A group of rules sharing the same active-days schedule pattern,
-/// used as sections in the All Rules tab.
-struct DayGroup: Identifiable {
-    let activeDays: Set<Int>
-    let items: [RuleDisplayItem]    // sorted by rule.createdAt ascending (added-first)
-
-    var id: String { activeDays.sorted().map(String.init).joined(separator: "-") }
-
-    var title: String { DayGroup.title(for: activeDays) }
-
-    static func title(for days: Set<Int>) -> String {
-        if days == Set(1...7)        { return "Every Day" }
-        if days == Set([2, 3, 4, 5, 6]) { return "Weekdays" }
-        if days == Set([1, 7])       { return "Weekends" }
-        let names: [Int: String] = [1:"Sun", 2:"Mon", 3:"Tue", 4:"Wed", 5:"Thu", 6:"Fri", 7:"Sat"]
-        // Sort Monday-first: Mon(2)→0, Tue(3)→1, ..., Sun(1)→6
-        return days.sorted { ($0 - 2 + 7) % 7 < ($1 - 2 + 7) % 7 }
-            .compactMap { names[$0] }.joined(separator: " · ")
-    }
-}
-
-// MARK: - DashboardViewModel
-
 @MainActor
 final class DashboardViewModel: ObservableObject {
     @Published var rules: [AppRule] = []
@@ -49,6 +12,7 @@ final class DashboardViewModel: ObservableObject {
     private let store = AppGroupStore.shared
     private let ruleManager = RuleManager.shared
     private var cancellables = Set<AnyCancellable>()
+    private var unlockSessions: [UnlockSession] = []
 
     init() {
         loadData()
@@ -61,6 +25,7 @@ final class DashboardViewModel: ObservableObject {
         ruleManager.reloadRules()
         rules = ruleManager.rules
         refreshShieldStates()
+        refreshUnlockSessions()
         ruleManager.handlePendingUnlockRequest()
         refreshUsageSummary()
     }
@@ -74,9 +39,9 @@ final class DashboardViewModel: ObservableObject {
     // MARK: - Mutations
 
     func addRule(_ rule: AppRule) {
-        try? ruleManager.addRule(rule)
-        rules = ruleManager.rules
-        refreshShieldStates()
+        performRuleMutation("add rule \(rule.id)") {
+            try ruleManager.addRule(rule)
+        }
     }
 
     func deleteRule(_ rule: AppRule) {
@@ -86,15 +51,15 @@ final class DashboardViewModel: ObservableObject {
     }
 
     func updateRule(_ rule: AppRule) {
-        try? ruleManager.updateRule(rule)
-        rules = ruleManager.rules
-        refreshShieldStates()
+        performRuleMutation("update rule \(rule.id)") {
+            try ruleManager.updateRule(rule)
+        }
     }
 
     func toggleRule(_ rule: AppRule) {
-        try? ruleManager.toggleRule(id: rule.id)
-        rules = ruleManager.rules
-        refreshShieldStates()
+        performRuleMutation("toggle rule \(rule.id)") {
+            try ruleManager.toggleRule(id: rule.id)
+        }
     }
 
     // MARK: - Today tab
@@ -150,7 +115,11 @@ final class DashboardViewModel: ObservableObject {
 
     /// Derives badge atomically with the rule snapshot — call site gets one consistent object.
     private func makeDisplayItem(_ rule: AppRule) -> RuleDisplayItem {
-        RuleDisplayItem(rule: rule, badge: computeBadge(for: rule))
+        RuleDisplayItem(
+            rule: rule,
+            badge: computeBadge(for: rule),
+            activeSession: UnlockSessionQueries.activeSession(for: rule.id, in: unlockSessions)
+        )
     }
 
     private func computeBadge(for rule: AppRule) -> RuleStatusBadge {
@@ -166,18 +135,12 @@ final class DashboardViewModel: ObservableObject {
 
     private func refreshUsageSummary() {
         let summaries = store.loadUsageSummaries()
-        let calendar = Calendar.current
-        let today = calendar.startOfDay(for: Date())
-        let last7 = (0..<7).compactMap { dayOffset -> String? in
-            guard let date = calendar.date(byAdding: .day, value: -dayOffset, to: today) else { return nil }
-            return AppGroupStore.dayString(for: date)
-        }
+        weeklyAverageMinutes = UsageInsights.weeklyAverageMinutes(from: summaries)
+        hasUsageData = UsageInsights.hasWeeklyUsageData(summaries)
+    }
 
-        let byDate = Dictionary(uniqueKeysWithValues: summaries.map { ($0.date, $0.totalScreenTimeSeconds) })
-        let values = last7.compactMap { byDate[$0] }
-
-        hasUsageData = !values.isEmpty
-        weeklyAverageMinutes = values.isEmpty ? 0 : (values.reduce(0, +) / Double(values.count)) / 60.0
+    private func refreshUnlockSessions() {
+        unlockSessions = store.loadUnlockSessions()
     }
 
     private func observeChanges() {
@@ -186,6 +149,7 @@ final class DashboardViewModel: ObservableObject {
             .sink { [weak self] rules in
                 self?.rules = rules
                 self?.refreshShieldStates()
+                self?.refreshUnlockSessions()
             }
             .store(in: &cancellables)
 
@@ -194,6 +158,7 @@ final class DashboardViewModel: ObservableObject {
             .debounce(for: .milliseconds(200), scheduler: RunLoop.main)
             .sink { [weak self] _ in
                 self?.refreshShieldStates()
+                self?.refreshUnlockSessions()
                 self?.refreshUsageSummary()
             }
             .store(in: &cancellables)
@@ -203,35 +168,15 @@ final class DashboardViewModel: ObservableObject {
             .sink { [weak self] _ in self?.loadData() }
             .store(in: &cancellables)
     }
-}
 
-// MARK: - RuleStatusBadge
-
-enum RuleStatusBadge {
-    case active, locked, disabled, offToday
-
-    static func make(for rule: AppRule, isShielded: Bool) -> RuleStatusBadge {
-        if !rule.isEnabled { return .disabled }
-        if isShielded { return .locked }
-        if !rule.schedule.isActiveNow { return .offToday }
-        return .active
-    }
-
-    var label: String {
-        switch self {
-        case .active:   return "Active"
-        case .locked:   return "Locked"
-        case .disabled: return "Disabled"
-        case .offToday: return "Off today"
-        }
-    }
-
-    var color: Color {
-        switch self {
-        case .active:   return Color(red: 0.55, green: 0.62, blue: 0.98)  // soft periwinkle
-        case .locked:   return Color(red: 0.85, green: 0.45, blue: 0.55)  // muted rose
-        case .disabled: return .secondary
-        case .offToday: return Color(red: 0.90, green: 0.68, blue: 0.42)  // warm amber
+    private func performRuleMutation(_ context: String, mutation: () throws -> Void) {
+        do {
+            try mutation()
+            rules = ruleManager.rules
+            refreshShieldStates()
+            refreshUnlockSessions()
+        } catch {
+            AppLogger.log(error: error, context: "Failed to \(context)", category: "Dashboard")
         }
     }
 }

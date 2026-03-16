@@ -2,7 +2,6 @@ import SwiftUI
 
 struct AddRuleButton: View {
     let action: () -> Void
-    @Environment(\.colorScheme) private var scheme
 
     var body: some View {
         Button(action: action) {

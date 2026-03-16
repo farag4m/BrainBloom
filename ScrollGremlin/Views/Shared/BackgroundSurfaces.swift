@@ -120,62 +120,6 @@ struct GlassCard: View {
     }
 }
 
-struct SGHeroCardSurface: View {
-    var cornerRadius: CGFloat = 28
-
-    var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: cornerRadius)
-                .fill(SGGradient.pastelHero)
-
-            RoundedRectangle(cornerRadius: cornerRadius)
-                .fill(
-                    LinearGradient(
-                        colors: [.white.opacity(0.32), .clear],
-                        startPoint: .top,
-                        endPoint: UnitPoint(x: 0.5, y: 0.55)
-                    )
-                )
-
-            RoundedRectangle(cornerRadius: cornerRadius)
-                .stroke(Color.white.opacity(0.30), lineWidth: 1)
-        }
-    }
-}
-
-struct SGMascotFrame: View {
-    var size: CGFloat = 80
-    @Environment(\.colorScheme) private var scheme
-
-    var body: some View {
-        ZStack {
-            Circle()
-                .fill(.ultraThinMaterial)
-                .frame(width: size, height: size)
-
-            Circle()
-                .fill(
-                    LinearGradient(
-                        colors: scheme == .dark ? [
-                            Color(red: 0.20, green: 0.12, blue: 0.45).opacity(0.60),
-                            Color(red: 0.12, green: 0.08, blue: 0.30).opacity(0.40),
-                        ] : [
-                            Color(red: 0.40, green: 0.65, blue: 0.95).opacity(0.22),
-                            Color(red: 0.60, green: 0.45, blue: 0.95).opacity(0.14),
-                        ],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
-                )
-                .frame(width: size, height: size)
-
-            Circle()
-                .stroke(Color.white.opacity(0.40), lineWidth: 1)
-                .frame(width: size, height: size)
-        }
-        .shadow(color: .black.opacity(0.15), radius: 10, y: 4)
-    }
-}
 
 struct SGMascotGlow: View {
     var size: CGFloat = 200
@@ -316,18 +260,6 @@ extension View {
     }
 }
 
-struct CardView<Content: View>: View {
-    let content: Content
-
-    init(@ViewBuilder content: () -> Content) {
-        self.content = content()
-    }
-
-    var body: some View {
-        content.padding().sgCard()
-    }
-}
-
 // MARK: - Dashboard Grid Background
 
 struct DashboardGridBackground: View {
@@ -340,8 +272,6 @@ struct DashboardGridBackground: View {
             FuturisticGridOverlay()
                 .opacity(scheme == .light ? 0.22 : 0.16)
                 .blendMode(.plusLighter)
-
-            FloatingOrbField()
         }
         .ignoresSafeArea()
     }

@@ -55,7 +55,7 @@ struct MainTabView: View {
             .toolbarBackground(.ultraThinMaterial, for: .tabBar)
             .toolbarBackground(.visible, for: .tabBar)
             // Sheets live here so they work from either tab without duplication.
-            .sheet(isPresented: $viewModel.showAddRule) {
+            .fullScreenCover(isPresented: $viewModel.showAddRule) {
                 AddRuleView { rule in
                     viewModel.addRule(rule)
                 }

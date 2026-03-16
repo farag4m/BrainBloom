@@ -20,6 +20,7 @@ final class OrbFieldModel: ObservableObject {
     private var isMerging = false
     private var isSplitting = false
     private var splitCooldownUntil: Date = .distantPast
+    private var runTask: Task<Void, Never>?
 
     func updateSize(_ newSize: CGSize) {
         size = newSize
@@ -32,15 +33,24 @@ final class OrbFieldModel: ObservableObject {
     func start() {
         guard !isRunning else { return }
         isRunning = true
-        Task { await runLoop() }
+        runTask = Task { await runLoop() }
+    }
+
+    func stop() {
+        runTask?.cancel()
+        runTask = nil
+        isRunning = false
     }
 
     private func runLoop() async {
         let frameDuration = 1.0 / 60.0
         while !Task.isCancelled {
             step(dt: frameDuration)
-            try? await Task.sleep(nanoseconds: UInt64(frameDuration * 1_000_000_000))
+            guard await SleepTimer.pause(seconds: frameDuration) else {
+                break
+            }
         }
+        isRunning = false
     }
 
     private func step(dt: Double) {
@@ -167,7 +177,10 @@ final class OrbFieldModel: ObservableObject {
             }
         }
 
-        try? await Task.sleep(nanoseconds: 1_000_000_000)
+        guard await SleepTimer.pause(seconds: 1) else {
+            isSplitting = false
+            return
+        }
         particles.removeAll { $0.id == particle.id }
         splitCooldownUntil = Date().addingTimeInterval(4)
         isSplitting = false
@@ -206,7 +219,11 @@ final class OrbFieldModel: ObservableObject {
                 particles[index].opacity = 0.0
             }
         }
-        try? await Task.sleep(nanoseconds: UInt64(mergeDuration * 1_000_000_000))
+        guard await SleepTimer.pause(seconds: mergeDuration) else {
+            isMerging = false
+            mergingProgress = 0
+            return
+        }
 
         mergeAll()
         mergingProgress = 0
@@ -260,6 +277,9 @@ struct FloatingOrbField: View {
             .onAppear {
                 model.updateSize(geo.size)
                 model.start()
+            }
+            .onDisappear {
+                model.stop()
             }
             .onChange(of: geo.size) { newSize in
                 model.updateSize(newSize)

@@ -2,7 +2,6 @@ import SwiftUI
 
 struct SettingsView: View {
     @State private var settings = AppGroupStore.shared.loadSettings()
-    @EnvironmentObject var authManager: AuthorizationManager
     @State private var showExportSheet = false
     @State private var showResetAlert = false
 
@@ -95,6 +94,9 @@ struct SettingsView: View {
         .onChange(of: settings) { newSettings in
             AppGroupStore.shared.saveSettings(newSettings)
         }
+        .onReceive(NotificationCenter.default.publisher(for: UserDefaults.didChangeNotification)) { _ in
+            settings = AppGroupStore.shared.loadSettings()
+        }
         .alert("Clear History?", isPresented: $showResetAlert) {
             Button("Clear", role: .destructive) {
                 AppGroupStore.shared.clearUnlockSessions()
@@ -138,11 +140,17 @@ struct ExportView: View {
             let encoder = JSONEncoder()
             encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
             encoder.dateEncodingStrategy = .iso8601
-            if let data = try? encoder.encode(sessions),
-               let json = String(data: data, encoding: .utf8) {
-                exportText = json
-            } else {
+            do {
+                let data = try encoder.encode(sessions)
+                if let json = String(data: data, encoding: .utf8) {
+                    exportText = json
+                } else {
+                    exportText = "[]"
+                    AppLogger.log("Failed to decode export JSON as UTF-8 text", category: "Settings")
+                }
+            } catch {
                 exportText = "[]"
+                AppLogger.log(error: error, context: "Failed to encode unlock session export", category: "Settings")
             }
         }
     }

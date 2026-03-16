@@ -31,13 +31,7 @@ final class RuleEditorViewModel: ObservableObject {
         }
     }
 
-    @Published var ruleMode: RuleMode = .daily {
-        didSet {
-            if ruleMode == .hourly {
-                intervalHours = 1
-            }
-        }
-    }
+    @Published var ruleMode: RuleMode = .daily
     @Published var allowedMinutes: Int = 30
     @Published var intervalHours: Int = 1       // preserved for existing interval rules
     @Published var activeDays: Set<Int> = [1, 2, 3, 4, 5, 6, 7]
@@ -51,6 +45,8 @@ final class RuleEditorViewModel: ObservableObject {
     @Published var unlockDurationKey: String = "default"
     @Published var frictionKey: String = "default"
 
+    let defaultUnlockType: UnlockType
+    let defaultFriction: FrictionType
     var unlockDuration: UnlockType?   { UnlockType(rawValue: unlockDurationKey) }
     var frictionOverride: FrictionType? { FrictionType(rawValue: frictionKey) }
 
@@ -58,6 +54,9 @@ final class RuleEditorViewModel: ObservableObject {
 
     /// Edit an existing rule, or create a blank new one (rule == nil).
     init(rule: AppRule?) {
+        let settings = AppGroupStore.shared.loadSettings()
+        self.defaultUnlockType = settings.defaultUnlockType
+        self.defaultFriction = settings.defaultFriction
         self.existingRule = rule
         if let rule = rule {
             self.ruleName = rule.name
@@ -78,6 +77,9 @@ final class RuleEditorViewModel: ObservableObject {
     /// Create a new rule pre-populated with a schedule template (e.g. Work 9–5).
     /// isEditing stays false — no Delete button, title reads "New Rule".
     init(templateSchedule: RuleSchedule) {
+        let settings = AppGroupStore.shared.loadSettings()
+        self.defaultUnlockType = settings.defaultUnlockType
+        self.defaultFriction = settings.defaultFriction
         self.existingRule = nil
         self.activeDays = templateSchedule.activeDays
         self.startHour = templateSchedule.startHour
@@ -89,7 +91,20 @@ final class RuleEditorViewModel: ObservableObject {
 
     var isEditing: Bool { existingRule != nil }
     var hasSelection: Bool { !selection.applicationTokens.isEmpty || !selection.categoryTokens.isEmpty }
-    var isValid: Bool { hasSelection && allowedMinutes >= 0 && !ruleName.trimmingCharacters(in: .whitespaces).isEmpty }
+    var isValid: Bool {
+        hasSelection
+            && allowedMinutes >= 0
+            && !ruleName.trimmingCharacters(in: .whitespaces).isEmpty
+            && hasValidScheduleWindow
+    }
+    var hasValidScheduleWindow: Bool {
+        guard ruleMode == .scheduledWindow else { return true }
+        return startTotalMinutes < endTotalMinutes
+    }
+    var scheduleValidationMessage: String? {
+        guard ruleMode == .scheduledWindow, !hasValidScheduleWindow else { return nil }
+        return "Scheduled windows must start and end on the same day. Choose an end time later than the start time."
+    }
 
     var selectionSummary: String {
         let appCount = selection.applicationTokens.count
@@ -163,5 +178,13 @@ final class RuleEditorViewModel: ObservableObject {
         startMinute = 0
         endHour = 23
         endMinute = 59
+    }
+
+    private var startTotalMinutes: Int {
+        (startHour * 60) + startMinute
+    }
+
+    private var endTotalMinutes: Int {
+        (endHour * 60) + endMinute
     }
 }

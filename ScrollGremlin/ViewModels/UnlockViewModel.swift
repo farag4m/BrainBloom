@@ -32,6 +32,9 @@ final class UnlockViewModel: ObservableObject {
     let effectiveFriction: FrictionType
     private var requiresIntention: Bool { effectiveFriction.includesIntention || settings.requireIntentionText }
     private var requiresDelay: Bool { effectiveFriction.includesDelay }
+    private var requiresConfirmationStep: Bool {
+        requiresIntention || requiresDelay || effectiveFriction == .confirmOnly
+    }
 
     init(ruleID: UUID) {
         self.ruleID = ruleID
@@ -85,67 +88,31 @@ final class UnlockViewModel: ObservableObject {
     }
 
     func startBreathing() {
-        breathingTask = Task {
-            for cycle in 0..<3 {
-                guard !Task.isCancelled else { break }
-                breathingCycle = cycle
-
-                // 5s inhale → 5s exhale (6 breaths/min, evidence-based slow-paced breathing)
-                breathingPhase = .inhale
-                await animateBreathing(to: 1.0, duration: 5.0)
-                guard !Task.isCancelled else { break }
-                breathingPhase = .exhale
-                await animateBreathing(to: 0.0, duration: 5.0)
+        breathingTask?.cancel()
+        breathingTask = BreathingExerciseRunner.start(
+            setCycle: { [weak self] cycle in self?.breathingCycle = cycle },
+            setPhase: { [weak self] phase in self?.breathingPhase = phase },
+            setProgress: { [weak self] progress in self?.breathingProgress = progress }
+        ) { [weak self] in
+            guard let self else { return }
+            if self.currentStep == .breathing {
+                self.currentStep = .chooseDuration
             }
-            if !Task.isCancelled {
-                currentStep = .chooseDuration
-            }
-        }
-    }
-
-    private func animateBreathing(to value: Double, duration: Double) async {
-        let steps = 40
-        let stepDuration = duration / Double(steps)
-        let start = breathingProgress
-        for i in 0...steps {
-            guard !Task.isCancelled else { return }
-            breathingProgress = start + (value - start) * (Double(i) / Double(steps))
-            try? await Task.sleep(nanoseconds: UInt64(stepDuration * 1_000_000_000))
         }
     }
 
     func proceedFromDuration() {
-        if requiresIntention {
-            currentStep = .intention
-            startMinimumDelay()
-        } else if requiresDelay {
-            startCountdownDelay()
-        } else {
-            startMinimumDelay()
-            currentStep = .intention
-        }
-    }
-
-    func startMinimumDelay() {
-        isConfirmEnabled = false
-        Task {
-            try? await Task.sleep(nanoseconds: 2_000_000_000)
-            isConfirmEnabled = true
-        }
-    }
-
-    func startCountdownDelay() {
-        delayRemaining = 10
-        isConfirmEnabled = false
-        currentStep = .intention
-        delayTask = Task {
-            for i in stride(from: 10, through: 0, by: -1) {
-                guard !Task.isCancelled else { return }
-                delayRemaining = i
-                try? await Task.sleep(nanoseconds: 1_000_000_000)
+        guard requiresConfirmationStep else {
+            Task { [weak self] in
+                await self?.confirmUnlock()
             }
-            isConfirmEnabled = true
+            return
         }
+
+        if requiresIntention || requiresDelay || effectiveFriction == .confirmOnly {
+            currentStep = .intention
+        }
+        startConfirmationDelay()
     }
 
     func confirmUnlock() async {
@@ -169,7 +136,11 @@ final class UnlockViewModel: ObservableObject {
             }
         } else {
             // Start grace monitoring for timed unlocks
-            try? monitoringService.startGraceMonitoring(for: rule, gracePeriodMinutes: selectedDuration.minutes!)
+            do {
+                try monitoringService.startGraceMonitoring(for: rule, gracePeriodMinutes: selectedDuration.minutes!)
+            } catch {
+                AppLogger.log(error: error, context: "Failed to start grace monitoring for rule \(rule.id)", category: "Unlock")
+            }
         }
 
         // Record unlock session
@@ -191,7 +162,7 @@ final class UnlockViewModel: ObservableObject {
         }
         store.saveDailyState(dailyState)
 
-        try? await Task.sleep(nanoseconds: 800_000_000)
+        _ = await SleepTimer.pause(seconds: 0.8)
         currentStep = .done
     }
 
@@ -200,15 +171,14 @@ final class UnlockViewModel: ObservableObject {
         delayTask?.cancel()
         store.clearPendingUnlockRequest()
     }
-}
 
-enum BreathingPhase {
-    case inhale, exhale
-
-    var label: String {
-        switch self {
-        case .inhale: return "Inhale"
-        case .exhale: return "Exhale"
-        }
+    private func startConfirmationDelay() {
+        delayTask?.cancel()
+        isConfirmEnabled = false
+        delayTask = ConfirmationDelayRunner.start(
+            for: effectiveFriction,
+            setRemaining: { [weak self] remaining in self?.delayRemaining = remaining },
+            setIsEnabled: { [weak self] isEnabled in self?.isConfirmEnabled = isEnabled }
+        )
     }
 }

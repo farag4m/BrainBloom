@@ -1,7 +1,7 @@
 import Foundation
 
 public final class AppGroupStore {
-    public static let appGroupID = "group.com.yourco.scrollgremlin"
+    public static var appGroupID: String { AppConfig.appGroupID }
     public static let shared = AppGroupStore()
     private static let dayFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -14,38 +14,32 @@ public final class AppGroupStore {
     private let decoder = JSONDecoder()
 
     private init() {
-        guard let defaults = UserDefaults(suiteName: Self.appGroupID) else {
-            fatalError("App Group not configured: \(Self.appGroupID)")
+        if let defaults = UserDefaults(suiteName: AppConfig.appGroupID) {
+            self.defaults = defaults
+        } else {
+            AppLogger.log("App Group not configured: \(AppConfig.appGroupID). Falling back to standard UserDefaults.", category: "Storage")
+            self.defaults = .standard
         }
-        self.defaults = defaults
     }
 
     // MARK: - Rules
 
     public func saveRules(_ rules: [AppRule]) {
-        defaults.set(try? encoder.encode(rules), forKey: Keys.rules)
+        saveValue(rules, forKey: Keys.rules, context: "Saving rules")
     }
 
     public func loadRules() -> [AppRule] {
-        guard let data = defaults.data(forKey: Keys.rules),
-              let rules = try? decoder.decode([AppRule].self, from: data) else {
-            return []
-        }
-        return rules
+        loadValue([AppRule].self, forKey: Keys.rules, defaultValue: [])
     }
 
     // MARK: - Settings
 
     public func saveSettings(_ settings: UserSettings) {
-        defaults.set(try? encoder.encode(settings), forKey: Keys.settings)
+        saveValue(settings, forKey: Keys.settings, context: "Saving settings")
     }
 
     public func loadSettings() -> UserSettings {
-        guard let data = defaults.data(forKey: Keys.settings),
-              let settings = try? decoder.decode(UserSettings.self, from: data) else {
-            return .default
-        }
-        return settings
+        loadValue(UserSettings.self, forKey: Keys.settings, defaultValue: .default)
     }
 
     // MARK: - Daily State
@@ -53,7 +47,7 @@ public final class AppGroupStore {
     public func saveDailyState(_ state: DailyState) {
         var all = loadAllDailyStates()
         all[state.storageKey] = state
-        defaults.set(try? encoder.encode(all), forKey: Keys.dailyState)
+        saveValue(all, forKey: Keys.dailyState, context: "Saving daily state")
     }
 
     public func loadDailyState(ruleID: UUID, date: String = AppGroupStore.todayString) -> DailyState? {
@@ -61,22 +55,17 @@ public final class AppGroupStore {
     }
 
     private func loadAllDailyStates() -> [String: DailyState] {
-        guard let data = defaults.data(forKey: Keys.dailyState),
-              let all = try? decoder.decode([String: DailyState].self, from: data) else {
-            return [:]
-        }
-        return all
+        loadValue([String: DailyState].self, forKey: Keys.dailyState, defaultValue: [:])
     }
 
     // MARK: - Pending Unlock Request
 
     public func setPendingUnlockRequest(_ request: UnlockRequest) {
-        defaults.set(try? encoder.encode(request), forKey: Keys.pendingUnlock)
+        saveValue(request, forKey: Keys.pendingUnlock, context: "Saving pending unlock request")
     }
 
     public func loadPendingUnlockRequest() -> UnlockRequest? {
-        guard let data = defaults.data(forKey: Keys.pendingUnlock),
-              let request = try? decoder.decode(UnlockRequest.self, from: data) else {
+        guard let request: UnlockRequest = loadOptionalValue(UnlockRequest.self, forKey: Keys.pendingUnlock) else {
             return nil
         }
         guard Date().timeIntervalSince(request.requestedAt) < 300 else {
@@ -97,15 +86,11 @@ public final class AppGroupStore {
         sessions.append(session)
         let cutoff = Calendar.current.date(byAdding: .day, value: -90, to: Date())!
         sessions = sessions.filter { $0.startedAt > cutoff }
-        defaults.set(try? encoder.encode(sessions), forKey: Keys.unlockSessions)
+        saveValue(sessions, forKey: Keys.unlockSessions, context: "Saving unlock sessions")
     }
 
     public func loadUnlockSessions() -> [UnlockSession] {
-        guard let data = defaults.data(forKey: Keys.unlockSessions),
-              let sessions = try? decoder.decode([UnlockSession].self, from: data) else {
-            return []
-        }
-        return sessions
+        loadValue([UnlockSession].self, forKey: Keys.unlockSessions, defaultValue: [])
     }
 
     public func clearUnlockSessions() {
@@ -135,29 +120,21 @@ public final class AppGroupStore {
     // MARK: - Monitor Policies
 
     public func saveMonitorPolicies(_ policies: [MonitorPolicy]) {
-        defaults.set(try? encoder.encode(policies), forKey: Keys.monitorPolicies)
+        saveValue(policies, forKey: Keys.monitorPolicies, context: "Saving monitor policies")
     }
 
     public func loadMonitorPolicies() -> [MonitorPolicy] {
-        guard let data = defaults.data(forKey: Keys.monitorPolicies),
-              let policies = try? decoder.decode([MonitorPolicy].self, from: data) else {
-            return []
-        }
-        return policies
+        loadValue([MonitorPolicy].self, forKey: Keys.monitorPolicies, defaultValue: [])
     }
 
     // MARK: - Usage Summary
 
     public func saveUsageSummaries(_ summaries: [UsageDaySummary]) {
-        defaults.set(try? encoder.encode(summaries), forKey: Keys.usageSummary)
+        saveValue(summaries, forKey: Keys.usageSummary, context: "Saving usage summaries")
     }
 
     public func loadUsageSummaries() -> [UsageDaySummary] {
-        guard let data = defaults.data(forKey: Keys.usageSummary),
-              let summaries = try? decoder.decode([UsageDaySummary].self, from: data) else {
-            return []
-        }
-        return summaries
+        loadValue([UsageDaySummary].self, forKey: Keys.usageSummary, defaultValue: [])
     }
 
     // MARK: - Helpers
@@ -179,5 +156,40 @@ public final class AppGroupStore {
         static let shieldState = "shield_state_v1"
         static let monitorPolicies = "monitor_policies_v2"  // bumped: MonitorPolicy.policy added
         static let usageSummary = "usage_summary_v1"
+    }
+
+    private func saveValue<Value: Encodable>(_ value: Value, forKey key: String, context: String) {
+        do {
+            let data = try encoder.encode(value)
+            defaults.set(data, forKey: key)
+        } catch {
+            AppLogger.log(error: error, context: context, category: "Storage")
+        }
+    }
+
+    private func loadValue<Value: Decodable>(_ type: Value.Type, forKey key: String, defaultValue: Value) -> Value {
+        guard let data = defaults.data(forKey: key) else {
+            return defaultValue
+        }
+
+        do {
+            return try decoder.decode(Value.self, from: data)
+        } catch {
+            AppLogger.log(error: error, context: "Loading \(key)", category: "Storage")
+            return defaultValue
+        }
+    }
+
+    private func loadOptionalValue<Value: Decodable>(_ type: Value.Type, forKey key: String) -> Value? {
+        guard let data = defaults.data(forKey: key) else {
+            return nil
+        }
+
+        do {
+            return try decoder.decode(Value.self, from: data)
+        } catch {
+            AppLogger.log(error: error, context: "Loading \(key)", category: "Storage")
+            return nil
+        }
     }
 }

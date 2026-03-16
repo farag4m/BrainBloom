@@ -13,9 +13,8 @@ struct RuleCardView: View {
     let onUpdate: (AppRule) -> Void
     let onDelete: () -> Void
 
-    @State private var showDetail    = false
-    @State private var activeSession: UnlockSession? = nil
-    @State private var isPressed     = false
+    @State private var showDetail = false
+    @State private var isPressed = false
 
     private var isActive: Bool { item.badge == .active }
     private var isLocked: Bool { item.badge == .locked }
@@ -75,12 +74,6 @@ struct RuleCardView: View {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.12) { isPressed = false }
             showDetail = true
         }
-        .onAppear { refreshSession() }
-        .onReceive(
-            NotificationCenter.default
-                .publisher(for: UserDefaults.didChangeNotification)
-                .debounce(for: .milliseconds(200), scheduler: RunLoop.main)
-        ) { _ in refreshSession() }
         .sheet(isPresented: $showDetail) {
             RuleDetailView(rule: item.rule, status: item.badge, onUpdate: onUpdate, onDelete: onDelete)
         }
@@ -105,7 +98,7 @@ struct RuleCardView: View {
                     .foregroundStyle(Color(red: 0.30, green: 0.52, blue: 0.82))
             }
         case .active:
-            if let session = activeSession {
+            if let session = item.activeSession {
                 if let expiresAt = session.expiresAt {
                     TimelineView(.periodic(from: .now, by: 1)) { _ in
                         let secs = max(0, Int(expiresAt.timeIntervalSinceNow))
@@ -129,19 +122,6 @@ struct RuleCardView: View {
                 .font(.caption)
                 .foregroundStyle(.secondary)
         }
-    }
-
-    // MARK: Helpers
-
-    private func refreshSession() {
-        activeSession = AppGroupStore.shared.loadUnlockSessions()
-            .filter {
-                $0.ruleID == item.rule.id &&
-                Calendar.current.isDateInToday($0.startedAt) &&
-                $0.actualEndedAt == nil
-            }
-            .sorted { $0.startedAt > $1.startedAt }
-            .first
     }
 
     private func formatHHMMSS(_ seconds: Int) -> String {
@@ -169,6 +149,11 @@ struct RuleDetailView: View {
 
     private func computeStatus() -> RuleStatusBadge {
         RuleStatusBadge.make(for: rule, isShielded: AppGroupStore.shared.isShielded(rule.id))
+    }
+
+    private func refreshDetailData() {
+        liveStatus = computeStatus()
+        unlockSessions = UnlockSessionQueries.todaySessions(for: rule.id, in: AppGroupStore.shared.loadUnlockSessions())
     }
 
     var body: some View {
@@ -221,17 +206,12 @@ struct RuleDetailView: View {
                 onUpdate(updatedRule); dismiss()
             })
         }
-        .onAppear {
-            liveStatus = computeStatus()
-            unlockSessions = AppGroupStore.shared.loadUnlockSessions()
-                .filter { $0.ruleID == rule.id && Calendar.current.isDateInToday($0.startedAt) }
-                .sorted { $0.startedAt > $1.startedAt }
-        }
+        .onAppear { refreshDetailData() }
         .onReceive(
             NotificationCenter.default
                 .publisher(for: UserDefaults.didChangeNotification)
                 .debounce(for: .milliseconds(200), scheduler: RunLoop.main)
-        ) { _ in liveStatus = computeStatus() }
+        ) { _ in refreshDetailData() }
     }
 }
 

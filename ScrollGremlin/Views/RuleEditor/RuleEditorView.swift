@@ -6,40 +6,63 @@ struct RuleEditorView: View {
     @Environment(\.dismiss) private var dismiss
     let onSave: (AppRule) -> Void
     let onDelete: (() -> Void)?
+    private let embedsInNavigationStack: Bool
 
     @State private var showFrictionPreview = false
 
-    private var defaultUnlockType: UnlockType {
-        AppGroupStore.shared.loadSettings().defaultUnlockType
-    }
-
-    private var defaultFriction: FrictionType {
-        AppGroupStore.shared.loadSettings().defaultFriction
-    }
-
     private var resolvedPreviewFriction: FrictionType {
         if viewModel.frictionKey == "default" {
-            return AppGroupStore.shared.loadSettings().defaultFriction
+            return viewModel.defaultFriction
         }
         return FrictionType(rawValue: viewModel.frictionKey) ?? .confirmOnly
     }
 
-    init(rule: AppRule? = nil, onDelete: (() -> Void)? = nil, onSave: @escaping (AppRule) -> Void) {
+    init(
+        rule: AppRule? = nil,
+        onDelete: (() -> Void)? = nil,
+        embedsInNavigationStack: Bool = true,
+        onSave: @escaping (AppRule) -> Void
+    ) {
         _viewModel = StateObject(wrappedValue: RuleEditorViewModel(rule: rule))
         self.onDelete = onDelete
+        self.embedsInNavigationStack = embedsInNavigationStack
         self.onSave = onSave
     }
 
     /// Opens the editor pre-populated with a schedule template (e.g. Work 9–5).
     /// All fields are fully editable; the rule is treated as new (no Delete button).
-    init(templateSchedule: RuleSchedule, onSave: @escaping (AppRule) -> Void) {
+    init(
+        templateSchedule: RuleSchedule,
+        embedsInNavigationStack: Bool = true,
+        onSave: @escaping (AppRule) -> Void
+    ) {
         _viewModel = StateObject(wrappedValue: RuleEditorViewModel(templateSchedule: templateSchedule))
         self.onDelete = nil
+        self.embedsInNavigationStack = embedsInNavigationStack
         self.onSave = onSave
     }
 
     var body: some View {
-        NavigationStack {
+        Group {
+            if embedsInNavigationStack {
+                NavigationStack {
+                    content
+                }
+            } else {
+                content
+            }
+        }
+        .toolbarBackground(.regularMaterial, for: .navigationBar)
+        .toolbarBackground(.visible, for: .navigationBar)
+        .fullScreenCover(isPresented: $showFrictionPreview) {
+            FrictionPreviewView(friction: resolvedPreviewFriction)
+        }
+    }
+
+    private var content: some View {
+        ZStack {
+            RuleFlowBackground()
+
             Form {
                 Section {
                     TextField("", text: $viewModel.ruleName, prompt: ruleNamePrompt)
@@ -86,13 +109,17 @@ struct RuleEditorView: View {
                         DatePicker("End", selection: endTimeBinding, displayedComponents: .hourAndMinute)
                     } header: {
                         sectionHeader("Schedule")
+                    } footer: {
+                        if let message = viewModel.scheduleValidationMessage {
+                            Text(message)
+                        }
                     }
                 }
 
                 Section {
                     Picker("Duration", selection: $viewModel.unlockDurationKey) {
-                        Text(defaultUnlockType.displayLabel).tag("default")
-                        ForEach(UnlockType.allCases.filter { $0 != defaultUnlockType }, id: \.rawValue) { type in
+                        Text(viewModel.defaultUnlockType.displayLabel).tag("default")
+                        ForEach(UnlockType.allCases.filter { $0 != viewModel.defaultUnlockType }, id: \.rawValue) { type in
                             Text(type.displayLabel).tag(type.rawValue)
                         }
                     }
@@ -103,8 +130,8 @@ struct RuleEditorView: View {
 
                 Section {
                     Picker("Friction", selection: $viewModel.frictionKey) {
-                        Text(defaultFriction.displayName).tag("default")
-                        ForEach(FrictionType.allCases.filter { $0 != defaultFriction }, id: \.rawValue) { type in
+                        Text(viewModel.defaultFriction.displayName).tag("default")
+                        ForEach(FrictionType.allCases.filter { $0 != viewModel.defaultFriction }, id: \.rawValue) { type in
                             Text(type.displayName).tag(type.rawValue)
                         }
                     }
@@ -131,7 +158,6 @@ struct RuleEditorView: View {
                 }
             }
             .scrollContentBackground(.hidden)
-            .background(.clear)
             .listStyle(.plain)
             .navigationTitle(viewModel.isEditing ? "Edit Rule" : "New Rule")
             .navigationBarTitleDisplayMode(.inline)
@@ -149,28 +175,22 @@ struct RuleEditorView: View {
                     .disabled(!viewModel.isValid)
                 }
             }
-            .familyActivityPicker(
-                isPresented: $viewModel.showPicker,
-                selection: $viewModel.selection
-            )
-            .alert("Delete Rule?", isPresented: $viewModel.requestDelete) {
-                Button("Delete", role: .destructive) {
-                    onDelete?()
-                    dismiss()
-                }
-                Button("Cancel", role: .cancel) {}
-            }
-            .background(.clear)
-            .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
-            .toolbarBackground(.visible, for: .navigationBar)
-            .onChange(of: viewModel.ruleMode) { newMode in
-                if newMode != .scheduledWindow {
-                    viewModel.resetScheduleToAllDay()
-                }
-            }
         }
-        .fullScreenCover(isPresented: $showFrictionPreview) {
-            FrictionPreviewView(friction: resolvedPreviewFriction)
+        .familyActivityPicker(
+            isPresented: $viewModel.showPicker,
+            selection: $viewModel.selection
+        )
+        .alert("Delete Rule?", isPresented: $viewModel.requestDelete) {
+            Button("Delete", role: .destructive) {
+                onDelete?()
+                dismiss()
+            }
+            Button("Cancel", role: .cancel) {}
+        }
+        .onChange(of: viewModel.ruleMode) { newMode in
+            if newMode != .scheduledWindow {
+                viewModel.resetScheduleToAllDay()
+            }
         }
     }
 

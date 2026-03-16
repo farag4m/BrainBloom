@@ -6,6 +6,7 @@ final class HistoryViewModel: ObservableObject {
     @Published var sessions: [UnlockSession] = []
     @Published var rules: [AppRule] = []
     @Published var settings: UserSettings = .default
+    @Published var usageSummaries: [UsageDaySummary] = []
 
     private let store = AppGroupStore.shared
 
@@ -18,6 +19,7 @@ final class HistoryViewModel: ObservableObject {
             .sorted { $0.startedAt > $1.startedAt }
         rules = store.loadRules()
         settings = store.loadSettings()
+        usageSummaries = store.loadUsageSummaries()
     }
 
     var sessionsGroupedByDate: [(Date, [UnlockSession])] {
@@ -37,21 +39,11 @@ final class HistoryViewModel: ObservableObject {
     }
 
     var currentStreak: Int {
-        let calendar = Calendar.current
-        var streak = 0
-        var date = calendar.startOfDay(for: Date())
+        UsageInsights.lowScreenTimeStreak(from: usageSummaries)
+    }
 
-        while true {
-            let dayHasUnlock = sessions.contains {
-                calendar.isDate($0.startedAt, inSameDayAs: date)
-            }
-            if dayHasUnlock { break }
-            streak += 1
-            guard let previousDay = calendar.date(byAdding: .day, value: -1, to: date) else { break }
-            date = previousDay
-            if streak > 365 { break }
-        }
-        return streak
+    var streakDescription: String {
+        UsageInsights.lowScreenTimeStreakDescription
     }
 
     func ruleName(for session: UnlockSession) -> String {

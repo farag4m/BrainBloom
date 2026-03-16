@@ -35,72 +35,31 @@ final class FrictionPreviewViewModel: ObservableObject {
     // MARK: - Breathing
 
     func startBreathing() {
-        breathingTask = Task {
-            for cycle in 0..<3 {
-                guard !Task.isCancelled else { break }
-                breathingCycle = cycle
-
-                breathingPhase = .inhale
-                await animateBreathing(to: 1.0, duration: 5.0)
-                guard !Task.isCancelled else { break }
-                breathingPhase = .exhale
-                await animateBreathing(to: 0.0, duration: 5.0)
-            }
-            guard !Task.isCancelled else { return }
-            if friction.includesIntention {
-                currentStep = .intention
-            } else {
-                currentStep = .complete
-            }
-        }
-    }
-
-    private func animateBreathing(to value: Double, duration: Double) async {
-        let steps = 40
-        let stepDuration = duration / Double(steps)
-        let start = breathingProgress
-        for i in 0...steps {
-            guard !Task.isCancelled else { return }
-            breathingProgress = start + (value - start) * (Double(i) / Double(steps))
-            try? await Task.sleep(nanoseconds: UInt64(stepDuration * 1_000_000_000))
+        breathingTask?.cancel()
+        breathingTask = BreathingExerciseRunner.start(
+            setCycle: { [weak self] cycle in self?.breathingCycle = cycle },
+            setPhase: { [weak self] phase in self?.breathingPhase = phase },
+            setProgress: { [weak self] progress in self?.breathingProgress = progress }
+        ) { [weak self] in
+            self?.currentStep = self?.requiresConfirmationStep == true ? .intention : .complete
         }
     }
 
     // MARK: - Math challenge
 
     func advanceFromMathChallenge() {
-        currentStep = .complete
+        currentStep = requiresConfirmationStep ? .intention : .complete
     }
 
     // MARK: - Intention / delay
 
     func onIntentionAppear() {
-        if friction.includesDelay {
-            startCountdownDelay()
-        } else {
-            startMinimumDelay()
-        }
-    }
-
-    private func startMinimumDelay() {
-        isConfirmEnabled = false
-        Task {
-            try? await Task.sleep(nanoseconds: 2_000_000_000)
-            isConfirmEnabled = true
-        }
-    }
-
-    private func startCountdownDelay() {
-        delayRemaining = 10
-        isConfirmEnabled = false
-        delayTask = Task {
-            for i in stride(from: 10, through: 0, by: -1) {
-                guard !Task.isCancelled else { return }
-                delayRemaining = i
-                try? await Task.sleep(nanoseconds: 1_000_000_000)
-            }
-            isConfirmEnabled = true
-        }
+        delayTask?.cancel()
+        delayTask = ConfirmationDelayRunner.start(
+            for: friction,
+            setRemaining: { [weak self] remaining in self?.delayRemaining = remaining },
+            setIsEnabled: { [weak self] isEnabled in self?.isConfirmEnabled = isEnabled }
+        )
     }
 
     // MARK: - Confirm / cancel
@@ -114,5 +73,9 @@ final class FrictionPreviewViewModel: ObservableObject {
     func cancel() {
         breathingTask?.cancel()
         delayTask?.cancel()
+    }
+
+    private var requiresConfirmationStep: Bool {
+        friction.includesIntention || friction.includesDelay || friction == .confirmOnly
     }
 }

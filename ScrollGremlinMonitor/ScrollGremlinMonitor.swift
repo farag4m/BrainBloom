@@ -76,7 +76,7 @@ class ScrollGremlinMonitor: DeviceActivityMonitor {
     private func applyShield(for ruleID: UUID) {
         guard let policy = loadPolicy(for: ruleID) else { return }
         let settingsStore = ManagedSettingsStore(
-            named: ManagedSettingsStore.Name("scrollgremlin-\(ruleID.uuidString)")
+            named: ManagedSettingsStore.Name("\(AppConfig.managedSettingsPrefix)-\(ruleID.uuidString)")
         )
         if let data = policy.applicationTokensData,
            let tokens = try? JSONDecoder().decode(Set<ApplicationToken>.self, from: data) {
@@ -91,7 +91,7 @@ class ScrollGremlinMonitor: DeviceActivityMonitor {
 
     private func removeShield(for ruleID: UUID) {
         let settingsStore = ManagedSettingsStore(
-            named: ManagedSettingsStore.Name("scrollgremlin-\(ruleID.uuidString)")
+            named: ManagedSettingsStore.Name("\(AppConfig.managedSettingsPrefix)-\(ruleID.uuidString)")
         )
         settingsStore.shield.applications = nil
         settingsStore.shield.applicationCategories = .none
@@ -151,7 +151,7 @@ class ScrollGremlinMonitor: DeviceActivityMonitor {
 
         UNUserNotificationCenter.current().add(
             UNNotificationRequest(
-                identifier: "scrollgremlin-\(type)-\(ruleID)",
+                identifier: "\(AppConfig.notificationPrefix)-\(type)-\(ruleID)",
                 content: content,
                 trigger: nil
             )

@@ -9,6 +9,12 @@ import DeviceActivity
 struct TodayView: View {
     @ObservedObject var viewModel: DashboardViewModel
 
+    private static let todayFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE, MMM d"
+        return formatter
+    }()
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -73,8 +79,7 @@ struct TodayView: View {
     }
 
     private var todayTitle: String {
-        let fmt = DateFormatter(); fmt.dateFormat = "EEEE, MMM d"
-        return fmt.string(from: Date())
+        Self.todayFormatter.string(from: Date())
     }
 }
 
@@ -280,10 +285,6 @@ private struct UsageReportBridge: View {
             .frame(width: 0, height: 0)
             .hidden()
     }
-}
-
-private extension DeviceActivityReport.Context {
-    static let appUsageSummary = Self("AppUsageSummary")
 }
 
 // MARK: - No Rules Today

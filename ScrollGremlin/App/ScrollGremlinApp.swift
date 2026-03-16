@@ -21,7 +21,7 @@ struct ScrollGremlinApp: App {
     }
 
     private func handleDeepLink(_ url: URL) {
-        guard url.scheme == "scrollgremlin" else { return }
+        guard url.scheme == AppConfig.deepLinkScheme else { return }
         if url.host == "unlock" {
             ruleManager.handlePendingUnlockRequest()
         }

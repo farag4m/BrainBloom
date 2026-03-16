@@ -55,7 +55,8 @@ struct UnlockFlowView: View {
                             text: $viewModel.intentionText,
                             isConfirmEnabled: viewModel.isConfirmEnabled,
                             delayRemaining: viewModel.delayRemaining,
-                            friction: viewModel.effectiveFriction,
+                            requiresIntention: viewModel.effectiveFriction.includesIntention || viewModel.settings.requireIntentionText,
+                            showsCountdownDelay: viewModel.effectiveFriction.includesDelay,
                             onConfirm: { Task { await viewModel.confirmUnlock() } }
                         )
                         .transition(.opacity)
@@ -266,13 +267,14 @@ struct IntentionView: View {
     @Binding var text: String
     let isConfirmEnabled: Bool
     let delayRemaining: Int
-    let friction: FrictionType
+    let requiresIntention: Bool
+    let showsCountdownDelay: Bool
     let onConfirm: () -> Void
     @FocusState private var isFocused: Bool
 
     private var canConfirm: Bool {
         guard isConfirmEnabled else { return false }
-        if friction.includesIntention {
+        if requiresIntention {
             return !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
         }
         return true
@@ -283,15 +285,15 @@ struct IntentionView: View {
             Spacer()
 
             VStack(spacing: 8) {
-                Text(friction.includesIntention ? "Why are you unlocking?" : "Ready to unlock?")
+                Text(requiresIntention ? "Why are you unlocking?" : "Ready to unlock?")
                     .font(.title2.weight(.semibold)).foregroundStyle(.white)
-                Text(friction.includesIntention
+                Text(requiresIntention
                      ? "Writing it down builds awareness."
                      : "Take a breath before you continue.")
                     .font(.subheadline).foregroundStyle(.white.opacity(0.50))
             }
 
-            if friction.includesIntention {
+            if requiresIntention {
                 TextField("", text: $text,
                           prompt: Text("e.g. Checking a message")
                               .foregroundColor(.white.opacity(0.30)))
@@ -318,7 +320,7 @@ struct IntentionView: View {
             Spacer()
 
             Button(action: onConfirm) {
-                if friction.includesDelay && !isConfirmEnabled {
+                if showsCountdownDelay && !isConfirmEnabled {
                     Text("Wait \(delayRemaining)s...")
                 } else if !isConfirmEnabled {
                     Text("Just a moment...")
@@ -332,7 +334,7 @@ struct IntentionView: View {
             .padding(.horizontal, 24)
             .padding(.bottom, 52)
         }
-        .onAppear { if friction.includesIntention { isFocused = true } }
+        .onAppear { if requiresIntention { isFocused = true } }
     }
 }
 

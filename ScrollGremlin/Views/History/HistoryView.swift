@@ -9,33 +9,38 @@ struct HistoryView: View {
 
             NavigationStack {
                 List {
+                    Section {
+                        HStack(spacing: 14) {
+                            StatCard(
+                                value: "\(viewModel.totalUnlocksThisWeek)",
+                                label: "Unlocks this week",
+                                icon: "lock.open"
+                            )
+                            if viewModel.settings.showStreakCounter {
+                                StatCard(
+                                    value: "\(viewModel.currentStreak)",
+                                    label: "Low-screen-time streak",
+                                    icon: "flame"
+                                )
+                            }
+                        }
+                        .padding(.vertical, 2)
+                        if viewModel.settings.showStreakCounter {
+                            Text(viewModel.streakDescription)
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                                .padding(.top, 2)
+                        }
+                    }
+                    .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                    .listRowBackground(Color.clear)
+                    .listRowSeparator(.hidden)
+
                     if viewModel.sessions.isEmpty {
                         EmptyHistoryView()
                             .listRowBackground(Color.clear)
                             .listRowSeparator(.hidden)
                     } else {
-                        // Stat cards
-                        Section {
-                            HStack(spacing: 14) {
-                                StatCard(
-                                    value: "\(viewModel.totalUnlocksThisWeek)",
-                                    label: "Unlocks this week",
-                                    icon: "lock.open"
-                                )
-                                if viewModel.settings.showStreakCounter {
-                                    StatCard(
-                                        value: "\(viewModel.currentStreak)",
-                                        label: "Day streak",
-                                        icon: "flame"
-                                    )
-                                }
-                            }
-                            .padding(.vertical, 2)
-                        }
-                        .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-                        .listRowBackground(Color.clear)
-                        .listRowSeparator(.hidden)
-
                         ForEach(viewModel.sessionsGroupedByDate, id: \.0) { (date, sessions) in
                             Section(header: Text(date, style: .date)) {
                                 ForEach(sessions) { session in
@@ -114,7 +119,10 @@ private struct StatCard: View {
         }
         .frame(maxWidth: .infinity)
         .padding(16)
-        .sgCard()
+        .background {
+            GlassCard(cornerRadius: 24)
+        }
+        .clipShape(RoundedRectangle(cornerRadius: 24))
     }
 }
 

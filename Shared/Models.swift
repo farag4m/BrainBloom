@@ -96,7 +96,12 @@ public struct AppRule: Codable, Identifiable, Equatable {
     ) {
         self.id = id
         self.name = name
-        self.selectionData = (try? JSONEncoder().encode(selection)) ?? Data()
+        do {
+            self.selectionData = try JSONEncoder().encode(selection)
+        } catch {
+            self.selectionData = Data()
+            AppLogger.log(error: error, context: "Failed to encode rule selection for rule \(id)", category: "Persistence")
+        }
         self.policy = policy
         self.isEnabled = isEnabled
         self.schedule = schedule
@@ -107,12 +112,17 @@ public struct AppRule: Codable, Identifiable, Equatable {
     }
 
     public var selection: FamilyActivitySelection? {
-        try? JSONDecoder().decode(FamilyActivitySelection.self, from: selectionData)
+        do {
+            return try JSONDecoder().decode(FamilyActivitySelection.self, from: selectionData)
+        } catch {
+            AppLogger.log(error: error, context: "Failed to decode rule selection for rule \(id)", category: "Persistence")
+            return nil
+        }
     }
 
     public var activityName: String { "rule-\(id.uuidString)" }
     public var eventName: String    { "limit-\(id.uuidString)" }
-    public var storeName: String    { "scrollgremlin-\(id.uuidString)" }
+    public var storeName: String    { "\(AppConfig.managedSettingsPrefix)-\(id.uuidString)" }
 }
 
 // MARK: - RuleSchedule
@@ -408,9 +418,23 @@ public struct MonitorPolicy: Codable {
         self.schedule = rule.schedule
         self.registeredActivityNames = registeredActivityNames
         if let sel = rule.selection {
-            self.applicationTokensData = try? JSONEncoder().encode(sel.applicationTokens)
-            self.categoryTokensData = sel.categoryTokens.isEmpty ? nil :
-                try? JSONEncoder().encode(sel.categoryTokens)
+            do {
+                self.applicationTokensData = try JSONEncoder().encode(sel.applicationTokens)
+            } catch {
+                self.applicationTokensData = nil
+                AppLogger.log(error: error, context: "Failed to encode application tokens for rule \(rule.id)", category: "Persistence")
+            }
+
+            if sel.categoryTokens.isEmpty {
+                self.categoryTokensData = nil
+            } else {
+                do {
+                    self.categoryTokensData = try JSONEncoder().encode(sel.categoryTokens)
+                } catch {
+                    self.categoryTokensData = nil
+                    AppLogger.log(error: error, context: "Failed to encode category tokens for rule \(rule.id)", category: "Persistence")
+                }
+            }
         } else {
             self.applicationTokensData = nil
             self.categoryTokensData = nil

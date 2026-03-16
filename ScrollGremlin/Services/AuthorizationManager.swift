@@ -41,6 +41,7 @@ public final class AuthorizationManager: ObservableObject {
             status = .authorized
         } catch {
             status = .denied
+            AppLogger.log(error: error, context: "Authorization request failed", category: "Authorization")
         }
     }
 

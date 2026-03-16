@@ -100,7 +100,7 @@ struct OnboardingFirstRuleView: View {
                 do {
                     try ruleManager.addRule(rule)
                 } catch {
-                    // If monitoring fails, the rule still persists; allow onboarding to continue.
+                    AppLogger.log(error: error, context: "Failed to add onboarding rule", category: "Onboarding")
                 }
                 showRuleEditor = false
                 onComplete()
