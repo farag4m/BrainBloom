@@ -41,7 +41,7 @@ struct OnboardingPermissionView: View {
                     Text("Screen Time Access")
                         .font(.title2.weight(.bold)).foregroundStyle(.primary)
 
-                    Text("ScrollGremlin needs Screen Time access to monitor app usage and apply blocks when your limits are reached.")
+                    Text("\(AppName.displayName) needs Screen Time access to monitor app usage and apply blocks when your limits are reached.")
                         .font(.body)
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)

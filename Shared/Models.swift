@@ -1,6 +1,11 @@
 import Foundation
 import FamilyControls
 
+public enum AppName {
+    public static let displayName = "Brain Bloom"
+    public static let compactName = "BrainBloom"
+}
+
 // MARK: - UsagePolicy
 
 /// Describes how much usage is allowed and over what time window.

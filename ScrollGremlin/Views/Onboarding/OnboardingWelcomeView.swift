@@ -41,7 +41,7 @@ struct OnboardingWelcomeView: View {
                     Text("Meet Your")
                         .font(.largeTitle.weight(.bold))
                         .foregroundStyle(Color.white.opacity(0.78))
-                    Text("ScrollGremlin")
+                    Text(AppName.displayName)
                         .font(.largeTitle.weight(.bold))
                         .foregroundStyle(Color.white)
                         .shadow(color: Color.white.opacity(0.25), radius: 8, y: 2)
@@ -51,7 +51,7 @@ struct OnboardingWelcomeView: View {
                 .animation(.easeOut(duration: 0.45).delay(0.22), value: appeared)
 
                 // Body
-                Text("Set daily limits for your most distracting apps.\nWhen time's up, ScrollGremlin helps you pause and decide — instead of endlessly scrolling.")
+                Text("Set daily limits for your most distracting apps.\nWhen time's up, \(AppName.displayName) helps you pause and decide — instead of endlessly scrolling.")
                     .font(.body)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)

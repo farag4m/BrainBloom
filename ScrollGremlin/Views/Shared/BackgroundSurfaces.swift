@@ -340,10 +340,13 @@ struct DashboardGridBackground: View {
             FuturisticGridOverlay()
                 .opacity(scheme == .light ? 0.22 : 0.16)
                 .blendMode(.plusLighter)
+
+            FloatingOrbField()
         }
         .ignoresSafeArea()
     }
 }
+
 
 private struct NeutralGridBase: View {
     @Environment(\.colorScheme) private var scheme

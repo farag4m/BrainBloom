@@ -145,7 +145,7 @@ class ScrollGremlinMonitor: DeviceActivityMonitor {
             content.title = "Time's up"
             content.body = isRecurring
                 ? "You've used your allowance for this interval. The next slot resets automatically."
-                : "You've reached your daily limit. Open ScrollGremlin to continue."
+                : "You've reached your daily limit. Open \(AppName.displayName) to continue."
             content.userInfo = ["ruleID": ruleID.uuidString]
         }
 

@@ -41,11 +41,13 @@ struct RuleEditorView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section("Rule Name") {
-                    TextField("e.g. Social Media", text: $viewModel.ruleName)
+                Section {
+                    TextField("", text: $viewModel.ruleName, prompt: ruleNamePrompt)
+                } header: {
+                    sectionHeader("Rule Name")
                 }
 
-                Section("Apps to Block") {
+                Section {
                     Button(action: { viewModel.showPicker = true }) {
                         HStack {
                             Text(viewModel.selectionSummary)
@@ -54,51 +56,40 @@ struct RuleEditorView: View {
                             Image(systemName: "chevron.right").foregroundStyle(.secondary)
                         }
                     }
+                } header: {
+                    sectionHeader("Apps to Block")
                 }
 
                 Section {
-                    Picker("Limit Type", selection: $viewModel.policyType) {
-                        Text("Daily").tag(UsagePolicyType.daily)
-                        Text("Every N Hours").tag(UsagePolicyType.recurringInterval)
+                    Picker("Limit Type", selection: $viewModel.ruleMode) {
+                        Text("Daily").tag(RuleEditorViewModel.RuleMode.daily)
+                        Text("Hourly").tag(RuleEditorViewModel.RuleMode.hourly)
+                        Text("Scheduled").tag(RuleEditorViewModel.RuleMode.scheduledWindow)
                     }
                     .pickerStyle(.segmented)
                 } header: {
-                    Text("Limit Type")
+                    sectionHeader("Limit Type")
                 } footer: {
-                    switch viewModel.policyType {
-                    case .daily:
-                        Text("Block after the daily allowance is used. Resets at midnight.")
-                    case .recurringInterval:
-                        Text("Block once the allowance is used within each interval window. Resets every N hours.")
-                    }
+                    Text(viewModel.ruleMode.helperText)
                 }
 
-                Section("Allowance") {
+                Section {
                     LimitPickerRow(minutes: $viewModel.allowedMinutes)
+                } header: {
+                    sectionHeader("Allowance")
                 }
 
-                if viewModel.policyType == .recurringInterval {
-                    Section("Reset Every") {
-                        Picker("Interval", selection: $viewModel.intervalHours) {
-                            Text("Every hour").tag(1)
-                            Text("Every 2 hours").tag(2)
-                            Text("Every 3 hours").tag(3)
-                            Text("Every 4 hours").tag(4)
-                            Text("Every 6 hours").tag(6)
-                            Text("Every 8 hours").tag(8)
-                            Text("Every 12 hours").tag(12)
-                        }
-                        .pickerStyle(.navigationLink)
+                if viewModel.ruleMode == .scheduledWindow {
+                    Section {
+                        ActiveDaysPicker(activeDays: $viewModel.activeDays)
+                        DatePicker("Start", selection: startTimeBinding, displayedComponents: .hourAndMinute)
+                        DatePicker("End", selection: endTimeBinding, displayedComponents: .hourAndMinute)
+                    } header: {
+                        sectionHeader("Schedule")
                     }
                 }
 
-                Section("Schedule") {
-                    ActiveDaysPicker(activeDays: $viewModel.activeDays)
-                    DatePicker("Start", selection: startTimeBinding, displayedComponents: .hourAndMinute)
-                    DatePicker("End", selection: endTimeBinding, displayedComponents: .hourAndMinute)
-                }
-
-                Section("Blocking Duration") {
+                Section {
                     Picker("Duration", selection: $viewModel.unlockDurationKey) {
                         Text(defaultUnlockType.displayLabel).tag("default")
                         ForEach(UnlockType.allCases.filter { $0 != defaultUnlockType }, id: \.rawValue) { type in
@@ -106,9 +97,11 @@ struct RuleEditorView: View {
                         }
                     }
                     .pickerStyle(.navigationLink)
+                } header: {
+                    sectionHeader("Blocking Duration")
                 }
 
-                Section("Blocking Friction") {
+                Section {
                     Picker("Friction", selection: $viewModel.frictionKey) {
                         Text(defaultFriction.displayName).tag("default")
                         ForEach(FrictionType.allCases.filter { $0 != defaultFriction }, id: \.rawValue) { type in
@@ -123,6 +116,8 @@ struct RuleEditorView: View {
                         Label("Preview selected friction", systemImage: "play.circle")
                             .foregroundStyle(Color.scrollGremlinPrimary)
                     }
+                } header: {
+                    sectionHeader("Blocking Friction")
                 }
 
                 if viewModel.isEditing {
@@ -130,6 +125,8 @@ struct RuleEditorView: View {
                         Button("Delete Rule", role: .destructive) {
                             viewModel.requestDelete = true
                         }
+                    } header: {
+                        sectionHeader("Danger Zone")
                     }
                 }
             }
@@ -166,10 +163,27 @@ struct RuleEditorView: View {
             .background(.clear)
             .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
+            .onChange(of: viewModel.ruleMode) { newMode in
+                if newMode != .scheduledWindow {
+                    viewModel.resetScheduleToAllDay()
+                }
+            }
         }
         .fullScreenCover(isPresented: $showFrictionPreview) {
             FrictionPreviewView(friction: resolvedPreviewFriction)
         }
+    }
+
+    private var ruleNamePrompt: Text {
+        Text("e.g. Social Media").foregroundColor(.secondary)
+    }
+
+    private func sectionHeader(_ title: String) -> some View {
+        Text(title)
+            .textCase(nil)
+            .font(.footnote)
+            .fontWeight(.semibold)
+            .foregroundColor(.primary)
     }
 
     // MARK: - Time bindings
@@ -206,7 +220,7 @@ struct RuleEditorView: View {
 struct LimitPickerRow: View {
     @Binding var minutes: Int
 
-    private let options: [Int] = Array(stride(from: 5, through: 23 * 60 + 55, by: 5))
+    private let options: [Int] = [0] + Array(stride(from: 5, through: 23 * 60 + 55, by: 5))
 
     var body: some View {
         HStack {

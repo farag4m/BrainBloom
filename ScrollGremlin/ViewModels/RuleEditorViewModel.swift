@@ -6,9 +6,40 @@ import FamilyControls
 final class RuleEditorViewModel: ObservableObject {
     @Published var selection = FamilyActivitySelection()
     @Published var ruleName: String = ""
-    @Published var policyType: UsagePolicyType = .daily
+    enum RuleMode: String, CaseIterable {
+        case daily
+        case hourly
+        case scheduledWindow
+
+        var displayName: String {
+            switch self {
+            case .daily: return "Daily"
+            case .hourly: return "Hourly"
+            case .scheduledWindow: return "Scheduled Window"
+            }
+        }
+
+        var helperText: String {
+            switch self {
+            case .daily:
+                return "Block after the daily allowance is used. Resets at midnight."
+            case .hourly:
+                return "Block after the hourly allowance is used. Resets each hour."
+            case .scheduledWindow:
+                return "Allowance applies only during the scheduled window."
+            }
+        }
+    }
+
+    @Published var ruleMode: RuleMode = .daily {
+        didSet {
+            if ruleMode == .hourly {
+                intervalHours = 1
+            }
+        }
+    }
     @Published var allowedMinutes: Int = 30
-    @Published var intervalHours: Int = 1       // only used when policyType == .recurringInterval
+    @Published var intervalHours: Int = 1       // preserved for existing interval rules
     @Published var activeDays: Set<Int> = [1, 2, 3, 4, 5, 6, 7]
     @Published var startHour: Int = 0
     @Published var startMinute: Int = 0
@@ -30,7 +61,6 @@ final class RuleEditorViewModel: ObservableObject {
         self.existingRule = rule
         if let rule = rule {
             self.ruleName = rule.name
-            self.policyType = rule.policy.type
             self.allowedMinutes = rule.policy.allowedMinutes
             self.intervalHours = rule.policy.type == .recurringInterval ? rule.policy.intervalHours : 1
             self.activeDays = rule.schedule.activeDays
@@ -41,6 +71,7 @@ final class RuleEditorViewModel: ObservableObject {
             if let sel = rule.selection { self.selection = sel }
             self.unlockDurationKey = rule.unlockDurationOverride?.rawValue ?? "default"
             self.frictionKey = rule.frictionOverride?.rawValue ?? "default"
+            self.ruleMode = resolveInitialMode(policy: rule.policy, schedule: rule.schedule)
         }
     }
 
@@ -53,11 +84,12 @@ final class RuleEditorViewModel: ObservableObject {
         self.startMinute = templateSchedule.startMinute
         self.endHour = templateSchedule.endHour
         self.endMinute = templateSchedule.endMinute
+        self.ruleMode = .scheduledWindow
     }
 
     var isEditing: Bool { existingRule != nil }
     var hasSelection: Bool { !selection.applicationTokens.isEmpty || !selection.categoryTokens.isEmpty }
-    var isValid: Bool { hasSelection && allowedMinutes >= 5 && !ruleName.trimmingCharacters(in: .whitespaces).isEmpty }
+    var isValid: Bool { hasSelection && allowedMinutes >= 0 && !ruleName.trimmingCharacters(in: .whitespaces).isEmpty }
 
     var selectionSummary: String {
         let appCount = selection.applicationTokens.count
@@ -93,11 +125,43 @@ final class RuleEditorViewModel: ObservableObject {
     }
 
     private func buildPolicy() -> UsagePolicy {
-        switch policyType {
+        switch ruleMode {
         case .daily:
             return .daily(minutes: allowedMinutes)
-        case .recurringInterval:
-            return .recurring(minutes: allowedMinutes, everyHours: intervalHours)
+        case .hourly:
+            let hours = max(1, intervalHours)
+            return .recurring(minutes: allowedMinutes, everyHours: hours)
+        case .scheduledWindow:
+            return .daily(minutes: allowedMinutes)
         }
+    }
+
+    private func resolveInitialMode(policy: UsagePolicy, schedule: RuleSchedule) -> RuleMode {
+        if !isFullDay(schedule: schedule) {
+            return .scheduledWindow
+        }
+        switch policy.type {
+        case .daily:
+            return .daily
+        case .recurringInterval:
+            return .hourly
+        }
+    }
+
+    private func isFullDay(schedule: RuleSchedule) -> Bool {
+        let allDays: Set<Int> = [1, 2, 3, 4, 5, 6, 7]
+        return schedule.activeDays == allDays
+            && schedule.startHour == 0
+            && schedule.startMinute == 0
+            && schedule.endHour == 23
+            && schedule.endMinute == 59
+    }
+
+    func resetScheduleToAllDay() {
+        activeDays = [1, 2, 3, 4, 5, 6, 7]
+        startHour = 0
+        startMinute = 0
+        endHour = 23
+        endMinute = 59
     }
 }
