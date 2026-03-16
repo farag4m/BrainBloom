@@ -1,0 +1,23 @@
+{
+  "/Users/farag/ProjectsX/ScrollGremlin/ScrollGremlin/Views/Onboarding/OnboardingWelcomeView.swift" : {
+    "const-values" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/OnboardingWelcomeView.swiftconstvalues",
+    "dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/OnboardingWelcomeView.d",
+    "diagnostics" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/OnboardingWelcomeView.dia",
+    "object" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/OnboardingWelcomeView.o",
+    "swift-dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/OnboardingWelcomeView.swiftdeps"
+  },
+  "/Users/farag/ProjectsX/ScrollGremlin/ScrollGremlin/Views/RuleEditor/AddRuleView.swift" : {
+    "const-values" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/AddRuleView.swiftconstvalues",
+    "dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/AddRuleView.d",
+    "diagnostics" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/AddRuleView.dia",
+    "object" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/AddRuleView.o",
+    "swift-dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/AddRuleView.swiftdeps"
+  },
+  "/Users/farag/ProjectsX/ScrollGremlin/ScrollGremlin/Views/RuleEditor/RuleEditorView.swift" : {
+    "const-values" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/RuleEditorView.swiftconstvalues",
+    "dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/RuleEditorView.d",
+    "diagnostics" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/RuleEditorView.dia",
+    "object" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/RuleEditorView.o",
+    "swift-dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/RuleEditorView.swiftdeps"
+  }
+}

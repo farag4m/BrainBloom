@@ -1,0 +1,12 @@
+Target dependency graph (6 targets)
+Target 'BrainBloomTests' in project 'BrainBloom'
+➜ Explicit dependency on target 'BrainBloom' in project 'BrainBloom'
+Target 'BrainBloom' in project 'BrainBloom'
+➜ Explicit dependency on target 'BrainBloomMonitor' in project 'BrainBloom'
+➜ Explicit dependency on target 'BrainBloomShieldAction' in project 'BrainBloom'
+➜ Explicit dependency on target 'BrainBloomShieldConfig' in project 'BrainBloom'
+➜ Explicit dependency on target 'BrainBloomReport' in project 'BrainBloom'
+Target 'BrainBloomReport' in project 'BrainBloom' (no dependencies)
+Target 'BrainBloomShieldConfig' in project 'BrainBloom' (no dependencies)
+Target 'BrainBloomShieldAction' in project 'BrainBloom' (no dependencies)
+Target 'BrainBloomMonitor' in project 'BrainBloom' (no dependencies)

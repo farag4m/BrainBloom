@@ -1,0 +1,128 @@
+{
+  "source": "/Users/farag/ProjectsX/BrainBloom/BrainBloom/Views/RuleEditor/AddRuleView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 46
+        }
+      },
+      {
+        "comment": "",
+        "key": "New Rule",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 140
+        }
+      },
+      {
+        "comment": "",
+        "key": "Quick Presets",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 89
+        }
+      },
+      {
+        "comment": "",
+        "key": "Advanced",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 106
+        }
+      },
+      {
+        "comment": "",
+        "key": "Custom Rule",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 119
+        }
+      },
+      {
+        "comment": "",
+        "key": "Set your own time and interval",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 122
+        }
+      },
+      {
+        "comment": "",
+        "key": "Work (9-5)",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 188
+        }
+      },
+      {
+        "comment": "",
+        "key": "Mon-Fri schedule",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 192
+        }
+      },
+      {
+        "comment": "",
+        "key": "Rule Details",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 318
+        }
+      },
+      {
+        "comment": "",
+        "key": "Limit",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 263
+        }
+      },
+      {
+        "comment": "",
+        "key": "e.g. Social Media",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 267
+        }
+      },
+      {
+        "comment": "",
+        "key": "Duration",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 290
+        }
+      },
+      {
+        "comment": "",
+        "key": "Friction",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 300
+        }
+      },
+      {
+        "comment": "",
+        "key": "Preview selected friction",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 311
+        }
+      },
+      {
+        "comment": "",
+        "key": "Save",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 322
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1,0 +1,12 @@
+{
+  "/Users/farag/ProjectsX/BrainBloom/Tests/RuleEditFlowTests.swift" : {
+    "abi-baseline-json" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomTests.build/Objects-normal/x86_64/BrainBloomTests.abi.json",
+    "const-values" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomTests.build/Objects-normal/x86_64/BrainBloomTests-primary.swiftconstvalues",
+    "dependencies" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomTests.build/Objects-normal/x86_64/BrainBloomTests-primary.d",
+    "diagnostics" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomTests.build/Objects-normal/x86_64/BrainBloomTests-primary.dia",
+    "objc-header" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomTests.build/Objects-normal/x86_64/BrainBloomTests-Swift.h",
+    "swiftdoc" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomTests.build/Objects-normal/x86_64/BrainBloomTests.swiftdoc",
+    "swiftmodule" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomTests.build/Objects-normal/x86_64/BrainBloomTests.swiftmodule",
+    "swiftsourceinfo" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomTests.build/Objects-normal/x86_64/BrainBloomTests.swiftsourceinfo"
+  }
+}

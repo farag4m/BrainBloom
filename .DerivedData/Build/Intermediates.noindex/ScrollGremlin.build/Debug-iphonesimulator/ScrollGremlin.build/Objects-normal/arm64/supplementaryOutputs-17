@@ -1,0 +1,23 @@
+{
+  "/Users/farag/ProjectsX/ScrollGremlin/ScrollGremlin/Views/Shared/ButtonStyles.swift" : {
+    "const-values" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/arm64/ButtonStyles.swiftconstvalues",
+    "dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/arm64/ButtonStyles.d",
+    "diagnostics" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/arm64/ButtonStyles.dia",
+    "object" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/arm64/ButtonStyles.o",
+    "swift-dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/arm64/ButtonStyles.swiftdeps"
+  },
+  "/Users/farag/ProjectsX/ScrollGremlin/ScrollGremlin/Views/Shared/DesignTokens.swift" : {
+    "const-values" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/arm64/DesignTokens.swiftconstvalues",
+    "dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/arm64/DesignTokens.d",
+    "diagnostics" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/arm64/DesignTokens.dia",
+    "object" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/arm64/DesignTokens.o",
+    "swift-dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/arm64/DesignTokens.swiftdeps"
+  },
+  "/Users/farag/ProjectsX/ScrollGremlin/ScrollGremlin/Views/Shared/OrbField.swift" : {
+    "const-values" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/arm64/OrbField.swiftconstvalues",
+    "dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/arm64/OrbField.d",
+    "diagnostics" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/arm64/OrbField.dia",
+    "object" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/arm64/OrbField.o",
+    "swift-dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/arm64/OrbField.swiftdeps"
+  }
+}

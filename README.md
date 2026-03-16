@@ -1,13 +1,13 @@
-# ScrollGremlin
+# BrainBloom
 
-ScrollGremlin is an iOS Screen Time companion built around `FamilyControls`, `DeviceActivity`, and `ManagedSettings`. It lets the main app define blocking rules, lets extensions enforce those rules, and stores shared state in an app group so each target can read the same data.
+BrainBloom is an iOS Screen Time companion built around `FamilyControls`, `DeviceActivity`, and `ManagedSettings`. It lets the main app define blocking rules, lets extensions enforce those rules, and stores shared state in an app group so each target can read the same data.
 
 ## Current Status
 
 - The repository has been recovered to a consistent Xcode state after an earlier branch/project-file mismatch.
 - `demo`, `main`, and `backup` were aligned to the same working commit during recovery.
 - The Xcode project now builds successfully with:
-  `xcodebuild -project ScrollGremlin.xcodeproj -scheme ScrollGremlin -destination 'generic/platform=iOS Simulator' build`
+  `xcodebuild -project BrainBloom.xcodeproj -scheme BrainBloom -destination 'generic/platform=iOS Simulator' build`
 - The codebase has gone through a cleanup pass focused on readability, maintainability, state ownership, and dead-code removal.
 
 ## Recovery And Cleanup Timeline
@@ -17,14 +17,14 @@ ScrollGremlin is an iOS Screen Time companion built around `FamilyControls`, `De
 The repository was initially left in a mixed state:
 
 - `demo` pointed to an older `IntentBlock` snapshot.
-- `main` contained the newer renamed `ScrollGremlin` work.
+- `main` contained the newer renamed `BrainBloom` work.
 - stale filesystem leftovers from another branch were still present in the working directory.
 - Xcode was opening an incomplete `.xcodeproj` bundle and reporting that the project file was missing.
 
 The recovery steps were:
 
 1. Validate the tracked project in Git.
-2. Remove stale untracked `ScrollGremlin` leftovers that were confusing Xcode.
+2. Remove stale untracked `BrainBloom` leftovers that were confusing Xcode.
 3. Fast-forward `demo` to the same commit as `main`.
 4. Create `backup` so all three branches preserve the recovered state.
 
@@ -78,15 +78,15 @@ This makes the visual system easier to navigate and lowers the chance of unrelat
 
 ## Target Overview
 
-- `ScrollGremlin/`
+- `BrainBloom/`
   Main iOS app target. Owns onboarding, rule editing, history, settings, and unlock flows.
-- `ScrollGremlinMonitor/`
+- `BrainBloomMonitor/`
   Device activity monitor extension. Responds to Screen Time callbacks.
-- `ScrollGremlinShieldAction/`
+- `BrainBloomShieldAction/`
   Shield action extension for unlock requests.
-- `ScrollGremlinShieldConfig/`
+- `BrainBloomShieldConfig/`
   Shield configuration extension for the lock screen UI.
-- `ScrollGremlinReport/`
+- `BrainBloomReport/`
   Report extension target.
 - `Shared/`
   Models and shared persistence code used across targets.
@@ -95,17 +95,17 @@ This makes the visual system easier to navigate and lowers the chance of unrelat
 
 ### Main app
 
-- `ScrollGremlin/App/`
+- `BrainBloom/App/`
   App entry point and root navigation.
-- `ScrollGremlin/Services/`
+- `BrainBloom/Services/`
   App-level coordinators such as authorization, rule management, and monitoring.
-- `ScrollGremlin/ViewModels/`
+- `BrainBloom/ViewModels/`
   Presentation state for SwiftUI screens. View models derive UI state and delegate mutations to services.
-- `ScrollGremlin/Views/`
+- `BrainBloom/Views/`
   Screen and component hierarchy grouped by feature area.
-- `ScrollGremlin/Resources/`
+- `BrainBloom/Resources/`
   Entitlements and app target resources.
-- `ScrollGremlin/Assets.xcassets/`
+- `BrainBloom/Assets.xcassets/`
   Production image assets only.
 
 ### Shared
@@ -117,13 +117,13 @@ This makes the visual system easier to navigate and lowers the chance of unrelat
 
 ### Shared design layer
 
-- `ScrollGremlin/Views/Shared/DesignTokens.swift`
+- `BrainBloom/Views/Shared/DesignTokens.swift`
   Brand colors, gradients, and appearance helpers.
-- `ScrollGremlin/Views/Shared/BackgroundSurfaces.swift`
+- `BrainBloom/Views/Shared/BackgroundSurfaces.swift`
   Page backgrounds, card surfaces, mascot framing, and reusable surface modifiers.
-- `ScrollGremlin/Views/Shared/SharedComponents.swift`
+- `BrainBloom/Views/Shared/SharedComponents.swift`
   Reusable UI components such as section headers, badges, and toolbar buttons.
-- `ScrollGremlin/Views/Shared/ButtonStyles.swift`
+- `BrainBloom/Views/Shared/ButtonStyles.swift`
   Shared button styles.
 
 ## Architecture
@@ -213,4 +213,4 @@ If a removed piece is needed later, it should be reintroduced only with a clear 
 
 ## Opening The Project
 
-Open `ScrollGremlin.xcodeproj` in Xcode. The app and all extension targets are configured there.
+Open `BrainBloom.xcodeproj` in Xcode. The app and all extension targets are configured there.

@@ -1,0 +1,32 @@
+{
+  "source": "/Users/farag/ProjectsX/ScrollGremlin/ScrollGremlin/Views/Onboarding/OnboardingWelcomeView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Set daily limits for your most distracting apps.\nWhen time's up, %@ helps you pause and decide — instead of endlessly scrolling.",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 54
+        }
+      },
+      {
+        "comment": "",
+        "key": "Meet Your",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 41
+        }
+      },
+      {
+        "comment": "",
+        "key": "Get Started",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 80
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1,9 +1,9 @@
 import Foundation
 
 public enum AppConfig {
-    public static let appGroupID = "group.com.yourco.scrollgremlin"
-    public static let deepLinkScheme = "scrollgremlin"
-    public static let managedSettingsPrefix = "scrollgremlin"
-    public static let notificationPrefix = "scrollgremlin"
+    public static let appGroupID = "group.com.yourco.brainbloom"
+    public static let deepLinkScheme = "brainbloom"
+    public static let managedSettingsPrefix = "brainbloom"
+    public static let notificationPrefix = "brainbloom"
     public static let usageSummaryKey = "usage_summary_v1"
 }

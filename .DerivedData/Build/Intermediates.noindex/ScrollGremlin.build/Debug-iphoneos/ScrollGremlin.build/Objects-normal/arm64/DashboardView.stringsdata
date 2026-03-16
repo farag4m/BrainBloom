@@ -1,0 +1,32 @@
+{
+  "source": "/Users/farag/ProjectsX/ScrollGremlin/ScrollGremlin/Views/Dashboard/DashboardView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Today",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 63
+        }
+      },
+      {
+        "comment": "",
+        "key": "Focus Bloom",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 123
+        }
+      },
+      {
+        "comment": "",
+        "key": "Nothing scheduled today",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 297
+        }
+      }
+    ]
+  },
+  "version": 1
+}

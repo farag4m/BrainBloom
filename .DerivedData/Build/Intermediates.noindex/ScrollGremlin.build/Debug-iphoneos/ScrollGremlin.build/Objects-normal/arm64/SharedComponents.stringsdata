@@ -1,0 +1,24 @@
+{
+  "source": "/Users/farag/ProjectsX/ScrollGremlin/ScrollGremlin/Views/Shared/SharedComponents.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Add a rule to start managing your app usage.",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 109
+        }
+      },
+      {
+        "comment": "",
+        "key": "Add First Rule",
+        "location": {
+          "startingColumn": 47,
+          "startingLine": 114
+        }
+      }
+    ]
+  },
+  "version": 1
+}

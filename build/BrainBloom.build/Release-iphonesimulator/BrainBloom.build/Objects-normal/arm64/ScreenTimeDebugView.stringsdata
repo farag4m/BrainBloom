@@ -1,0 +1,120 @@
+{
+  "source": "/Users/farag/ProjectsX/BrainBloom/BrainBloom/Views/Debug/ScreenTimeDebugView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Screen Time Debug",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 89
+        }
+      },
+      {
+        "comment": "",
+        "key": "Screen Time Simulator",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 16
+        }
+      },
+      {
+        "comment": "",
+        "key": "Writes fake weekly averages so you can preview the Focus Bloom response in Simulator.",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 20
+        }
+      },
+      {
+        "comment": "",
+        "key": "Fake usage data saved to App Group.",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 76
+        }
+      },
+      {
+        "comment": "",
+        "key": "Average Minutes / Day",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 28
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld min",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 30
+        }
+      },
+      {
+        "comment": "",
+        "key": "Data Age",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 38
+        }
+      },
+      {
+        "comment": "",
+        "key": "Today",
+        "location": {
+          "startingColumn": 53,
+          "startingLine": 40
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld days ago",
+        "location": {
+          "startingColumn": 63,
+          "startingLine": 40
+        }
+      },
+      {
+        "comment": "",
+        "key": "Shift data back in time",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 44
+        }
+      },
+      {
+        "comment": "",
+        "key": "Daily Variance",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 52
+        }
+      },
+      {
+        "comment": "",
+        "key": "±%lld min",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 54
+        }
+      },
+      {
+        "comment": "",
+        "key": "Write Fake Data",
+        "location": {
+          "startingColumn": 36,
+          "startingLine": 61
+        }
+      },
+      {
+        "comment": "",
+        "key": "Clear",
+        "location": {
+          "startingColumn": 36,
+          "startingLine": 67
+        }
+      }
+    ]
+  },
+  "version": 1
+}

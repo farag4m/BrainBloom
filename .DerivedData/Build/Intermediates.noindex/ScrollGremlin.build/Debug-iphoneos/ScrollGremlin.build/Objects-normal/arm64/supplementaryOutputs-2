@@ -1,0 +1,23 @@
+{
+  "/Users/farag/ProjectsX/ScrollGremlin/ScrollGremlin/Services/RuleManager.swift" : {
+    "const-values" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/RuleManager.swiftconstvalues",
+    "dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/RuleManager.d",
+    "diagnostics" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/RuleManager.dia",
+    "object" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/RuleManager.o",
+    "swift-dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/RuleManager.swiftdeps"
+  },
+  "/Users/farag/ProjectsX/ScrollGremlin/ScrollGremlin/ViewModels/DashboardModels.swift" : {
+    "const-values" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/DashboardModels.swiftconstvalues",
+    "dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/DashboardModels.d",
+    "diagnostics" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/DashboardModels.dia",
+    "object" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/DashboardModels.o",
+    "swift-dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/DashboardModels.swiftdeps"
+  },
+  "/Users/farag/ProjectsX/ScrollGremlin/Shared/UsageInsights.swift" : {
+    "const-values" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/UsageInsights.swiftconstvalues",
+    "dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/UsageInsights.d",
+    "diagnostics" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/UsageInsights.dia",
+    "object" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/UsageInsights.o",
+    "swift-dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/UsageInsights.swiftdeps"
+  }
+}

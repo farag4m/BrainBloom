@@ -1,0 +1,216 @@
+{
+  "source": "/Users/farag/ProjectsX/ScrollGremlin/ScrollGremlin/Views/Unlock/UnlockFlowView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 83
+        }
+      },
+      {
+        "comment": "",
+        "key": "Breathe slowly.",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 153
+        }
+      },
+      {
+        "comment": "",
+        "key": "How long do you need?",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 188
+        }
+      },
+      {
+        "comment": "",
+        "key": "You can always unlock again if needed.",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 190
+        }
+      },
+      {
+        "comment": "",
+        "key": "Continue",
+        "location": {
+          "startingColumn": 43,
+          "startingLine": 205
+        }
+      },
+      {
+        "comment": "",
+        "key": "e.g. Checking a message",
+        "location": {
+          "startingColumn": 40,
+          "startingLine": 298
+        }
+      },
+      {
+        "comment": "",
+        "key": "",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 297
+        }
+      },
+      {
+        "comment": "",
+        "key": "Why are you unlocking?",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 288
+        }
+      },
+      {
+        "comment": "",
+        "key": "Ready to unlock?",
+        "location": {
+          "startingColumn": 69,
+          "startingLine": 288
+        }
+      },
+      {
+        "comment": "",
+        "key": "Writing it down builds awareness.",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 291
+        }
+      },
+      {
+        "comment": "",
+        "key": "Take a breath before you continue.",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 292
+        }
+      },
+      {
+        "comment": "",
+        "key": "Wait %llds...",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 324
+        }
+      },
+      {
+        "comment": "",
+        "key": "Just a moment...",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 326
+        }
+      },
+      {
+        "comment": "",
+        "key": "Unlock",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 328
+        }
+      },
+      {
+        "comment": "",
+        "key": "Unlocking...",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 349
+        }
+      },
+      {
+        "comment": "",
+        "key": "Switch back to the app manually.",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 393
+        }
+      },
+      {
+        "comment": "",
+        "key": "You're in!",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 380
+        }
+      },
+      {
+        "comment": "",
+        "key": "Unlocked for the rest of today.",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 386
+        }
+      },
+      {
+        "comment": "",
+        "key": "You have %lld minutes. Use them well.",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 383
+        }
+      },
+      {
+        "comment": "",
+        "key": "Done",
+        "location": {
+          "startingColumn": 46,
+          "startingLine": 401
+        }
+      },
+      {
+        "comment": "",
+        "key": "Submit",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 496
+        }
+      },
+      {
+        "comment": "",
+        "key": "Quick Check",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 444
+        }
+      },
+      {
+        "comment": "",
+        "key": "Problem %lld of %lld",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 447
+        }
+      },
+      {
+        "comment": "",
+        "key": "Solve to continue.",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 450
+        }
+      },
+      {
+        "comment": "",
+        "key": "Not quite — try again",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 481
+        }
+      },
+      {
+        "comment": "",
+        "key": "",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 461
+        }
+      }
+    ]
+  },
+  "version": 1
+}

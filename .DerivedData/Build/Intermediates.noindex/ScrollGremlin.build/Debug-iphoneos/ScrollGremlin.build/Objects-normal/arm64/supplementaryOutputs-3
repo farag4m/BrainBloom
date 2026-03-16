@@ -1,0 +1,23 @@
+{
+  "/Users/farag/ProjectsX/ScrollGremlin/ScrollGremlin/ViewModels/UnlockFlowSupport.swift" : {
+    "const-values" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/UnlockFlowSupport.swiftconstvalues",
+    "dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/UnlockFlowSupport.d",
+    "diagnostics" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/UnlockFlowSupport.dia",
+    "object" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/UnlockFlowSupport.o",
+    "swift-dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/UnlockFlowSupport.swiftdeps"
+  },
+  "/Users/farag/ProjectsX/ScrollGremlin/ScrollGremlin/ViewModels/UnlockViewModel.swift" : {
+    "const-values" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/UnlockViewModel.swiftconstvalues",
+    "dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/UnlockViewModel.d",
+    "diagnostics" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/UnlockViewModel.dia",
+    "object" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/UnlockViewModel.o",
+    "swift-dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/UnlockViewModel.swiftdeps"
+  },
+  "/Users/farag/ProjectsX/ScrollGremlin/ScrollGremlin/Views/Dashboard/AllRulesView.swift" : {
+    "const-values" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/AllRulesView.swiftconstvalues",
+    "dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/AllRulesView.d",
+    "diagnostics" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/AllRulesView.dia",
+    "object" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/AllRulesView.o",
+    "swift-dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/AllRulesView.swiftdeps"
+  }
+}

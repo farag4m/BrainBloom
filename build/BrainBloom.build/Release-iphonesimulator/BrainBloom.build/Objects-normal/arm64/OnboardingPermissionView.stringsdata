@@ -1,0 +1,48 @@
+{
+  "source": "/Users/farag/ProjectsX/BrainBloom/BrainBloom/Views/Onboarding/OnboardingPermissionView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Screen Time Access",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 38
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@ needs Screen Time access to monitor app usage and apply blocks when your limits are reached.",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 41
+        }
+      },
+      {
+        "comment": "",
+        "key": "Screen Time access was denied. Please enable it in Settings.",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 66
+        }
+      },
+      {
+        "comment": "",
+        "key": "Open Settings",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 71
+        }
+      },
+      {
+        "comment": "",
+        "key": "Allow Access",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 86
+        }
+      }
+    ]
+  },
+  "version": 1
+}

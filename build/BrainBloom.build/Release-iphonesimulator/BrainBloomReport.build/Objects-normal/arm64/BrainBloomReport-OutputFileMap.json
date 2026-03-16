@@ -1,0 +1,51 @@
+{
+  "" : {
+    "const-values" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomReport.build/Objects-normal/arm64/BrainBloomReport-primary.swiftconstvalues",
+    "dependencies" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomReport.build/Objects-normal/arm64/BrainBloomReport-primary.d",
+    "diagnostics" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomReport.build/Objects-normal/arm64/BrainBloomReport-primary.dia",
+    "emit-module-dependencies" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomReport.build/Objects-normal/arm64/BrainBloomReport-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomReport.build/Objects-normal/arm64/BrainBloomReport-primary-emit-module.dia",
+    "pch" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomReport.build/Objects-normal/arm64/BrainBloomReport-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomReport.build/Objects-normal/arm64/BrainBloomReport-primary.swiftdeps"
+  },
+  "/Users/farag/ProjectsX/BrainBloom/BrainBloomReport/ReportExtension.swift" : {
+    "index-unit-output-path" : "/BrainBloom.build/Release-iphonesimulator/BrainBloomReport.build/Objects-normal/arm64/ReportExtension.o",
+    "llvm-bc" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomReport.build/Objects-normal/arm64/ReportExtension.bc",
+    "object" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomReport.build/Objects-normal/arm64/ReportExtension.o"
+  },
+  "/Users/farag/ProjectsX/BrainBloom/BrainBloomReport/UsageSummaryWriter.swift" : {
+    "index-unit-output-path" : "/BrainBloom.build/Release-iphonesimulator/BrainBloomReport.build/Objects-normal/arm64/UsageSummaryWriter.o",
+    "llvm-bc" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomReport.build/Objects-normal/arm64/UsageSummaryWriter.bc",
+    "object" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomReport.build/Objects-normal/arm64/UsageSummaryWriter.o"
+  },
+  "/Users/farag/ProjectsX/BrainBloom/Shared/AppConfig.swift" : {
+    "index-unit-output-path" : "/BrainBloom.build/Release-iphonesimulator/BrainBloomReport.build/Objects-normal/arm64/AppConfig.o",
+    "llvm-bc" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomReport.build/Objects-normal/arm64/AppConfig.bc",
+    "object" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomReport.build/Objects-normal/arm64/AppConfig.o"
+  },
+  "/Users/farag/ProjectsX/BrainBloom/Shared/AppGroupStore.swift" : {
+    "index-unit-output-path" : "/BrainBloom.build/Release-iphonesimulator/BrainBloomReport.build/Objects-normal/arm64/AppGroupStore.o",
+    "llvm-bc" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomReport.build/Objects-normal/arm64/AppGroupStore.bc",
+    "object" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomReport.build/Objects-normal/arm64/AppGroupStore.o"
+  },
+  "/Users/farag/ProjectsX/BrainBloom/Shared/AppLogger.swift" : {
+    "index-unit-output-path" : "/BrainBloom.build/Release-iphonesimulator/BrainBloomReport.build/Objects-normal/arm64/AppLogger.o",
+    "llvm-bc" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomReport.build/Objects-normal/arm64/AppLogger.bc",
+    "object" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomReport.build/Objects-normal/arm64/AppLogger.o"
+  },
+  "/Users/farag/ProjectsX/BrainBloom/Shared/Models.swift" : {
+    "index-unit-output-path" : "/BrainBloom.build/Release-iphonesimulator/BrainBloomReport.build/Objects-normal/arm64/Models.o",
+    "llvm-bc" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomReport.build/Objects-normal/arm64/Models.bc",
+    "object" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomReport.build/Objects-normal/arm64/Models.o"
+  },
+  "/Users/farag/ProjectsX/BrainBloom/Shared/UnlockSessionQueries.swift" : {
+    "index-unit-output-path" : "/BrainBloom.build/Release-iphonesimulator/BrainBloomReport.build/Objects-normal/arm64/UnlockSessionQueries.o",
+    "llvm-bc" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomReport.build/Objects-normal/arm64/UnlockSessionQueries.bc",
+    "object" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomReport.build/Objects-normal/arm64/UnlockSessionQueries.o"
+  },
+  "/Users/farag/ProjectsX/BrainBloom/Shared/UsageInsights.swift" : {
+    "index-unit-output-path" : "/BrainBloom.build/Release-iphonesimulator/BrainBloomReport.build/Objects-normal/arm64/UsageInsights.o",
+    "llvm-bc" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomReport.build/Objects-normal/arm64/UsageInsights.bc",
+    "object" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomReport.build/Objects-normal/arm64/UsageInsights.o"
+  }
+}

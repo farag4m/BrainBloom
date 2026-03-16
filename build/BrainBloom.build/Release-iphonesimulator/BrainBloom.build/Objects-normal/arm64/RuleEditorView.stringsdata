@@ -1,0 +1,208 @@
+{
+  "source": "/Users/farag/ProjectsX/BrainBloom/BrainBloom/Views/RuleEditor/RuleEditorView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Delete Rule?",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 191
+        }
+      },
+      {
+        "comment": "",
+        "key": "Edit Rule",
+        "location": {
+          "startingColumn": 52,
+          "startingLine": 170
+        }
+      },
+      {
+        "comment": "",
+        "key": "New Rule",
+        "location": {
+          "startingColumn": 66,
+          "startingLine": 170
+        }
+      },
+      {
+        "comment": "",
+        "key": "",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 68
+        }
+      },
+      {
+        "comment": "",
+        "key": "e.g. Social Media",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 223
+        }
+      },
+      {
+        "comment": "",
+        "key": "Limit Type",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 87
+        }
+      },
+      {
+        "comment": "",
+        "key": "Daily",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 88
+        }
+      },
+      {
+        "comment": "",
+        "key": "Hourly",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 89
+        }
+      },
+      {
+        "comment": "",
+        "key": "Scheduled",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 90
+        }
+      },
+      {
+        "comment": "",
+        "key": "Start",
+        "location": {
+          "startingColumn": 36,
+          "startingLine": 116
+        }
+      },
+      {
+        "comment": "",
+        "key": "End",
+        "location": {
+          "startingColumn": 36,
+          "startingLine": 117
+        }
+      },
+      {
+        "comment": "",
+        "key": "Duration",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 128
+        }
+      },
+      {
+        "comment": "",
+        "key": "Friction",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 140
+        }
+      },
+      {
+        "comment": "",
+        "key": "Preview selected friction",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 151
+        }
+      },
+      {
+        "comment": "",
+        "key": "Delete Rule",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 160
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 174
+        }
+      },
+      {
+        "comment": "",
+        "key": "Save",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 177
+        }
+      },
+      {
+        "comment": "",
+        "key": "Delete",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 192
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 196
+        }
+      },
+      {
+        "comment": "",
+        "key": "Allowance",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 279
+        }
+      },
+      {
+        "comment": "",
+        "key": "Allowance",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 281
+        }
+      },
+      {
+        "comment": "",
+        "key": "Reset Window",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 308
+        }
+      },
+      {
+        "comment": "",
+        "key": "Reset Window",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 310
+        }
+      },
+      {
+        "comment": "",
+        "key": "Every hour",
+        "location": {
+          "startingColumn": 39,
+          "startingLine": 312
+        }
+      },
+      {
+        "comment": "",
+        "key": "Every %lld hours",
+        "location": {
+          "startingColumn": 54,
+          "startingLine": 312
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1,0 +1,232 @@
+{
+  "source": "/Users/farag/ProjectsX/ScrollGremlin/ScrollGremlin/Views/RuleEditor/AddRuleView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 45
+        }
+      },
+      {
+        "comment": "",
+        "key": "New Rule",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 135
+        }
+      },
+      {
+        "comment": "",
+        "key": "Quick Presets",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 84
+        }
+      },
+      {
+        "comment": "",
+        "key": "Advanced",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 101
+        }
+      },
+      {
+        "comment": "",
+        "key": "Custom Rule",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 114
+        }
+      },
+      {
+        "comment": "",
+        "key": "Set your own time and interval",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 117
+        }
+      },
+      {
+        "comment": "",
+        "key": "Work (9–5)",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 182
+        }
+      },
+      {
+        "comment": "",
+        "key": "Mon–Fri schedule",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 186
+        }
+      },
+      {
+        "comment": "",
+        "key": "Custom Rule",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 293
+        }
+      },
+      {
+        "comment": "",
+        "key": "Preview",
+        "location": {
+          "startingColumn": 21,
+          "startingLine": 283
+        }
+      },
+      {
+        "comment": "",
+        "key": "Time allowed",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 264
+        }
+      },
+      {
+        "comment": "",
+        "key": "Reset window",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 271
+        }
+      },
+      {
+        "comment": "",
+        "key": "Limit",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 278
+        }
+      },
+      {
+        "comment": "",
+        "key": "Apps are blocked once the time allowed is used within each reset window.",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 280
+        }
+      },
+      {
+        "comment": "",
+        "key": "Rule",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 284
+        }
+      },
+      {
+        "comment": "",
+        "key": "Continue",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 297
+        }
+      },
+      {
+        "comment": "",
+        "key": "Rule Details",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 429
+        }
+      },
+      {
+        "comment": "",
+        "key": "Rule Name",
+        "location": {
+          "startingColumn": 21,
+          "startingLine": 376
+        }
+      },
+      {
+        "comment": "",
+        "key": "Apps to Block",
+        "location": {
+          "startingColumn": 21,
+          "startingLine": 380
+        }
+      },
+      {
+        "comment": "",
+        "key": "Active Days",
+        "location": {
+          "startingColumn": 21,
+          "startingLine": 395
+        }
+      },
+      {
+        "comment": "",
+        "key": "Blocking Duration",
+        "location": {
+          "startingColumn": 21,
+          "startingLine": 399
+        }
+      },
+      {
+        "comment": "",
+        "key": "Blocking Friction",
+        "location": {
+          "startingColumn": 21,
+          "startingLine": 409
+        }
+      },
+      {
+        "comment": "",
+        "key": "Limit",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 373
+        }
+      },
+      {
+        "comment": "",
+        "key": "e.g. Social Media",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 377
+        }
+      },
+      {
+        "comment": "",
+        "key": "Duration",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 400
+        }
+      },
+      {
+        "comment": "",
+        "key": "Friction",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 410
+        }
+      },
+      {
+        "comment": "",
+        "key": "Preview selected friction",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 421
+        }
+      },
+      {
+        "comment": "",
+        "key": "Save",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 433
+        }
+      }
+    ]
+  },
+  "version": 1
+}

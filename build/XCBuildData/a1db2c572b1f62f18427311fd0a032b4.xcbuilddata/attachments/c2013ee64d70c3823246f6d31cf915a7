@@ -1,0 +1,16 @@
+{
+  "" : {
+    "const-values" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphoneos/BrainBloomShieldConfig.build/Objects-normal/arm64/BrainBloomShieldConfig-primary.swiftconstvalues",
+    "dependencies" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphoneos/BrainBloomShieldConfig.build/Objects-normal/arm64/BrainBloomShieldConfig-primary.d",
+    "diagnostics" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphoneos/BrainBloomShieldConfig.build/Objects-normal/arm64/BrainBloomShieldConfig-primary.dia",
+    "emit-module-dependencies" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphoneos/BrainBloomShieldConfig.build/Objects-normal/arm64/BrainBloomShieldConfig-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphoneos/BrainBloomShieldConfig.build/Objects-normal/arm64/BrainBloomShieldConfig-primary-emit-module.dia",
+    "pch" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphoneos/BrainBloomShieldConfig.build/Objects-normal/arm64/BrainBloomShieldConfig-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphoneos/BrainBloomShieldConfig.build/Objects-normal/arm64/BrainBloomShieldConfig-primary.swiftdeps"
+  },
+  "/Users/farag/ProjectsX/BrainBloom/BrainBloomShieldConfig/ShieldConfigurationExtension.swift" : {
+    "index-unit-output-path" : "/BrainBloom.build/Release-iphoneos/BrainBloomShieldConfig.build/Objects-normal/arm64/ShieldConfigurationExtension.o",
+    "llvm-bc" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphoneos/BrainBloomShieldConfig.build/Objects-normal/arm64/ShieldConfigurationExtension.bc",
+    "object" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphoneos/BrainBloomShieldConfig.build/Objects-normal/arm64/ShieldConfigurationExtension.o"
+  }
+}

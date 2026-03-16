@@ -1,0 +1,23 @@
+{
+  "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "const-values" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/x86_64/GeneratedAssetSymbols.swiftconstvalues",
+    "dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/x86_64/GeneratedAssetSymbols.d",
+    "diagnostics" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/x86_64/GeneratedAssetSymbols.dia",
+    "object" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/x86_64/GeneratedAssetSymbols.o",
+    "swift-dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/x86_64/GeneratedAssetSymbols.swiftdeps"
+  },
+  "/Users/farag/ProjectsX/ScrollGremlin/Shared/UnlockSessionQueries.swift" : {
+    "const-values" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/x86_64/UnlockSessionQueries.swiftconstvalues",
+    "dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/x86_64/UnlockSessionQueries.d",
+    "diagnostics" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/x86_64/UnlockSessionQueries.dia",
+    "object" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/x86_64/UnlockSessionQueries.o",
+    "swift-dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/x86_64/UnlockSessionQueries.swiftdeps"
+  },
+  "/Users/farag/ProjectsX/ScrollGremlin/Shared/UsageInsights.swift" : {
+    "const-values" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/x86_64/UsageInsights.swiftconstvalues",
+    "dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/x86_64/UsageInsights.d",
+    "diagnostics" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/x86_64/UsageInsights.dia",
+    "object" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/x86_64/UsageInsights.o",
+    "swift-dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/x86_64/UsageInsights.swiftdeps"
+  }
+}

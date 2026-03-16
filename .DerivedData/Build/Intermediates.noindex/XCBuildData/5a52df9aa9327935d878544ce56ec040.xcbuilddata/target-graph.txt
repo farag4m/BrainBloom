@@ -1,0 +1,10 @@
+Target dependency graph (5 targets)
+Target 'ScrollGremlin' in project 'ScrollGremlin'
+➜ Explicit dependency on target 'ScrollGremlinMonitor' in project 'ScrollGremlin'
+➜ Explicit dependency on target 'ScrollGremlinShieldAction' in project 'ScrollGremlin'
+➜ Explicit dependency on target 'ScrollGremlinShieldConfig' in project 'ScrollGremlin'
+➜ Explicit dependency on target 'ScrollGremlinReport' in project 'ScrollGremlin'
+Target 'ScrollGremlinReport' in project 'ScrollGremlin' (no dependencies)
+Target 'ScrollGremlinShieldConfig' in project 'ScrollGremlin' (no dependencies)
+Target 'ScrollGremlinShieldAction' in project 'ScrollGremlin' (no dependencies)
+Target 'ScrollGremlinMonitor' in project 'ScrollGremlin' (no dependencies)

@@ -1,0 +1,23 @@
+{
+  "/Users/farag/ProjectsX/ScrollGremlin/ScrollGremlin/Views/History/HistoryView.swift" : {
+    "const-values" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/HistoryView.swiftconstvalues",
+    "dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/HistoryView.d",
+    "diagnostics" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/HistoryView.dia",
+    "object" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/HistoryView.o",
+    "swift-dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/HistoryView.swiftdeps"
+  },
+  "/Users/farag/ProjectsX/ScrollGremlin/ScrollGremlin/Views/Onboarding/OnboardingFlow.swift" : {
+    "const-values" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/OnboardingFlow.swiftconstvalues",
+    "dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/OnboardingFlow.d",
+    "diagnostics" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/OnboardingFlow.dia",
+    "object" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/OnboardingFlow.o",
+    "swift-dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/OnboardingFlow.swiftdeps"
+  },
+  "/Users/farag/ProjectsX/ScrollGremlin/ScrollGremlin/Views/Onboarding/OnboardingPermissionView.swift" : {
+    "const-values" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/OnboardingPermissionView.swiftconstvalues",
+    "dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/OnboardingPermissionView.d",
+    "diagnostics" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/OnboardingPermissionView.dia",
+    "object" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/OnboardingPermissionView.o",
+    "swift-dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphoneos/ScrollGremlin.build/Objects-normal/arm64/OnboardingPermissionView.swiftdeps"
+  }
+}

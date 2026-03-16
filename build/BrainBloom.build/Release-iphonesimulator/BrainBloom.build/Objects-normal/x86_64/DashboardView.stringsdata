@@ -1,0 +1,32 @@
+{
+  "source": "/Users/farag/ProjectsX/BrainBloom/BrainBloom/Views/Dashboard/DashboardView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Today",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 69
+        }
+      },
+      {
+        "comment": "",
+        "key": "Focus Bloom",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 130
+        }
+      },
+      {
+        "comment": "",
+        "key": "Nothing scheduled today. Enjoy the extra time.",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 222
+        }
+      }
+    ]
+  },
+  "version": 1
+}

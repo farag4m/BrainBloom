@@ -1,0 +1,12 @@
+{
+  "/Users/farag/ProjectsX/BrainBloom/BrainBloomShieldAction/ShieldActionExtension.swift" : {
+    "abi-baseline-json" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomShieldAction.build/Objects-normal/arm64/BrainBloomShieldAction.abi.json",
+    "const-values" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomShieldAction.build/Objects-normal/arm64/BrainBloomShieldAction-primary.swiftconstvalues",
+    "dependencies" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomShieldAction.build/Objects-normal/arm64/BrainBloomShieldAction-primary.d",
+    "diagnostics" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomShieldAction.build/Objects-normal/arm64/BrainBloomShieldAction-primary.dia",
+    "objc-header" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomShieldAction.build/Objects-normal/arm64/BrainBloomShieldAction-Swift.h",
+    "swiftdoc" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomShieldAction.build/Objects-normal/arm64/BrainBloomShieldAction.swiftdoc",
+    "swiftmodule" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomShieldAction.build/Objects-normal/arm64/BrainBloomShieldAction.swiftmodule",
+    "swiftsourceinfo" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomShieldAction.build/Objects-normal/arm64/BrainBloomShieldAction.swiftsourceinfo"
+  }
+}

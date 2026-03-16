@@ -1,0 +1,104 @@
+{
+  "source": "/Users/farag/ProjectsX/ScrollGremlin/ScrollGremlin/Views/Dashboard/RuleCardView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 45
+        }
+      },
+      {
+        "comment": "",
+        "key": "Delete Rule",
+        "location": {
+          "startingColumn": 23,
+          "startingLine": 69
+        }
+      },
+      {
+        "comment": "",
+        "key": "Blocked — limit reached",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 96
+        }
+      },
+      {
+        "comment": "",
+        "key": "Rule Info",
+        "location": {
+          "startingColumn": 25,
+          "startingLine": 180
+        }
+      },
+      {
+        "comment": "",
+        "key": "Today's Unlocks",
+        "location": {
+          "startingColumn": 29,
+          "startingLine": 188
+        }
+      },
+      {
+        "comment": "",
+        "key": "Limit reached",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 168
+        }
+      },
+      {
+        "comment": "",
+        "key": "Your allowance is used up for this window.",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 171
+        }
+      },
+      {
+        "comment": "",
+        "key": "Allowance",
+        "location": {
+          "startingColumn": 36,
+          "startingLine": 181
+        }
+      },
+      {
+        "comment": "",
+        "key": "Status",
+        "location": {
+          "startingColumn": 36,
+          "startingLine": 184
+        }
+      },
+      {
+        "comment": "",
+        "key": "Edit Rule",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 194
+        }
+      },
+      {
+        "comment": "",
+        "key": "Delete Rule",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 195
+        }
+      },
+      {
+        "comment": "",
+        "key": "Done",
+        "location": {
+          "startingColumn": 70,
+          "startingLine": 201
+        }
+      }
+    ]
+  },
+  "version": 1
+}

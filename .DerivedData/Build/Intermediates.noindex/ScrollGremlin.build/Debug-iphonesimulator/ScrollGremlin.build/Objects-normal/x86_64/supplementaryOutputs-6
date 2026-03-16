@@ -1,0 +1,30 @@
+{
+  "/Users/farag/ProjectsX/ScrollGremlin/ScrollGremlin/Views/RuleEditor/AddRuleView.swift" : {
+    "const-values" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/x86_64/AddRuleView.swiftconstvalues",
+    "dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/x86_64/AddRuleView.d",
+    "diagnostics" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/x86_64/AddRuleView.dia",
+    "object" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/x86_64/AddRuleView.o",
+    "swift-dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/x86_64/AddRuleView.swiftdeps"
+  },
+  "/Users/farag/ProjectsX/ScrollGremlin/ScrollGremlin/Views/RuleEditor/RuleEditorView.swift" : {
+    "const-values" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/x86_64/RuleEditorView.swiftconstvalues",
+    "dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/x86_64/RuleEditorView.d",
+    "diagnostics" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/x86_64/RuleEditorView.dia",
+    "object" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/x86_64/RuleEditorView.o",
+    "swift-dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/x86_64/RuleEditorView.swiftdeps"
+  },
+  "/Users/farag/ProjectsX/ScrollGremlin/ScrollGremlin/Views/Settings/SettingsView.swift" : {
+    "const-values" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/x86_64/SettingsView.swiftconstvalues",
+    "dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/x86_64/SettingsView.d",
+    "diagnostics" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/x86_64/SettingsView.dia",
+    "object" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/x86_64/SettingsView.o",
+    "swift-dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/x86_64/SettingsView.swiftdeps"
+  },
+  "/Users/farag/ProjectsX/ScrollGremlin/ScrollGremlin/Views/Shared/BackgroundSurfaces.swift" : {
+    "const-values" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/x86_64/BackgroundSurfaces.swiftconstvalues",
+    "dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/x86_64/BackgroundSurfaces.d",
+    "diagnostics" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/x86_64/BackgroundSurfaces.dia",
+    "object" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/x86_64/BackgroundSurfaces.o",
+    "swift-dependencies" : "/Users/farag/ProjectsX/ScrollGremlin/.DerivedData/Build/Intermediates.noindex/ScrollGremlin.build/Debug-iphonesimulator/ScrollGremlin.build/Objects-normal/x86_64/BackgroundSurfaces.swiftdeps"
+  }
+}

@@ -1,0 +1,16 @@
+---
+triple:          'x86_64-apple-darwin'
+binary-path:     '/Users/farag/ProjectsX/BrainBloom/build/Release-iphonesimulator/BrainBloomShieldConfig.appex/BrainBloomShieldConfig'
+relocations:
+  - { offset: 0x4DDB3, size: 0x8, addend: 0x0, symName: '_$s22BrainBloomShieldConfig0abC13ConfigurationCMa', symObjAddr: 0x0, symBinAddr: 0x100000F80, symSize: 0x30 }
+  - { offset: 0x4DDCB, size: 0x8, addend: 0x0, symName: '_$s22BrainBloomShieldConfig0abC13ConfigurationCMa', symObjAddr: 0x0, symBinAddr: 0x100000F80, symSize: 0x30 }
+  - { offset: 0x4DDDF, size: 0x8, addend: 0x0, symName: '_$s22BrainBloomShieldConfig0abC13ConfigurationCMr', symObjAddr: 0x30, symBinAddr: 0x100000FB0, symSize: 0x30 }
+  - { offset: 0x4DEB1, size: 0x8, addend: 0x0, symName: '_$s22BrainBloomShieldConfig0abC13ConfigurationCMU', symObjAddr: 0x440, symBinAddr: 0x1000013C0, symSize: 0x10 }
+  - { offset: 0x4DEC5, size: 0x8, addend: 0x0, symName: ___swift_instantiateConcreteTypeFromMangledNameV2, symObjAddr: 0x450, symBinAddr: 0x1000013D0, symSize: 0x3E }
+  - { offset: 0x4DF32, size: 0x8, addend: 0x0, symName: '_$s22BrainBloomShieldConfig0abC13ConfigurationC13configuration9shielding17ManagedSettingsUI0cE0V0hI011ApplicationV_tF', symObjAddr: 0x60, symBinAddr: 0x100000FE0, symSize: 0x30 }
+  - { offset: 0x4DF76, size: 0x8, addend: 0x0, symName: '_$s22BrainBloomShieldConfig0abC13ConfigurationC13configuration9shielding2in17ManagedSettingsUI0cE0V0iJ011ApplicationV_AJ16ActivityCategoryVtF', symObjAddr: 0x90, symBinAddr: 0x100001010, symSize: 0x30 }
+  - { offset: 0x4DFC6, size: 0x8, addend: 0x0, symName: '_$s22BrainBloomShieldConfig0abC13ConfigurationC13configuration9shielding17ManagedSettingsUI0cE0V0hI09WebDomainV_tF', symObjAddr: 0xC0, symBinAddr: 0x100001040, symSize: 0x30 }
+  - { offset: 0x4E095, size: 0x8, addend: 0x0, symName: '_$s22BrainBloomShieldConfig0abC13ConfigurationC04makeE0016_5A35B08836475B0I15BB2239FFC6F174DLL8subtitle17ManagedSettingsUI0cE0VSS_tF', symObjAddr: 0xF0, symBinAddr: 0x100001070, symSize: 0x2E0 }
+  - { offset: 0x4E14A, size: 0x8, addend: 0x0, symName: '_$s22BrainBloomShieldConfig0abC13ConfigurationCACycfcTo', symObjAddr: 0x3D0, symBinAddr: 0x100001350, symSize: 0x40 }
+  - { offset: 0x4E186, size: 0x8, addend: 0x0, symName: '_$s22BrainBloomShieldConfig0abC13ConfigurationCfD', symObjAddr: 0x410, symBinAddr: 0x100001390, symSize: 0x30 }
+...

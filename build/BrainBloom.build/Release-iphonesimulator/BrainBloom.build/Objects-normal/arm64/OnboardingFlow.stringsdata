@@ -1,0 +1,40 @@
+{
+  "source": "/Users/farag/ProjectsX/BrainBloom/BrainBloom/Views/Onboarding/OnboardingFlow.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Add Your First Rule",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 63
+        }
+      },
+      {
+        "comment": "",
+        "key": "Pick the app you find most distracting and set a daily time limit.",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 69
+        }
+      },
+      {
+        "comment": "",
+        "key": "Add an App to Block",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 81
+        }
+      },
+      {
+        "comment": "",
+        "key": "Skip for now",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 84
+        }
+      }
+    ]
+  },
+  "version": 1
+}

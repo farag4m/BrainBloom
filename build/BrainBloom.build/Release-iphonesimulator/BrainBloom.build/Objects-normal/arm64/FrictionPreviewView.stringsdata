@@ -1,0 +1,64 @@
+{
+  "source": "/Users/farag/ProjectsX/BrainBloom/BrainBloom/Views/Unlock/FrictionPreviewView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "PREVIEW",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 69
+        }
+      },
+      {
+        "comment": "",
+        "key": "Close",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 84
+        }
+      },
+      {
+        "comment": "",
+        "key": "No Friction",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 128
+        }
+      },
+      {
+        "comment": "",
+        "key": "Preview Complete",
+        "location": {
+          "startingColumn": 47,
+          "startingLine": 128
+        }
+      },
+      {
+        "comment": "",
+        "key": "No friction is configured. Unlocks immediately with no extra steps.",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 132
+        }
+      },
+      {
+        "comment": "",
+        "key": "That's exactly what users will see with \"%@\" friction.",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 133
+        }
+      },
+      {
+        "comment": "",
+        "key": "Done",
+        "location": {
+          "startingColumn": 46,
+          "startingLine": 144
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1,0 +1,24 @@
+{
+  "source": "/Users/farag/ProjectsX/BrainBloom/BrainBloom/Views/Shared/SharedComponents.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Add a rule to start building healthier app habits.",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 108
+        }
+      },
+      {
+        "comment": "",
+        "key": "Add First Rule",
+        "location": {
+          "startingColumn": 47,
+          "startingLine": 113
+        }
+      }
+    ]
+  },
+  "version": 1
+}

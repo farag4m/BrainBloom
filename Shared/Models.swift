@@ -17,7 +17,7 @@ public enum UsagePolicyType: String, Codable, CaseIterable {
 public struct UsagePolicy: Codable, Equatable, Hashable {
     public var type: UsagePolicyType
     public var allowedMinutes: Int  // usage allowed per interval
-    public var intervalHours: Int   // window length: 24 for daily, 1–12 for recurring
+    public var intervalHours: Int   // window length: 24 for daily, 1-12 for recurring
 
     public init(type: UsagePolicyType, allowedMinutes: Int, intervalHours: Int) {
         self.type = type
@@ -46,7 +46,7 @@ public struct UsagePolicy: Codable, Equatable, Hashable {
 
     /// Returns the (start, end) DateComponents for the current midnight-aligned slot.
     /// For daily use, returns the schedule's own start/end instead (caller handles that).
-    /// For recurring: divides 00:00–23:59 into slots of `intervalHours` each and returns the active one.
+    /// For recurring: divides 00:00-23:59 into slots of `intervalHours` each and returns the active one.
     public static func currentSlotWindow(intervalHours: Int) -> (start: DateComponents, end: DateComponents) {
         let hour = Calendar.current.component(.hour, from: Date())
         let slotStart = (hour / intervalHours) * intervalHours
@@ -148,7 +148,7 @@ public struct RuleSchedule: Codable, Equatable {
         endHour: 23, endMinute: 59
     )
 
-    /// Monday–Friday, 09:00–17:00. Used by the Work (9–5) quick preset.
+    /// Monday-Friday, 09:00-17:00. Used by the Work (9-5) quick preset.
     public static let workDays = RuleSchedule(
         activeDays: [2, 3, 4, 5, 6],   // 1=Sun … 7=Sat
         startHour: 9, startMinute: 0,
@@ -186,7 +186,7 @@ public struct DailyState: Codable {
     public var isCurrentlyShielded: Bool
     public var activeUnlockSessionID: UUID?
     public var totalUnlockSeconds: Int
-    /// Set to true when the user selects "until end of day" — suppresses slot re-registration.
+    /// Set to true when the user selects "until end of day" - suppresses slot re-registration.
     public var isUnlockedUntilEndOfDay: Bool
 
     public init(ruleID: UUID, date: String = AppGroupStore.todayString) {
@@ -400,7 +400,7 @@ public struct UnlockRequest: Codable {
 // MARK: - MonitorPolicy (lean snapshot for extensions)
 //
 // Extensions cannot call DeviceActivityCenter.startMonitoring (entitlement-gated).
-// This struct is written by the main app and read by ScrollGremlinMonitor.
+// This struct is written by the main app and read by BrainBloomMonitor.
 // It carries everything the extension needs to respond to callbacks correctly.
 
 public struct MonitorPolicy: Codable {

@@ -1,0 +1,16 @@
+{
+  "source": "/Users/farag/ProjectsX/ScrollGremlin/ScrollGremlin/Views/Dashboard/AllRulesView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "All Rules",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 42
+        }
+      }
+    ]
+  },
+  "version": 1
+}

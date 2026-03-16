@@ -1,0 +1,76 @@
+[
+  {
+    "typeName": "ScrollGremlinReport.ReportExtension",
+    "mangledTypeName": "19ScrollGremlinReport0C9ExtensionV",
+    "kind": "struct",
+    "file": "/Users/farag/ProjectsX/ScrollGremlin/ScrollGremlinReport/ReportExtension.swift",
+    "line": 6,
+    "conformances": [
+      "_DeviceActivity_SwiftUI.DeviceActivityReportExtension",
+      "ExtensionFoundation.AppExtension",
+      "Swift.Sendable",
+      "Swift.BitwiseCopyable"
+    ],
+    "allConformances": [
+      {
+        "protocolName": "_DeviceActivity_SwiftUI.DeviceActivityReportExtension",
+        "conformanceDefiningModule": "ScrollGremlinReport"
+      },
+      {
+        "protocolName": "ExtensionFoundation.AppExtension",
+        "conformanceDefiningModule": "ScrollGremlinReport"
+      },
+      {
+        "protocolName": "Swift.Sendable",
+        "conformanceDefiningModule": "ScrollGremlinReport"
+      },
+      {
+        "protocolName": "Swift.BitwiseCopyable",
+        "conformanceDefiningModule": "ScrollGremlinReport"
+      }
+    ],
+    "associatedTypeAliases": [
+      {
+        "typeAliasName": "Body",
+        "substitutedTypeName": "some _DeviceActivity_SwiftUI.DeviceActivityReportScene",
+        "substitutedMangledTypeName": "19ScrollGremlinReport0C9ExtensionV4bodyQrvpQOy_Qo_",
+        "opaqueTypeProtocolRequirements": [
+          "_DeviceActivity_SwiftUI.DeviceActivityReportScene"
+        ],
+        "opaqueTypeSameTypeRequirements": []
+      },
+      {
+        "typeAliasName": "Configuration",
+        "substitutedTypeName": "ExtensionKit.AppExtensionSceneConfiguration",
+        "substitutedMangledTypeName": "12ExtensionKit03AppA18SceneConfigurationV"
+      }
+    ],
+    "properties": [
+      {
+        "label": "body",
+        "type": "some _DeviceActivity_SwiftUI.DeviceActivityReportScene",
+        "mangledTypeName": "n/a - deprecated",
+        "isStatic": "false",
+        "isComputed": "true",
+        "file": "/Users/farag/ProjectsX/ScrollGremlin/ScrollGremlinReport/ReportExtension.swift",
+        "line": 7,
+        "valueKind": "Builder",
+        "value": {
+          "type": "_DeviceActivity_SwiftUI.DeviceActivityReportBuilder",
+          "members": [
+            {
+              "kind": "buildExpression",
+              "element": {
+                "valueKind": "InitCall",
+                "value": {
+                  "type": "ScrollGremlinReport.AppUsageSummaryScene",
+                  "arguments": []
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+]

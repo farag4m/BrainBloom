@@ -1,0 +1,12 @@
+{
+  "/Users/farag/ProjectsX/BrainBloom/Shared/AppConfig.swift" : {
+    "abi-baseline-json" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomMonitor.build/Objects-normal/x86_64/BrainBloomMonitor.abi.json",
+    "const-values" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomMonitor.build/Objects-normal/x86_64/BrainBloomMonitor-primary.swiftconstvalues",
+    "dependencies" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomMonitor.build/Objects-normal/x86_64/BrainBloomMonitor-primary.d",
+    "diagnostics" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomMonitor.build/Objects-normal/x86_64/BrainBloomMonitor-primary.dia",
+    "objc-header" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomMonitor.build/Objects-normal/x86_64/BrainBloomMonitor-Swift.h",
+    "swiftdoc" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomMonitor.build/Objects-normal/x86_64/BrainBloomMonitor.swiftdoc",
+    "swiftmodule" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomMonitor.build/Objects-normal/x86_64/BrainBloomMonitor.swiftmodule",
+    "swiftsourceinfo" : "/Users/farag/ProjectsX/BrainBloom/build/BrainBloom.build/Release-iphonesimulator/BrainBloomMonitor.build/Objects-normal/x86_64/BrainBloomMonitor.swiftsourceinfo"
+  }
+}
