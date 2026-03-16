@@ -100,3 +100,22 @@ struct StatusBadgeView: View {
         .animation(.spring(response: 0.35, dampingFraction: 0.75), value: badge)
     }
 }
+
+struct EmptyRulesState: View {
+    let onAddRule: () -> Void
+
+    var body: some View {
+        VStack(spacing: 20) {
+            Text("Add a rule to start managing your app usage.")
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+
+            Button(action: onAddRule) { Label("Add First Rule", systemImage: "plus") }
+                .buttonStyle(PrimaryButtonStyle())
+                .frame(width: 228)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .padding(32)
+    }
+}

@@ -32,7 +32,7 @@ struct TodayView: View {
                         .padding(.bottom, 12)
 
                         if viewModel.rules.isEmpty {
-                            EmptyDashboardView(onAddRule: { viewModel.showAddRule = true })
+                            EmptyRulesState(onAddRule: { viewModel.showAddRule = true })
                                 .padding(.top, 12)
                         } else if items.isEmpty {
                             NoRulesTodayView()
@@ -301,23 +301,4 @@ private struct NoRulesTodayView: View {
     }
 }
 
-// MARK: - Empty Dashboard View
-
-struct EmptyDashboardView: View {
-    let onAddRule: () -> Void
-
-    var body: some View {
-        VStack(spacing: 32) {
-            Text("Add a rule to start managing your app usage.")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
-
-            Button(action: onAddRule) { Label("Add First Rule", systemImage: "plus") }
-                .buttonStyle(PrimaryButtonStyle())
-                .frame(width: 228)
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .padding(32)
-    }
-}
+// MARK: - Empty Dashboard View (removed)
