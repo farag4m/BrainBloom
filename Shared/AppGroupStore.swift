@@ -146,10 +146,28 @@ public final class AppGroupStore {
         return policies
     }
 
+    // MARK: - Usage Summary
+
+    public func saveUsageSummaries(_ summaries: [UsageDaySummary]) {
+        defaults.set(try? encoder.encode(summaries), forKey: Keys.usageSummary)
+    }
+
+    public func loadUsageSummaries() -> [UsageDaySummary] {
+        guard let data = defaults.data(forKey: Keys.usageSummary),
+              let summaries = try? decoder.decode([UsageDaySummary].self, from: data) else {
+            return []
+        }
+        return summaries
+    }
+
     // MARK: - Helpers
 
     public static var todayString: String {
         dayFormatter.string(from: Date())
+    }
+
+    public static func dayString(for date: Date) -> String {
+        dayFormatter.string(from: date)
     }
 
     private enum Keys {
@@ -160,5 +178,6 @@ public final class AppGroupStore {
         static let unlockSessions = "unlock_sessions_v1"
         static let shieldState = "shield_state_v1"
         static let monitorPolicies = "monitor_policies_v2"  // bumped: MonitorPolicy.policy added
+        static let usageSummary = "usage_summary_v1"
     }
 }

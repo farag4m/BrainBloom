@@ -435,3 +435,15 @@ public enum AppColorScheme: String, Codable, CaseIterable {
         }
     }
 }
+
+// MARK: - Usage Summary
+
+public struct UsageDaySummary: Codable, Equatable {
+    public let date: String           // "yyyy-MM-dd"
+    public let totalScreenTimeSeconds: Double
+
+    public init(date: String, totalScreenTimeSeconds: Double) {
+        self.date = date
+        self.totalScreenTimeSeconds = totalScreenTimeSeconds
+    }
+}

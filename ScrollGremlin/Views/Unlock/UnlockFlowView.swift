@@ -104,19 +104,27 @@ struct BreathingView: View {
 
             Text(phase.label)
                 .font(.title.weight(.thin))
-                .foregroundStyle(.white.opacity(0.90))
+                .foregroundStyle(.white)
                 .animation(.easeInOut(duration: 0.4), value: phase.label)
 
             ZStack {
+                GlassCard(cornerRadius: 30)
+                    .frame(width: 280, height: 280)
+                    .shadow(color: Color.black.opacity(0.25), radius: 20, y: 10)
+
                 // Static outer ring
                 Circle()
-                    .stroke(Color.sgTeal.opacity(0.10), lineWidth: 1)
-                    .frame(width: 240, height: 240)
+                    .stroke(Color.white.opacity(0.35), lineWidth: 1.5)
+                    .frame(width: 246, height: 246)
 
                 // Breathing glow blob
                 Circle()
                     .fill(RadialGradient(
-                        colors: [Color.sgTeal.opacity(0.32), Color.sgTeal.opacity(0.06), Color.clear],
+                        colors: [
+                            Color.sgTeal.opacity(0.65),
+                            Color.sgTeal.opacity(0.18),
+                            Color.clear
+                        ],
                         center: .center, startRadius: 0, endRadius: 130
                     ))
                     .frame(
@@ -129,10 +137,10 @@ struct BreathingView: View {
                 Circle()
                     .stroke(
                         LinearGradient(
-                            colors: [Color.sgTeal.opacity(0.65), Color.sgTeal.opacity(0.25)],
+                            colors: [Color.sgTeal.opacity(0.95), Color.sgTealDark.opacity(0.40)],
                             startPoint: .topLeading, endPoint: .bottomTrailing
                         ),
-                        lineWidth: 1.5
+                        lineWidth: 2
                     )
                     .frame(
                         width:  CGFloat(120 + 120 * progress),
@@ -143,7 +151,7 @@ struct BreathingView: View {
 
             Text("Breathe slowly.")
                 .font(.subheadline)
-                .foregroundStyle(.white.opacity(0.35))
+                .foregroundStyle(.white.opacity(0.65))
 
             Spacer()
 
@@ -289,7 +297,9 @@ struct IntentionView: View {
                               .foregroundColor(.white.opacity(0.30)))
                     .foregroundStyle(.white)
                     .padding(14)
-                    .background(.ultraThinMaterial)
+                    .background {
+                        GlassCard(cornerRadius: 14)
+                    }
                     .clipShape(RoundedRectangle(cornerRadius: 14))
                     .overlay(
                         RoundedRectangle(cornerRadius: 14)
@@ -440,37 +450,44 @@ struct MathChallengeView: View {
                 }
             }
 
-            Text(problem.expression)
-                .font(.system(size: 52, weight: .bold, design: .rounded))
-                .foregroundStyle(.white)
-
-            VStack(spacing: 8) {
-                TextField("", text: $userAnswer)
-                    .keyboardType(.numberPad)
-                    .font(.title2.weight(.semibold))
+            VStack(spacing: 14) {
+                Text(problem.expression)
+                    .font(.system(size: 52, weight: .bold, design: .rounded))
                     .foregroundStyle(.white)
-                    .multilineTextAlignment(.center)
-                    .focused($isFocused)
-                    .padding(14)
-                    .background(.ultraThinMaterial)
-                    .clipShape(RoundedRectangle(cornerRadius: 14))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 14)
-                            .stroke(isWrong
-                                    ? Color.red.opacity(0.65)
-                                    : Color.sgTeal.opacity(0.35),
-                                    lineWidth: 1.5)
-                    )
-                    .padding(.horizontal, 48)
-                    .offset(x: shakeOffset)
 
-                if isWrong {
-                    Text("Not quite — try again")
-                        .font(.caption)
-                        .foregroundStyle(.red.opacity(0.80))
-                        .transition(.opacity)
+                VStack(spacing: 8) {
+                    TextField("", text: $userAnswer)
+                        .keyboardType(.numberPad)
+                        .font(.title2.weight(.semibold))
+                        .foregroundStyle(.white)
+                        .multilineTextAlignment(.center)
+                        .focused($isFocused)
+                        .padding(14)
+                        .background(Color.white.opacity(0.06))
+                        .clipShape(RoundedRectangle(cornerRadius: 14))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 14)
+                                .stroke(isWrong
+                                        ? Color.red.opacity(0.65)
+                                        : Color.sgTeal.opacity(0.45),
+                                        lineWidth: 1.5)
+                        )
+                        .padding(.horizontal, 48)
+                        .offset(x: shakeOffset)
+
+                    if isWrong {
+                        Text("Not quite — try again")
+                            .font(.caption)
+                            .foregroundStyle(.red.opacity(0.80))
+                            .transition(.opacity)
+                    }
                 }
             }
+            .padding(20)
+            .background {
+                GlassCard(cornerRadius: 20)
+            }
+            .padding(.horizontal, 24)
 
             Spacer()
 

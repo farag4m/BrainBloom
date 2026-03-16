@@ -9,6 +9,14 @@ struct RuleEditorView: View {
 
     @State private var showFrictionPreview = false
 
+    private var defaultUnlockType: UnlockType {
+        AppGroupStore.shared.loadSettings().defaultUnlockType
+    }
+
+    private var defaultFriction: FrictionType {
+        AppGroupStore.shared.loadSettings().defaultFriction
+    }
+
     private var resolvedPreviewFriction: FrictionType {
         if viewModel.frictionKey == "default" {
             return AppGroupStore.shared.loadSettings().defaultFriction
@@ -92,8 +100,8 @@ struct RuleEditorView: View {
 
                 Section("Blocking Duration") {
                     Picker("Duration", selection: $viewModel.unlockDurationKey) {
-                        Text("Default (follows Settings)").tag("default")
-                        ForEach(UnlockType.allCases, id: \.rawValue) { type in
+                        Text(defaultUnlockType.displayLabel).tag("default")
+                        ForEach(UnlockType.allCases.filter { $0 != defaultUnlockType }, id: \.rawValue) { type in
                             Text(type.displayLabel).tag(type.rawValue)
                         }
                     }
@@ -102,8 +110,8 @@ struct RuleEditorView: View {
 
                 Section("Blocking Friction") {
                     Picker("Friction", selection: $viewModel.frictionKey) {
-                        Text("Default (follows Settings)").tag("default")
-                        ForEach(FrictionType.allCases, id: \.rawValue) { type in
+                        Text(defaultFriction.displayName).tag("default")
+                        ForEach(FrictionType.allCases.filter { $0 != defaultFriction }, id: \.rawValue) { type in
                             Text(type.displayName).tag(type.rawValue)
                         }
                     }

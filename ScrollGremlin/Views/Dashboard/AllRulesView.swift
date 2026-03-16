@@ -47,8 +47,7 @@ struct AllRulesView: View {
                 }
             }
             .background(.clear)
-            .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
-            .toolbarBackground(.visible, for: .navigationBar)
+            .toolbarBackground(.hidden, for: .navigationBar)
         }
     }
 }

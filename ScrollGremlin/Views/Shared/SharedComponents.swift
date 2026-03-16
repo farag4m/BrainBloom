@@ -7,31 +7,16 @@ struct AddRuleButton: View {
     var body: some View {
         Button(action: action) {
             ZStack {
-                Circle()
-                    .fill(.ultraThinMaterial)
-                    .frame(width: 36, height: 36)
-
-                Circle()
-                    .fill(
-                        LinearGradient(
-                            colors: scheme == .dark
-                                ? [Color.white.opacity(0.20), Color.clear]
-                                : [Color.white.opacity(0.45), Color.clear],
-                            startPoint: .top,
-                            endPoint: UnitPoint(x: 0.5, y: 0.6)
-                        )
-                    )
-                    .frame(width: 36, height: 36)
-
-                Circle()
-                    .stroke(Color.white.opacity(scheme == .dark ? 0.22 : 0.50), lineWidth: 1)
-                    .frame(width: 36, height: 36)
-
                 Image(systemName: "plus")
                     .font(.system(size: 15, weight: .bold))
-                    .foregroundStyle(Color.white.opacity(0.90))
+                    .foregroundStyle(
+                        LinearGradient(
+                            colors: [Color.sgTeal, Color.sgTealDark],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
             }
-            .shadow(color: .black.opacity(scheme == .dark ? 0.35 : 0.12), radius: 10, y: 4)
         }
         .buttonStyle(.plain)
     }

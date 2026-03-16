@@ -43,6 +43,8 @@ final class DashboardViewModel: ObservableObject {
     @Published var rules: [AppRule] = []
     @Published var shieldStates: [UUID: Bool] = [:]
     @Published var showAddRule = false
+    @Published var weeklyAverageMinutes: Double = 0
+    @Published var hasUsageData = false
 
     private let store = AppGroupStore.shared
     private let ruleManager = RuleManager.shared
@@ -60,6 +62,7 @@ final class DashboardViewModel: ObservableObject {
         rules = ruleManager.rules
         refreshShieldStates()
         ruleManager.handlePendingUnlockRequest()
+        refreshUsageSummary()
     }
 
     func refreshShieldStates() {
@@ -107,6 +110,19 @@ final class DashboardViewModel: ObservableObject {
             .map { makeDisplayItem($0) }
     }
 
+    var activeRuleCount: Int {
+        rules.filter { $0.isEnabled }.count
+    }
+
+    var bloomProgress: Double {
+        guard hasUsageData else { return 0.5 }
+        let target = 120.0
+        let maxMinutes = 360.0
+        if weeklyAverageMinutes <= target { return 1.0 }
+        if weeklyAverageMinutes >= maxMinutes { return 0.0 }
+        return 1.0 - (weeklyAverageMinutes - target) / (maxMinutes - target)
+    }
+
     // MARK: - All Rules tab
 
     /// Every rule grouped by its active-days pattern.
@@ -148,6 +164,22 @@ final class DashboardViewModel: ObservableObject {
         return 3 + (days.map { ($0 - 2 + 7) % 7 }.min() ?? 6) // custom: Monday-first order
     }
 
+    private func refreshUsageSummary() {
+        let summaries = store.loadUsageSummaries()
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        let last7 = (0..<7).compactMap { dayOffset -> String? in
+            guard let date = calendar.date(byAdding: .day, value: -dayOffset, to: today) else { return nil }
+            return AppGroupStore.dayString(for: date)
+        }
+
+        let byDate = Dictionary(uniqueKeysWithValues: summaries.map { ($0.date, $0.totalScreenTimeSeconds) })
+        let values = last7.compactMap { byDate[$0] }
+
+        hasUsageData = !values.isEmpty
+        weeklyAverageMinutes = values.isEmpty ? 0 : (values.reduce(0, +) / Double(values.count)) / 60.0
+    }
+
     private func observeChanges() {
         ruleManager.$rules
             .receive(on: RunLoop.main)
@@ -160,7 +192,10 @@ final class DashboardViewModel: ObservableObject {
         NotificationCenter.default
             .publisher(for: UserDefaults.didChangeNotification)
             .debounce(for: .milliseconds(200), scheduler: RunLoop.main)
-            .sink { [weak self] _ in self?.refreshShieldStates() }
+            .sink { [weak self] _ in
+                self?.refreshShieldStates()
+                self?.refreshUsageSummary()
+            }
             .store(in: &cancellables)
 
         NotificationCenter.default

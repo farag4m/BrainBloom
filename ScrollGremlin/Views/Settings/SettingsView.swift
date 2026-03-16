@@ -66,6 +66,12 @@ struct SettingsView: View {
                     }
                 }
 
+                Section("Debug") {
+                    NavigationLink("Screen Time Simulator") {
+                        ScreenTimeDebugView()
+                    }
+                }
+
                 Section("About") {
                     LabeledContent("Version") {
                         Text(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "—")
