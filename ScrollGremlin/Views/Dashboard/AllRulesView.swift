@@ -4,10 +4,10 @@ struct AllRulesView: View {
     @ObservedObject var viewModel: DashboardViewModel
 
     var body: some View {
-        ZStack {
-            GradientBackground().ignoresSafeArea()
+        NavigationStack {
+            ZStack {
+                DashboardGridBackground().ignoresSafeArea()
 
-            NavigationStack {
                 Group {
                     if viewModel.rules.isEmpty {
                         EmptyDashboardView(onAddRule: { viewModel.showAddRule = true })
@@ -39,11 +39,11 @@ struct AllRulesView: View {
                         .refreshable { viewModel.loadData() }
                     }
                 }
-                .navigationTitle("All Rules")
-                .toolbar {
-                    ToolbarItem(placement: .primaryAction) {
-                        AddRuleButton(action: { viewModel.showAddRule = true })
-                    }
+            }
+            .navigationTitle("All Rules")
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    AddRuleButton(action: { viewModel.showAddRule = true })
                 }
             }
             .background(.clear)

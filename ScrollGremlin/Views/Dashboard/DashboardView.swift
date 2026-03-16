@@ -10,10 +10,10 @@ struct TodayView: View {
     @ObservedObject var viewModel: DashboardViewModel
 
     var body: some View {
-        ZStack {
-            GradientBackground().ignoresSafeArea()
+        NavigationStack {
+            ZStack {
+                DashboardGridBackground().ignoresSafeArea()
 
-            NavigationStack {
                 ScrollView {
                     let items = viewModel.todayItems
                     LazyVStack(spacing: 0, pinnedViews: .sectionHeaders) {
@@ -59,12 +59,12 @@ struct TodayView: View {
                 }
                 .background(.clear)
                 .refreshable { viewModel.loadData() }
-                .navigationTitle("Today")
-                .navigationBarTitleDisplayMode(.large)
-                .toolbar {
-                    ToolbarItem(placement: .primaryAction) {
-                        AddRuleButton(action: { viewModel.showAddRule = true })
-                    }
+            }
+            .navigationTitle("Today")
+            .navigationBarTitleDisplayMode(.large)
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    AddRuleButton(action: { viewModel.showAddRule = true })
                 }
             }
             .background(.clear)
@@ -308,20 +308,6 @@ struct EmptyDashboardView: View {
 
     var body: some View {
         VStack(spacing: 32) {
-            ZStack {
-                GlassCard(cornerRadius: 28)
-                VStack(spacing: 14) {
-                    Image("Gremlin_Annoyed")
-                        .resizable().scaledToFit()
-                        .frame(width: 100, height: 100)
-                    Text("No Rules Yet")
-                        .font(.headline.weight(.semibold))
-                        .foregroundStyle(.primary)
-                }
-                .padding(28)
-            }
-            .frame(width: 200, height: 188)
-
             Text("Add a rule to start managing your app usage.")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)

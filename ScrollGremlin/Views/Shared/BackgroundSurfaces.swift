@@ -327,3 +327,91 @@ struct CardView<Content: View>: View {
         content.padding().sgCard()
     }
 }
+
+// MARK: - Dashboard Grid Background
+
+struct DashboardGridBackground: View {
+    @Environment(\.colorScheme) private var scheme
+
+    var body: some View {
+        ZStack {
+            NeutralGridBase()
+
+            FuturisticGridOverlay()
+                .opacity(scheme == .light ? 0.22 : 0.16)
+                .blendMode(.plusLighter)
+        }
+        .ignoresSafeArea()
+    }
+}
+
+private struct NeutralGridBase: View {
+    @Environment(\.colorScheme) private var scheme
+
+    var body: some View {
+        LinearGradient(
+            colors: scheme == .light ? [
+                Color(red: 0.95, green: 0.96, blue: 0.99),
+                Color(red: 0.93, green: 0.95, blue: 0.98),
+                Color(red: 0.96, green: 0.94, blue: 0.98),
+            ] : [
+                Color(red: 0.08, green: 0.08, blue: 0.12),
+                Color(red: 0.06, green: 0.07, blue: 0.10),
+                Color(red: 0.05, green: 0.06, blue: 0.10),
+            ],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
+        .ignoresSafeArea()
+    }
+}
+
+private struct FuturisticGridOverlay: View {
+    @Environment(\.colorScheme) private var scheme
+
+    var body: some View {
+        GeometryReader { geo in
+            let size = geo.size
+            let spacing: CGFloat = 36
+            let lineColor = scheme == .light
+                ? Color.white.opacity(0.35)
+                : Color.white.opacity(0.20)
+
+            Path { path in
+                var x: CGFloat = 0
+                while x <= size.width {
+                    path.move(to: CGPoint(x: x, y: 0))
+                    path.addLine(to: CGPoint(x: x, y: size.height))
+                    x += spacing
+                }
+
+                var y: CGFloat = 0
+                while y <= size.height {
+                    path.move(to: CGPoint(x: 0, y: y))
+                    path.addLine(to: CGPoint(x: size.width, y: y))
+                    y += spacing
+                }
+            }
+            .stroke(lineColor, lineWidth: 0.6)
+
+            Path { path in
+                let majorSpacing: CGFloat = 144
+                var x: CGFloat = 0
+                while x <= size.width {
+                    path.move(to: CGPoint(x: x, y: 0))
+                    path.addLine(to: CGPoint(x: x, y: size.height))
+                    x += majorSpacing
+                }
+
+                var y: CGFloat = 0
+                while y <= size.height {
+                    path.move(to: CGPoint(x: 0, y: y))
+                    path.addLine(to: CGPoint(x: size.width, y: y))
+                    y += majorSpacing
+                }
+            }
+            .stroke(lineColor.opacity(0.6), lineWidth: 1.0)
+        }
+        .allowsHitTesting(false)
+    }
+}
