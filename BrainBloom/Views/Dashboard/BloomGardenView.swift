@@ -47,6 +47,226 @@ struct BloomGardenView: View {
     }
 }
 
+// MARK: - Detox Recovery Flower
+struct BloomRecoveryView: View {
+    /// 0 = fully withered, 1 = fully blooming
+    let progress: Double
+
+    private let maxPetals = 14
+
+    private var clampedProgress: Double {
+        min(max(progress, 0), 1)
+    }
+
+    // Fast start, slow finish so early recovery feels immediate.
+    private var easedProgress: Double {
+        1 - pow(1 - clampedProgress, 2.2)
+    }
+
+    /// 0 = healthy flower, 1 = fully withered
+    private var witherAmount: Double {
+        1 - clampedProgress
+    }
+
+    var body: some View {
+        ZStack(alignment: .bottom) {
+            recoveryGlow
+
+            VStack(spacing: 0) {
+                Spacer(minLength: 10)
+
+                ZStack(alignment: .bottom) {
+                    soilLayer
+                    flowerLayer
+                }
+                .frame(width: 260, height: 300)
+            }
+        }
+    }
+}
+
+// MARK: - Detox Layers
+private extension BloomRecoveryView {
+    var recoveryGlow: some View {
+        Circle()
+            .fill(
+                RadialGradient(
+                    colors: [
+                        Color.sgTeal.opacity(0.12 * clampedProgress + 0.03),
+                        Color.sgTealDark.opacity(0.06 * clampedProgress + 0.02),
+                        .clear
+                    ],
+                    center: .center,
+                    startRadius: 10,
+                    endRadius: 140
+                )
+            )
+            .scaleEffect(clampedProgress > 0.9 ? 1.03 : 0.95)
+            .animation(.easeInOut(duration: 1.6), value: clampedProgress)
+    }
+
+    var flowerLayer: some View {
+        ZStack {
+            stem
+
+            ForEach(0..<maxPetals, id: \.self) { index in
+                petalView(index: index)
+            }
+
+            flowerCenter
+        }
+        .rotationEffect(.degrees(clampedProgress > 0.9 ? 4 : 0))
+        .animation(
+            clampedProgress > 0.9
+            ? .easeInOut(duration: 2.2).repeatForever(autoreverses: true)
+            : .easeOut(duration: 0.6),
+            value: clampedProgress
+        )
+        .scaleEffect(clampedProgress > 0.98 ? 1.02 : 1.0)
+        .animation(
+            clampedProgress > 0.98
+            ? .easeInOut(duration: 1.4).repeatForever(autoreverses: true)
+            : .easeOut(duration: 0.4),
+            value: clampedProgress
+        )
+        .offset(y: -68)
+    }
+
+    var stem: some View {
+        RoundedRectangle(cornerRadius: 12, style: .continuous)
+            .fill(
+                LinearGradient(
+                    colors: [
+                        Color.green.opacity(max(0.25, 0.9 - witherAmount * 0.45)),
+                        Color.mint.opacity(max(0.20, 0.72 - witherAmount * 0.42))
+                    ],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+            )
+            .frame(width: 12, height: 112)
+            .scaleEffect(x: 1, y: 1 - witherAmount * 0.12, anchor: .bottom)
+            .rotationEffect(.degrees((clampedProgress > 0.9 ? 2 : 0) - witherAmount * 8))
+            .offset(y: 48)
+            .shadow(color: Color.black.opacity(0.08), radius: 8, y: 4)
+            .animation(.easeOut(duration: 0.6), value: clampedProgress)
+    }
+
+    var flowerCenter: some View {
+        Circle()
+            .fill(
+                RadialGradient(
+                    colors: [
+                        Color.white.opacity(0.95),
+                        Color.sgTeal.opacity(max(0.25, 0.9 - witherAmount * 0.45)),
+                        Color.sgTealDark.opacity(max(0.18, 0.72 - witherAmount * 0.35))
+                    ],
+                    center: .center,
+                    startRadius: 4,
+                    endRadius: 22
+                )
+            )
+            .frame(width: 36, height: 36)
+            .scaleEffect(clampedProgress > 0.9 ? 1.06 : 1 - witherAmount * 0.08)
+            .shadow(
+                color: Color.sgTeal.opacity(clampedProgress > 0.9 ? 0.35 : 0.16),
+                radius: clampedProgress > 0.9 ? 14 : 6,
+                y: 2
+            )
+            .animation(
+                clampedProgress > 0.9
+                ? .easeInOut(duration: 1.8).repeatForever(autoreverses: true)
+                : .easeOut(duration: 0.6),
+                value: clampedProgress
+            )
+    }
+
+    var soilLayer: some View {
+        ZStack(alignment: .top) {
+            Ellipse()
+                .fill(
+                    LinearGradient(
+                        colors: [
+                            Color(red: 0.31, green: 0.20, blue: 0.13),
+                            Color(red: 0.18, green: 0.11, blue: 0.07)
+                        ],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                )
+                .frame(width: 220, height: 44)
+
+            Ellipse()
+                .fill(Color.white.opacity(0.07))
+                .frame(width: 180, height: 10)
+                .offset(y: 6)
+        }
+        .shadow(color: Color.black.opacity(0.16), radius: 12, y: 7)
+    }
+}
+
+// MARK: - Detox Petals
+private extension BloomRecoveryView {
+    func petalView(index: Int) -> some View {
+        let angle = Double(index) / Double(maxPetals) * 360
+        let petalProgress = petalRecovery(for: index)
+        let wiltAmount = 1 - petalProgress
+        let wiltOffset = wiltAmount * 10
+        let wiltScale = max(0.84, 1 - wiltAmount * 0.18)
+        let wiltRotation = witherRotation(for: index, amount: wiltAmount)
+        let healthyPulse = clampedProgress > 0.9
+
+        return RoundedRectangle(cornerRadius: 11, style: .continuous)
+            .fill(
+                LinearGradient(
+                    colors: petalColors(witherAmount: wiltAmount),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 11, style: .continuous)
+                    .stroke(Color.white.opacity(0.18 * petalProgress), lineWidth: 0.8)
+            )
+            .frame(width: 22, height: 48)
+            .scaleEffect(healthyPulse ? 1.03 : wiltScale)
+            .offset(y: -28 + wiltOffset)
+            .rotationEffect(.degrees(angle))
+            .rotationEffect(.degrees(wiltRotation))
+            .opacity(max(0.15, petalProgress))
+            .shadow(
+                color: Color.sgTeal.opacity(max(0.05, 0.22 - wiltAmount * 0.12)),
+                radius: healthyPulse ? 8 : 4,
+                y: 2
+            )
+            .animation(.easeInOut(duration: 0.6), value: petalProgress)
+    }
+
+    func petalRecovery(for index: Int) -> Double {
+        let step = 1.0 / Double(maxPetals)
+        let start = Double(index) * step
+        let end = start + step
+        let raw = (easedProgress - start) / (end - start)
+        if index == 0 {
+            return min(max(raw + 0.12, 0), 1)
+        }
+        return min(max(raw, 0), 1)
+    }
+
+    func petalColors(witherAmount: Double) -> [Color] {
+        [
+            Color.sgTeal.opacity(max(0.38, 0.96 - witherAmount * 0.50)),
+            Color(red: 0.55, green: 0.65, blue: 1.0).opacity(max(0.30, 0.82 - witherAmount * 0.36)),
+            Color(red: 0.88, green: 0.55, blue: 0.95).opacity(max(0.24, 0.82 - witherAmount * 0.48))
+        ]
+    }
+
+    func witherRotation(for index: Int, amount: Double) -> Double {
+        let sideBias = index.isMultiple(of: 2) ? -1.0 : 1.0
+        return sideBias * amount * Double(8 + (index % 4) * 4)
+    }
+}
+
 // MARK: - Layers
 private extension BloomGardenView {
     var backgroundGlow: some View {
@@ -302,7 +522,7 @@ private extension BloomGardenView {
             let delay = 0.22 * Double(step)
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
                 let index = petalDropOrder[step % petalDropOrder.count]
-                withAnimation(.spring(response: 0.72, dampingFraction: 0.82)) {
+                _ = withAnimation(.spring(response: 0.72, dampingFraction: 0.82)) {
                     droppedPetals.insert(index)
                 }
             }

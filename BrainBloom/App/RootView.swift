@@ -44,6 +44,9 @@ struct MainTabView: View {
                 AllRulesView(viewModel: viewModel)
                     .tabItem { Label("Rules", systemImage: "list.bullet") }
 
+                PomodoroView()
+                    .tabItem { Label("Pomodoro", systemImage: "timer") }
+
                 HistoryView()
                     .tabItem { Label("History", systemImage: "chart.bar.fill") }
 
